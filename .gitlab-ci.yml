@@ -79,4 +79,4 @@ test-server:
   script:
     - npm install jest
     - npm run test
- allow_failure: true
+  allow_failure: true
