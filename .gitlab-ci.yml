@@ -2,7 +2,6 @@ image: node:latest
 
 stages:
   - lint
-  # - build
   - test
 
 workflow:
@@ -38,8 +37,6 @@ lint-client:
 
 test-server:
   stage: test
-  dependencies:
-    - build-backend
   script:
     - npm install jest
     - npm run test
