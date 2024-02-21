@@ -5,8 +5,8 @@
 var express = require('express');
 var passport = require('passport');
 var session = require('express-session');
-var SteamStrategy = require('../../').Strategy;
-var authRoutes = require('./routes/auth');
+var SteamStrategy = require('../lib/passport-steam').Strategy;
+var authRoutes = require('../routes/auth');
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
