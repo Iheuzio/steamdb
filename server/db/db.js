@@ -65,17 +65,8 @@ class DB {
     return result.deletedCount;
   }
 
-  async createManyUserData(dataToInsert) {
-    const dataForInsertMany = dataToInsert.map(({ data }) => ({
-      data,
-    }));
-
-    try {
-      await this.collection.insertMany(dataForInsertMany);
-    } catch (error) {
-      console.error('Error inserting data for all tickers');
-      console.error(error);
-    }
+  async createManyGameData(data) {
+    return await instance.collection.insertMany(data);
   }
 
   async readAllUsers() {
