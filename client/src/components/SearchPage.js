@@ -7,10 +7,10 @@ import SearchResults from './SearchResults';
 export default function SearchPage() {
     const [results, setResults] = useState(games)
 
-    const handleSubmit = (e, query) => {
+    const handleSubmit = (e, filters) => {
         e.preventDefault();
-        
-        const filteredGames = games.filter(game => game.game.includes(query));
+
+        const filteredGames = games.filter(game => game[filters.field].includes(filters.query));
         setResults(filteredGames);
     }
 
