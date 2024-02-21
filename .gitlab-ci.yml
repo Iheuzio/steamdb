@@ -39,5 +39,6 @@ test-server:
   stage: test
   script:
     - npm install jest
+    - cd server
     - npm run test
   allow_failure: true
