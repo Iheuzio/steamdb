@@ -1,14 +1,21 @@
 import { games } from './games';
-import SearchForm from './SearchForm';
 import { useState } from 'react';
 
+import SearchForm from './SearchForm';
+import SearchResults from './SearchResults';
+
 export default function SearchPage() {
-    const handleSubmit = async () => {
-       
+    const [results, setResults] = useState(games)
+
+    const handleSubmit = (e, query) => {
+        e.preventDefault();
+        
+        const filteredGames = games.filter(game => game.game.includes(query));
+        setResults(filteredGames);
     }
 
     return <div>
         <SearchForm handleSubmit={handleSubmit} />
-        
+        <SearchResults results={results} />
     </div>
 }
