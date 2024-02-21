@@ -1,6 +1,7 @@
 const DB = require('../db/db');
 const fs = require('fs');
 const path = require('path');
+const games = require('../dataset/games');
 
 (async () => {
   let db;
@@ -12,9 +13,8 @@ const path = require('path');
     const rows = csvFile.split('\n');
     const dataset = [];
     
-    for (let i = 1; i < 200; i++) {
+    /*for (let i = 1; i < 200; i++) {
       const row = rows[i].split(',');
-      const descripton = getDescription(row[2]);
       const game = {
         title: row[1],
         steam_api: row[2],
@@ -27,10 +27,10 @@ const path = require('path');
         developer: row[13],
       };
       dataset.push(game);
-    }
+    }*/
 
     console.log('Seeding database...');
-    await db.createManyGameData(dataset);
+    await db.createManyGameData(games);
     console.log('Successfully seeded');
     
   } catch (e) {
