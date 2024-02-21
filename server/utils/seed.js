@@ -14,9 +14,17 @@ const path = require('path');
     
     for (let i = 1; i < 200; i++) {
       const row = rows[i].split(',');
+      const descripton = getDescription(row[2]);
       const game = {
         title: row[1],
-        link: row[2],
+        steam_api: row[2],
+        release_date: row[3],
+        peak: row[4],
+        positive_reviews: row[5],
+        negative_reviews: row[6],
+        primary_genre: row[9],
+        publisher: row[12],
+        developer: row[13],
       };
       dataset.push(game);
     }
@@ -36,3 +44,5 @@ const path = require('path');
     process.exit();
   }
 })();
+
+
