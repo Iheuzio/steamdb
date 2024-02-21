@@ -1,6 +1,6 @@
 require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 let instance;
 
@@ -44,6 +44,10 @@ class DB {
 
   async readAll() {
     return await instance.collection.find().toArray();
+  }
+
+  async readById(id) {
+    return await instance.collection.findOne({ _id: id });
   }
 
   async create(quote) {
