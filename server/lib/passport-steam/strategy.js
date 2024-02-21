@@ -1,9 +1,9 @@
 /**
  * Module dependencies.
  */
-var util = require('util')
-  , OpenIDStrategy = require('@passport-next/passport-openid').Strategy
-  , SteamWebAPI = require('steam-web');
+var util = require('util');
+var OpenIDStrategy = require('@passport-next/passport-openid').Strategy;
+var SteamWebAPI = require('steam-web');
 
 /**
  * Retrieve user's Steam profile information.
@@ -17,14 +17,16 @@ function getUserProfile(key, steamID, callback) {
   var steam = new SteamWebAPI({ apiKey: key, format: 'json' });
 
   steam.getPlayerSummaries({
-    steamids: [ steamID ],
+    steamids: [steamID],
     callback: function(err, result) {
       if(err) {
         return callback(err);
       }
 
-      if(!(result && result.response && Array.isArray(result.response.players) && result.response.players.length > 0)) {
-        return callback(new Error('Malformed response while retrieving user\'s Steam profile information'));
+      if(!(result && result.response && Array.isArray(result.response.players) && 
+        result.response.players.length > 0)) {
+        return callback(new Error('Malformed response while retrieving user\'s \
+        Steam profile information'));
       }
 
       var profile = {
@@ -82,17 +84,19 @@ function getUserProfile(key, steamID, callback) {
 function Strategy(options, validate) {
   options = options || {};
   options.providerURL = options.providerURL || 'https://steamcommunity.com/openid';
-  options.profile =  (options.profile === undefined) ? true : options.profile;
-  options.stateless = true; //Steam only works as a stateless OpenID
+  options.profile =  options.profile === undefined ? true : options.profile;
+  options.stateless = true; 
+  //Steam only works as a stateless OpenID
 
   var originalPassReqToCallback = options.passReqToCallback;
-  options.passReqToCallback = true; //Request needs to be verified
+  options.passReqToCallback = true; 
+  //Request needs to be verified
 
   function verify(req, identifier, profile, done) {
 
     var OPENID_CHECK = {
       ns: 'http://specs.openid.net/auth/2.0',
-      claimed_id: 'https://steamcommunity.com/openid/id/',
+      claimedId: 'https://steamcommunity.com/openid/id/',
       identity: 'https://steamcommunity.com/openid/id/',
     };
 
@@ -104,9 +108,12 @@ function Strategy(options, validate) {
       return done(null, false, { message: 'Claimed identity is invalid.' });
     }
 
-    if (req.query['openid.ns'] !== OPENID_CHECK.ns) return done(null, false, { message: 'Claimed identity is invalid.' });
-    if (!req.query['openid.claimed_id']?.startsWith(OPENID_CHECK.claimed_id)) return done(null, false, { message: 'Claimed identity is invalid.' });
-    if (!req.query['openid.identity']?.startsWith(OPENID_CHECK.identity)) return done(null, false, { message: 'Claimed identity is invalid.' });
+    if (req.query['openid.ns'] !== OPENID_CHECK.ns) 
+      return done(null, false, { message: 'Claimed identity is invalid.' });
+    if (!req.query['openid.claimedId']?.startsWith(OPENID_CHECK.claimedId))
+      return done(null, false, { message: 'Claimed identity is invalid.' });
+    if (!req.query['openid.identity']?.startsWith(OPENID_CHECK.identity))
+      return done(null, false, { message: 'Claimed identity is invalid.' });
 
     var steamID = identifierRegex.exec(identifier)[0];
 
@@ -114,20 +121,16 @@ function Strategy(options, validate) {
       getUserProfile(options.apiKey, steamID, function(err, profile) {
         if(err) {
           done(err);
+        } else if(originalPassReqToCallback) {
+          validate(req, identifier, profile, done);
         } else {
-          if(originalPassReqToCallback) {
-            validate(req, identifier, profile, done);
-          } else {
-            validate(identifier, profile, done);
-          }
+          validate(identifier, profile, done);
         }
       });
+    } else if(originalPassReqToCallback) {
+      validate(req, identifier, profile, done);
     } else {
-      if(originalPassReqToCallback) {
-        validate(req, identifier, profile, done);
-      } else {
-        validate(identifier, profile, done);
-      }
+      validate(identifier, profile, done);
     }
   }
 
