@@ -46,6 +46,10 @@ class DB {
     return await instance.collection.find().toArray();
   }
 
+  async readById(id) {
+    return await instance.collection.findOne({ _id: id });
+  }
+
   async create(quote) {
     return await instance.collection.insertOne(quote);
   }
