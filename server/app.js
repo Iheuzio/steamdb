@@ -1,14 +1,9 @@
-const express = require('express');
-const path = require('path');
+var express = require('express');
+// var path = require('path');
 var passport = require('passport');
 var session = require('express-session');
 var SteamStrategy = require('./lib/passport-steam').Strategy;
 
-const app = express();
-app.use('/api', require('./routes/auth'));
-app.use(express.json());
-
-app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 
 /**
  * Basic example demonstrating passport-steam usage within Express framework
@@ -51,6 +46,8 @@ function(identifier, profile, done) {
   });
 }
 ));
+
+var app = express();
 
 // configure Express
 app.set('views', __dirname + '/views');
@@ -121,4 +118,3 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/');
 }
 
-module.exports = app;

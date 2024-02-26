@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * Module dependencies.
  */
@@ -96,7 +97,7 @@ function Strategy(options, validate) {
 
     var OPENID_CHECK = {
       ns: 'http://specs.openid.net/auth/2.0',
-      claimedId: 'https://steamcommunity.com/openid/id/',
+      claimed_id: 'https://steamcommunity.com/openid/id/',
       identity: 'https://steamcommunity.com/openid/id/',
     };
 
@@ -108,13 +109,15 @@ function Strategy(options, validate) {
       return done(null, false, { message: 'Claimed identity is invalid.' });
     }
 
-    if (req.query['openid.ns'] !== OPENID_CHECK.ns) 
+    if (req.query['openid.ns'] !== OPENID_CHECK.ns) {
       return done(null, false, { message: 'Claimed identity is invalid.' });
-    if (!req.query['openid.claimedId']?.startsWith(OPENID_CHECK.claimedId))
+    }
+    if (!req.query['openid.claimed_id']?.startsWith(OPENID_CHECK.claimed_id)) {
       return done(null, false, { message: 'Claimed identity is invalid.' });
-    if (!req.query['openid.identity']?.startsWith(OPENID_CHECK.identity))
+    }
+    if (!req.query['openid.identity']?.startsWith(OPENID_CHECK.identity)) {
       return done(null, false, { message: 'Claimed identity is invalid.' });
-
+    }
     var steamID = identifierRegex.exec(identifier)[0];
 
     if(options.profile) {
