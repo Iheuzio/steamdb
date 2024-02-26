@@ -3,6 +3,7 @@
 	<p><a href="auth/steam">Sign On with Steam</a></p>
 <% } else { %>
 	<h2>Hello, <%= user.displayName %>. - <a href='logout'>Logout</a></h2>
+	<img src="<%= user.photos[2].value %>">
 <% } %>
 
 <!-- Should redirect to homepage if you're not logged in -->
