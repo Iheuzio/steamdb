@@ -2,6 +2,22 @@ const DB = require('../db/db');
 const fs = require('fs');
 const path = require('path');
 
+async function retreiveSteamDescription(appID){
+
+  const response = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appID}`);
+  if(!response.ok){
+    throw new Error('Error occured fetching songs!', appID);
+  }
+  const data = await response.json();
+  try{
+    return data[appID]['data']['short_description'];
+  }
+  catch{
+    return 'No Description Available';
+  }
+}
+
+
 (async () => {
   let db;
   try {
@@ -13,8 +29,13 @@ const path = require('path');
     const rows = csvFile.split('\n');
     const dataset = [];
     
-    for (let i = 1; i < rows.length; i++) {
+    for (let i = 1; i < rows.length - 1; i++) {
       const row = rows[i].split(',');
+
+      //fetch description from steam api
+      const gameID = row[2].match(/\d+/g);
+      const descriptionData = await retreiveSteamDescription(gameID[0]);
+
       const game = {
         title: row[1],
         steam_api: row[2],
@@ -25,6 +46,7 @@ const path = require('path');
         primary_genre: row[9],
         publisher: row[12],
         developer: row[13],
+        description: descriptionData
       };
       dataset.push(game);
     }
