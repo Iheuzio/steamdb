@@ -1,5 +1,8 @@
 const session = require('express-session');
 const SteamStrategy = require('../lib/passport-steam').Strategy;
+const DB = require('../db/db');
+
+const db = new DB();
 
 module.exports = function(passport, app) {
   // Passport session setup.
@@ -7,8 +10,16 @@ module.exports = function(passport, app) {
     done(null, user);
   });
 
-  passport.deserializeUser(function(obj, done) {
-    done(null, obj);
+  passport.deserializeUser(async function(obj, done) {
+    try {
+      const user = await db.getUserBySteamId(obj.id);
+      if(!user) {
+        await db.createUser(obj);
+      }
+      done(null, user);
+    } catch (err) {
+      done(err, null);
+    }
   });
 
   // Use the SteamStrategy within Passport.
@@ -18,7 +29,7 @@ module.exports = function(passport, app) {
     apiKey: '1EDC0D204A7716E809F0B2DABE207BE7'
   },
   function(identifier, profile, done) {
-    process.nextTick(function () {
+    process.nextTick(async function () {
       profile.identifier = identifier;
       return done(null, profile);
     });

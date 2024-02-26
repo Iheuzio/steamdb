@@ -49,41 +49,12 @@ class DB {
   async create(quote) {
     return await instance.collection.insertOne(quote);
   }
-
-  async open(dbname, collName) {
-    try {
-      await instance.connect(dbname, collName);
-    } finally {
-      await instance.close();
-    }
+  async getUserBySteamId(steamId) {
+    return await instance.collection.findOne({ id: steamId });
   }
 
-  // delete all records in db
-  async deleteMany(filter) {
-    // delete all records for the collection matching the filter
-    const result = await instance.collection.deleteMany(filter);
-    return result.deletedCount;
-  }
-
-  async createManyUserData(dataToInsert) {
-    const dataForInsertMany = dataToInsert.map(({ data }) => ({
-      data,
-    }));
-
-    try {
-      await this.collection.insertMany(dataForInsertMany);
-    } catch (error) {
-      console.error('Error inserting data for all tickers');
-      console.error(error);
-    }
-  }
-
-  async readAllUsers() {
-    return await this.collection.find().toArray();
-  }
-
-  async createUser(username, password) {
-    return await this.collection.insertOne({ username, password });
+  async createUser(profile) {
+    return await instance.collection.insertOne(profile);
   }
 
 }
