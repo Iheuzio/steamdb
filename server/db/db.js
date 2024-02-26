@@ -1,6 +1,6 @@
 require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient } = require('mongodb');
 
 let instance;
 
