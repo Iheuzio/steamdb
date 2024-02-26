@@ -1,3 +1,5 @@
+import './SearchPage.css';
+
 import { games } from './games';
 import { useState } from 'react';
 
@@ -14,7 +16,7 @@ export default function SearchPage() {
         setResults(filteredGames);
     }
 
-    return <div>
+    return <div className="SearchPage">
         <SearchForm handleSubmit={handleOptionChange} />
         <SearchResults results={results} />
     </div>
