@@ -17,7 +17,7 @@ export default function SearchPage() {
     }
 
     return <div className="SearchPage">
-        <SearchForm handleSubmit={handleOptionChange} />
+        <SearchForm handleOptionChange={handleOptionChange} />
         <SearchResults results={results} />
     </div>
 }

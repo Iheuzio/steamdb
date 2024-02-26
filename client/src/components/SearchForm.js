@@ -1,21 +1,23 @@
 import './SearchForm.css';
 import { useState } from "react";
 
-export default function SearchForm({ handleSubmit }) {
+export default function SearchForm({ handleOptionChange }) {
     const filterFields = ['game', 'publisher', 'developer'];
     const [filters, setFilters] = useState({ field: filterFields[0], query: ''});
-    
+
     const updateFilters = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        setFilters(values => ({...values, [name]: value}))
-      }
+        const updatedFilters = {...filters, [name]: value};
 
-    return <form className="SearchForm" onSubmit={e => handleSubmit(e, filters)} >
+        handleOptionChange(e, updatedFilters);
+        setFilters(updatedFilters);    
+    }
+    
+    return <form className="SearchForm">
         <select name="field" value={filters.field} onChange={e => updateFilters(e)}>
             { filterFields.map(filterOption => <option key={filterOption}>{filterOption}</option>) }
         </select>
         <input type="text" name="query" value={filters.query} onChange={e => updateFilters(e)} />
-        <button type="submit"><img src="https://cdn-icons-png.flaticon.com/512/71/71403.png" alt="Search"/></button>
     </form>
 }
