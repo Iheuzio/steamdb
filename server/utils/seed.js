@@ -7,12 +7,13 @@ const path = require('path');
   try {
     db = new DB();
     await db.connect('test', 'dataset');
-    const csvFile = fs.readFileSync(path.join(__dirname, `../dataset/game_data_all.csv`), 'utf-8');
+    // eslint-disable-next-line max-len
+    const csvFile = fs.readFileSync(path.join(__dirname, `../dataset/dataset_limited.csv`), 'utf-8');
 
     const rows = csvFile.split('\n');
     const dataset = [];
     
-    for (let i = 1; i < 200; i++) {
+    for (let i = 1; i < rows.length; i++) {
       const row = rows[i].split(',');
       const game = {
         title: row[1],

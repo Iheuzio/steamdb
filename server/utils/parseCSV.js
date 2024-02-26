@@ -13,17 +13,14 @@ function removeCommasInQuotes(inputFile, outputFile) {
       const modifiedData = line.replace(/(".*?")/g, (match) => {
         // Replace commas inside quotes
         return match.replace(/,/g, '');
-    });
+      });
       console.log(modifiedData);
-    }
-    catch(e){
+    } catch(e){
       console.log('Something went wrong', e);
     }
     
   });
-
   const modifiedData = modifiedLines.join('\n');
-
   fs.writeFileSync(outputFile, modifiedData, 'utf8');
 }
 
