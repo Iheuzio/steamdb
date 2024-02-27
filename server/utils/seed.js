@@ -21,7 +21,7 @@ async function retreiveSteamDescription(appID){
   let db;
   try {
     db = new DB();
-    await db.connect('test', 'dataset');
+    await db.connect('dataset', 'dataset');
     // eslint-disable-next-line max-len
     const csvFile = fs.readFileSync(path.join(__dirname, `../dataset/dataset_limited.csv`), 'utf-8');
 
