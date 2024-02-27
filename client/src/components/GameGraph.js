@@ -1,9 +1,9 @@
 import './GameGraph.css';
 
-//import { useState } from 'react';
+
 
 export default function Graph() {
-  //const [inputs, setInputs] = useState({});
+  
 
 
 

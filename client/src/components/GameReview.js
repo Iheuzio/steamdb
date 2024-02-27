@@ -1,9 +1,9 @@
 import './GameReview.css';
 
-//import { useState } from 'react';
+
 
 export default function GameReview() {
-  // const [inputs, setInputs] = useState({});
+  
 
 
 

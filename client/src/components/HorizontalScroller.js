@@ -1,9 +1,9 @@
 import './HorizontalScroller.css';
 
-// import { useState } from 'react';
+
 
 export default function Scroller() {
-  // const [inputs, setInputs] = useState({});
+  
 
 
 
