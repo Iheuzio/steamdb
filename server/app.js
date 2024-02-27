@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const passport = require('passport');
+const appRouter = require('./routes/steamIMDBRouter');
 
 const app = express();
 
@@ -15,9 +16,12 @@ require('./config/passport')(passport, app);
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/', require('./routes/account'));
-app.use('/', require('./routes/auth-steam'));
+app.use('/', require('./routes/auth-vsteam'));
 
 // 404 Handler
+app.use('/apiv2', appRouter);
+
+
 app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });
 });
