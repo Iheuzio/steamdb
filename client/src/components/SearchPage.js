@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
+import GenreFilters from './GenreFilters';
 
 export default function SearchPage() {
     const [results, setResults] = useState(games)
@@ -17,7 +18,11 @@ export default function SearchPage() {
     }
 
     return <div className="SearchPage">
-        <SearchForm handleOptionChange={handleOptionChange} />
-        <SearchResults results={results} />
+        <div className="SearchFormResults">
+            <SearchForm handleOptionChange={handleOptionChange} />
+            <SearchResults results={results} />
+        </div>
+        
+        <GenreFilters />
     </div>
 }
