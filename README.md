@@ -1,6 +1,6 @@
 # SteamIMDB
 
-
+Steam OAuth was adapted from git://github.com/liamcurry/passport-steam.git
 
 ## Getting started
 
