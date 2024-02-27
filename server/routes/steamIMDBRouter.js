@@ -27,7 +27,11 @@ router.get('/steamgames', (req, res) => {
 router.get('/steamgames/:id', (req, res) => {
   try {
     db.readById(req.params.id).then((data) => {
-      res.send(data);
+      if (!data) {
+        res.status(404).send('Game not found');
+      } else {
+        res.send(data);
+      }
     });
   } catch (error) {
     res.status(500).send(error('Error reading game data'));

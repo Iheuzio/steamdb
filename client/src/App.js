@@ -1,16 +1,13 @@
 import './App.css';
-
-import Homepage from './components/Homepage.js';
-import NavBar from './components/NavBar.js';
-
+import SearchPage from './components/SearchPage';
 
 function App() {
   return (
     <div className="App">
-    <NavBar />
-    <Homepage />
+      <SearchPage />
     </div>
   );
 }
 
 export default App;
+

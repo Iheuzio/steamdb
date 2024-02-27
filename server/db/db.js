@@ -1,6 +1,6 @@
 require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient } = require('mongodb');
 
 let instance;
 
@@ -53,13 +53,8 @@ class DB {
   async create(quote) {
     return await instance.collection.insertOne(quote);
   }
-
-  async open(dbname, collName) {
-    try {
-      await instance.connect(dbname, collName);
-    } finally {
-      await instance.close();
-    }
+  async getUserBySteamId(steamId) {
+    return await instance.collection.findOne({ id: steamId });
   }
 
   // delete all records in db
@@ -69,25 +64,16 @@ class DB {
     return result.deletedCount;
   }
 
-  async createManyUserData(dataToInsert) {
-    const dataForInsertMany = dataToInsert.map(({ data }) => ({
-      data,
-    }));
-
-    try {
-      await this.collection.insertMany(dataForInsertMany);
-    } catch (error) {
-      console.error('Error inserting data for all tickers');
-      console.error(error);
-    }
+  async createManyGameData(data) {
+    return await instance.collection.insertMany(data);
   }
 
   async readAllUsers() {
     return await this.collection.find().toArray();
   }
 
-  async createUser(username, password) {
-    return await this.collection.insertOne({ username, password });
+  async createUser(profile) {
+    return await instance.collection.insertOne(profile);
   }
 
 }
