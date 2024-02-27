@@ -10,7 +10,7 @@ const DB = require('../db/db');
     const num = await db.deleteMany({});
     console.log(`Deleted ${num} documents`);
   } catch (e) {
-    console.error('Could not delete');
+    console.error('Could not delete', e);
   } finally {
     if (db) {
       db.close();
