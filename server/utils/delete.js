@@ -4,7 +4,7 @@ const DB = require('../db/db');
   let db;
   try {
     db = new DB();
-    await db.connect('test', 'dataset');
+    await db.connect('dataset', 'dataset');
     
     // Pass an empty filter to delete all documents in the collection
     const num = await db.deleteMany({});
