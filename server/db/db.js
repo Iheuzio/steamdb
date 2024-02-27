@@ -57,6 +57,21 @@ class DB {
     return await instance.collection.findOne({ id: steamId });
   }
 
+  // delete all records in db
+  async deleteMany(filter) {
+    // delete all records for the collection matching the filter
+    const result = await instance.collection.deleteMany(filter);
+    return result.deletedCount;
+  }
+
+  async createManyGameData(data) {
+    return await instance.collection.insertMany(data);
+  }
+
+  async readAllUsers() {
+    return await this.collection.find().toArray();
+  }
+
   async createUser(profile) {
     return await instance.collection.insertOne(profile);
   }

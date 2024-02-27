@@ -16,7 +16,7 @@ require('./config/passport')(passport, app);
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/', require('./routes/account'));
-app.use('/', require('./routes/auth-vsteam'));
+app.use('/', require('./routes/auth-steam'));
 
 // 404 Handler
 app.use('/apiv2', appRouter);
