@@ -53,13 +53,8 @@ class DB {
   async create(quote) {
     return await instance.collection.insertOne(quote);
   }
-
-  async open(dbname, collName) {
-    try {
-      await instance.connect(dbname, collName);
-    } finally {
-      await instance.close();
-    }
+  async getUserBySteamId(steamId) {
+    return await instance.collection.findOne({ id: steamId });
   }
 
   // delete all records in db
@@ -77,8 +72,8 @@ class DB {
     return await this.collection.find().toArray();
   }
 
-  async createUser(username, password) {
-    return await this.collection.insertOne({ username, password });
+  async createUser(profile) {
+    return await instance.collection.insertOne(profile);
   }
 
 }
