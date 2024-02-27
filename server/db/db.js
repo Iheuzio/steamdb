@@ -46,8 +46,8 @@ class DB {
     return await instance.collection.find().toArray();
   }
 
-  async readById(id) {
-    return await instance.collection.findOne({ _id: id });
+  async readBySteamAPIId(steamApiId) {
+    return await instance.collection.findOne({ steam_api: steamApiId });
   }
 
   async create(quote) {
