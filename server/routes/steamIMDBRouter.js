@@ -3,42 +3,29 @@ const router = express.Router();
 const DB = require('../db/db');
 
 const db = new DB();
-
-router.get('/test', (req, res) => {
-  res.type('json');
-  res.send({'data' : 'Hello World!'});
-});
-
-router.get('/', (req, res) => {
-  res.type('json');
-  res.send({'data' : 'Hello World!'});
-});
   
-router.get('/steamgames', (req, res) => {
+router.get('/steamgames', async (req, res) => {
   try {
-    db.readAll().then((data) => {
-      if (!data) {
-        res.status(404).send('Games not found');
-      } else {
-        res.send(data);
-      }
-    });
+    let steamGames = await db.readAll();
+    res.type('json');
+    res.json(steamGames);
   } catch (error) {
-    res.status(500).send(error('Error reading games'));
+    res.status(500).json({error : 'Something went wrong, try again later'});
   }
 });
   
-router.get('/steamgames/:id', (req, res) => {
+router.get('/steamgames/:steam_api_id', async (req, res) => {
   try {
-    db.readById(req.params.id).then((data) => {
-      if (!data) {
-        res.status(404).send('Game not found');
-      } else {
-        res.send(data);
-      }
-    });
+    const game = await db.readBySteamAPIId(`/app/${req.params.steam_api_id}/`);
+    if (!game) {
+      res.status(404).json({error : 'No game with that id'});
+    } else{
+      res.type('json');
+      res.json(game);
+    }
+    
   } catch (error) {
-    res.status(500).send(error('Error reading game data'));
+    res.status(500).json({error : 'Something went wrong, try again later'});
   }
 });
 
