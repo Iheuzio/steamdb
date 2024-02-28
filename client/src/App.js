@@ -1,7 +1,7 @@
 import './App.css';
 // import Navbar from './components/NavBar';
 // import Homepage from './components/Homepage';
-import SearchPage from './components/SearchPage'
+import SearchPage from './components/search/SearchPage'
 
 function App() {
   return (

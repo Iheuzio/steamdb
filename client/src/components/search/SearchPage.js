@@ -1,6 +1,6 @@
 import './SearchPage.css';
 
-import { games } from './games';
+import { games } from '../games';
 import { useState } from 'react';
 
 import Search from './Search';
