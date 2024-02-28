@@ -12,9 +12,13 @@ export default function SearchPage() {
     const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All'});
 
     const updateFilters = (e) => {
-        const name = e.target.name;
+        let name = e.target.name;
         const value = e.target.value;
         
+        if (name === 'query') {
+            name = name.toLowerCase();
+        }
+
         const updatedFilters = {...filters, [name]: value};
         
         handleOptionChange(e, updatedFilters);
@@ -26,12 +30,12 @@ export default function SearchPage() {
 
         const filteredGames = games.filter(game => {
             if (filters.genre === 'All') {
-                return game[filters.field].includes(filters.query)
+                return game[filters.field].toLowerCase().includes(filters.query)
             } else {
-                console.log(game.genre);
-                return game[filters.field].includes(filters.query) && game.primary_genre.includes(filters.genre);
+                return game[filters.field].toLowerCase().includes(filters.query) && game.primary_genre.includes(filters.genre);
             }
         });
+
         setResults(filteredGames);
     }
     
