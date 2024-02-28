@@ -1,20 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
-  createBrowserRouter,
+  createHashRouter,
   RouterProvider,
 } from "react-router-dom";
 import './index.css';
 import Homepage from './components/main/Homepage';
+import ErrorPage from './components/misc/route_not_found.js'
+import SearchPage from './components/search/SearchPage';
 import reportWebVitals from './reportWebVitals';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
-    path: "/",
-    element: <Homepage />,
+    path: '/', element: <Homepage />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: '/search', element: <SearchPage />
   },
 ]);
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
