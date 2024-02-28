@@ -1,7 +1,7 @@
 import './Homepage.css';
 import Scroller from './HorizontalScroller';  
-import Graph from './GameGraph';
-import GameReview from './GameReview';
+import Graph from '../game_details/GameGraph';
+import GameReview from '../game_details/GameReview';
 
 
 

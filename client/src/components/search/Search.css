@@ -1,0 +1,7 @@
+.Search {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+}
