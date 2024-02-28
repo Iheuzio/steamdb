@@ -3,26 +3,45 @@ import './SearchPage.css';
 import { games } from './games';
 import { useState } from 'react';
 
-import SearchForm from './SearchForm';
-import SearchResults from './SearchResults';
+import Search from './Search';
 import GenreFilters from './GenreFilters';
 
 export default function SearchPage() {
     const [results, setResults] = useState(games)
+    const filterFields = ['game', 'publisher', 'developer'];
+    const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All'});
+
+    const updateFilters = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        
+        const updatedFilters = {...filters, [name]: value};
+        
+        handleOptionChange(e, updatedFilters);
+        setFilters(updatedFilters);    
+    }
 
     const handleOptionChange = (e, filters) => {
         e.preventDefault();
 
-        const filteredGames = games.filter(game => game[filters.field].includes(filters.query));
+        const filteredGames = games.filter(game => {
+            if (filters.genre === 'All') {
+                return game[filters.field].includes(filters.query)
+            } else {
+                console.log(game.genre);
+                return game[filters.field].includes(filters.query) && game.primary_genre.includes(filters.genre);
+            }
+        });
         setResults(filteredGames);
     }
-
+    
     return <div className="SearchPage">
-        <div className="SearchFormResults">
-            <SearchForm handleOptionChange={handleOptionChange} />
-            <SearchResults results={results} />
-        </div>
-        
-        <GenreFilters />
+        <Search results={results}
+                setResults={setResults}
+                filters={filters}
+                setFilters={setFilters}
+                filterFields={filterFields}
+                updateFilters={updateFilters} />    
+        <GenreFilters updateFilters={updateFilters} />
     </div>
 }
