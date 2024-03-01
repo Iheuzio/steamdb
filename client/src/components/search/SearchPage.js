@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import Search from './Search';
 import GenreFilters from './GenreFilters';
+import NavBar from '../navigation/NavBar';
 
 export default function SearchPage() {
     const [results, setResults] = useState(games)
@@ -40,6 +41,7 @@ export default function SearchPage() {
     }
     
     return <div className="SearchPage">
+        <NavBar/>
         <Search results={results}
                 setResults={setResults}
                 filters={filters}
