@@ -3,7 +3,7 @@ nav ul {
 }
 
 nav img {
-    width: 200px;
+    width: 150px;
 }
 
 nav {
@@ -16,6 +16,17 @@ nav {
     margin: 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+#nav-nonlogo {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: -moz-available;
 }
   
 li {
@@ -25,8 +36,9 @@ li {
 a {
     color: white;
     text-decoration: none;
+    font-size: xx-large;
 }
   
-a:hover {
+.link:hover {
     background-color: #555;
 }
