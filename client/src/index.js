@@ -4,10 +4,13 @@ import {
   createHashRouter,
   RouterProvider,
 } from "react-router-dom";
+import { useState, useEffect } from 'react';
+
 import './index.css';
 import Homepage from './components/main/Homepage';
 import ErrorPage from './components/misc/route_not_found.js'
 import SearchPage from './components/search/SearchPage';
+import GameDetails from './components/detail/GameDetails.js';
 import reportWebVitals from './reportWebVitals';
 
 const router = createHashRouter([
@@ -18,6 +21,9 @@ const router = createHashRouter([
   {
     path: '/search', element: <SearchPage />
   },
+  {
+    path: '/details', element: <GameDetails />
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

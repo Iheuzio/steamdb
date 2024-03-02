@@ -33,7 +33,7 @@ li {
     padding: 10px;
 }
   
-a {
+li a {
     color: white;
     text-decoration: none;
     font-size: xx-large;

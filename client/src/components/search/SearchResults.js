@@ -1,4 +1,5 @@
 import './SearchResults.css';
+import { Link } from 'react-router-dom';
 
 export default function SearchResults({ results }) {
     return <table className="SearchResults">
@@ -20,7 +21,9 @@ export default function SearchResults({ results }) {
 
 function SearchResult({ result }) {
     return <tr>
-        <td>{ result.game }</td>
+        <td>
+            <Link to={`/details?game=${result.game}`}> {result.game} </Link>
+        </td>
         <td>{ result.release }</td>
         <td>{ result.peak_players }</td>
         <td>{ result.rating }</td>
