@@ -26,7 +26,7 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: -moz-available;
+    width: 100%;
 }
   
 li {
@@ -37,8 +37,4 @@ li a {
     color: white;
     text-decoration: none;
     font-size: xx-large;
-}
-  
-.link:hover {
-    background-color: #555;
 }

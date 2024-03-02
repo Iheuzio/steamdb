@@ -10,7 +10,7 @@ async function retreiveSteamDescription(appID){
   }
   const data = await response.json();
   try{
-    return data[appID]['data']['short_description'];
+    return data[appID]['data']['header_image'];
   } catch{
     return 'No Description Available';
   }

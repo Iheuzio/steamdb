@@ -1,6 +1,8 @@
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+
 import NavBar from '../navigation/NavBar';
+import { GameHeader } from './GameInfo';
 
 export default function GameDetails() {
 
@@ -32,9 +34,10 @@ export default function GameDetails() {
 
     return (
         <>
-        <NavBar />
-        <h1> Something here: {gameURL}</h1>
-        <p>{game.title}</p>
+            <NavBar />
+            <GameHeader gameURL={gameURL} />
+            <h1>{gameURL}</h1>
+            <p>{game.title}</p>
         </>
     );
 };
