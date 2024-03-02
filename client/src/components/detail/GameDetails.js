@@ -1,8 +1,10 @@
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+import './GameDetails.css'
+
 import NavBar from '../navigation/NavBar';
-import { GameHeader } from './GameInfo';
+import { GameHeader, GameScore, GameDetailedInfo } from './GameInfo';
 
 export default function GameDetails() {
 
@@ -30,14 +32,24 @@ export default function GameDetails() {
         fetchGameDetails();
     }, [gameURL]);
 
-    console.log(game);
-
     return (
         <>
             <NavBar />
-            <GameHeader gameURL={gameURL} />
-            <h1>{gameURL}</h1>
-            <p>{game.title}</p>
+            <div id='game-details'>
+                <section id='left-details'>
+                    <GameHeader id='game-header' gameURL={gameURL} title={game.title} shortDesc={game.description} />
+                </section>
+                <section id='right-details'>
+                    <GameDetailedInfo id='game-detailed-info' publisher={game.publisher}
+                    genre={game.primary_genre}
+                    releaseDate={game.release_date} />
+                    <GameScore peak={game.peak}
+                    positiveReviews={game.positive_reviews}
+                    negativeReviews={game.negative_reviews} />
+                </section>
+            </div>
+            <br/>
+            <h1 id='under-cons'> REVIEW SECTION UNDER CONSTRUCTION </h1>
         </>
     );
 };
