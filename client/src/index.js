@@ -4,7 +4,6 @@ import {
   createHashRouter,
   RouterProvider,
 } from "react-router-dom";
-import { useState, useEffect } from 'react';
 
 import './index.css';
 import Homepage from './components/main/Homepage';

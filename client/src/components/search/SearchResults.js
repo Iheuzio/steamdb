@@ -20,9 +20,13 @@ export default function SearchResults({ results }) {
 }
 
 function SearchResult({ result }) {
+
+    //REGEX to retreive the api number from result.link
+    const api = result.link.match(/\d+/g);
+
     return <tr>
         <td>
-            <Link to={`/details?game=${result.game}`}> {result.game} </Link>
+            <Link to={`/details?game=${api}`}> {result.game} </Link>
         </td>
         <td>{ result.release }</td>
         <td>{ result.peak_players }</td>

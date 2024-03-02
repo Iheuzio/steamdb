@@ -28,7 +28,7 @@ async function retreiveSteamDescription(appID){
     const rows = csvFile.split('\n');
     const dataset = [];
     
-    for (let i = 1; i < 150; i++) {
+    for (let i = 1; i < 50; i++) {
       const row = rows[i].split(',');
 
       //fetch description from steam api
