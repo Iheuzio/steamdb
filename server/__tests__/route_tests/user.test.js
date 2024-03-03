@@ -4,9 +4,15 @@ const DB = require('../../db/db.js');
 
 jest.mock('../../db/db');
 
-beforeEach(() => {
+beforeAll(() => {
   jest.clearAllMocks();
 });
+
+afterAll(async () => {
+  await DB.prototype.close();
+  //await mongoServer.stop();
+});
+
 
 //Unit test for calling the mock api
 
@@ -22,13 +28,7 @@ describe('GET /steamgames/:2050650', () => {
     );
     expect(response.statusCode).toBe(200);
     expect(response.type).toEqual('application/json');
-
-    await DB.prototype.close();
   });
 });
 
-
-afterEach(async () => {
-  await DB.prototype.close();
-});
 
