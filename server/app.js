@@ -3,7 +3,6 @@ const path = require('path');
 const passport = require('passport');
 const appRouter = require('./routes/steamIMDBRouter');
 const steamAPIRouter = require('./routes/steamapi');
-const cors = require('cors');
 
 const app = express();
 
