@@ -21,7 +21,7 @@ export default function NavBar() {
                 <Link className='link' to={`/TODO`}> Lists </Link>
               </li>
               <li>
-                <Link className='link' to={`/TODO`}> Profile </Link>
+                <Link className='link' to={`/profile`}> Profile </Link>
               </li>
             </div>
           </ul>

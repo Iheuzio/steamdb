@@ -9,6 +9,7 @@ import Homepage from './components/main/Homepage';
 import ErrorPage from './components/misc/route_not_found.js'
 import SearchPage from './components/search/SearchPage';
 import reportWebVitals from './reportWebVitals';
+import ProfilePage from './components/profile/ProfilePage';
 
 const router = createHashRouter([
   {
@@ -17,6 +18,9 @@ const router = createHashRouter([
   },
   {
     path: '/search', element: <SearchPage />
+  },
+  {
+    path: '/profile', element: <ProfilePage />
   },
 ]);
 
