@@ -6,7 +6,7 @@ const db = new DB();
   
 router.get('/steamgames', async (req, res) => {
   try {
-    let steamGames = await db.readAll();
+    const steamGames = await db.readAll();
     res.type('json');
     res.json(steamGames);
   } catch (error) {

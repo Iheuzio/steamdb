@@ -1,0 +1,41 @@
+nav ul {
+    list-style-type: none;
+}
+
+nav img {
+    width: 150px;
+}
+
+nav {
+    background-color: #333;
+  }
+
+#nav-ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+#nav-nonlogo {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+  
+li {
+    padding: 10px;
+}
+  
+li a {
+    color: white;
+    text-decoration: none;
+    font-size: xx-large;
+}

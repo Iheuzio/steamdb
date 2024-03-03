@@ -1,13 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {
+  createHashRouter,
+  RouterProvider,
+} from "react-router-dom";
+
 import './index.css';
-import App from './App';
+import Homepage from './components/main/Homepage';
+import ErrorPage from './components/misc/route_not_found.js'
+import SearchPage from './components/search/SearchPage';
+import GameDetails from './components/detail/GameDetails.js';
 import reportWebVitals from './reportWebVitals';
+import ProfilePage from './components/profile/ProfilePage';
+
+const router = createHashRouter([
+  {
+    path: '/', element: <Homepage />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: '/search', element: <SearchPage />
+  },
+  {
+    path: '/profile', element: <ProfilePage />
+  },
+  {
+    path: '/details', element: <GameDetails />
+  }
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
