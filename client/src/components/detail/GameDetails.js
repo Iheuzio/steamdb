@@ -12,6 +12,7 @@ export default function GameDetails() {
     const gameURL = new URLSearchParams(location.search).get('game');
 
     const[game, setGame] = useState({});
+    const [isBusy, setBusy] = useState(true);
 
     useEffect(() => {
 
@@ -21,8 +22,10 @@ export default function GameDetails() {
                 if(response.ok){
                     const gameDetails = await response.json();
                     setGame(gameDetails);
+                    setBusy(false);
                   }else {
                     setGame({});
+                    setBusy(false);
                   }
                 } catch(error){
                   alert(error);
@@ -31,6 +34,9 @@ export default function GameDetails() {
 
         fetchGameDetails();
     }, [gameURL]);
+
+    //Check if API is done fetching -- only render when its done
+    if(isBusy) { return <NavBar />}
 
     if(Object.keys(game).length === 0){
         return (
