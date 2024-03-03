@@ -8,6 +8,12 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
+
+
+afterEach((done) => {
+  server.close(done); // Close the server after each test
+});
+
 //Unit test for calling the mock api
 
 describe('GET /steamgames/:2050650', () => {
