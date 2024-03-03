@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import noHeader from '../../static-images/no-header.png'
 
 //Accepts a prop for the gameLink and fetches the header image from the steamapi
 //returns an image tag
@@ -14,12 +14,17 @@ function GameHeader({gameURL, title, shortDesc}){
                 const response = await fetch(`steamapi/${gameURL}`);
                 if(response.ok){
                     const header = await response.json();
-                    setHeaderURL(header[gameURL]['data']['header_image']);
+                    try{
+                        setHeaderURL(header[gameURL]['data']['header_image']);
+                    }
+                    catch{
+                        setHeaderURL(noHeader);
+                    }
                   }else {
                     alert('Error: Problem fetching header image from steam api');
                   }
                 } catch(error){
-                  alert(error); //TODO: If not image found -- set to default static image
+                  alert(error);
                 }
         }
         fetchGameHeader();
@@ -27,7 +32,7 @@ function GameHeader({gameURL, title, shortDesc}){
 
     return (
         <>
-            <img id='header-image' src={headerURL} alt='game header image' />
+            <img id='header-image' src={headerURL} alt='game header' />
             <h1>{title}</h1>
             <p>{shortDesc}</p>
         </>

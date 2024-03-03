@@ -11,10 +11,10 @@ router.get('/:gamelink', async (req, res) => {
       res.type('json');
       res.json(gameData);
     }else {
-      res.status(400).json({error : 'Problem occured when fetching data from the steam api'});
+      res.status(500).json({error : 'Problem occured when fetching data from the steam api'});
     }
   } catch(error){
-    res.status(400).json({error : 'Problem occured when fetching data from the steam api'});
+    res.status(500).json({error : 'Problem occured when fetching data from the steam api'});
   }
 });
 

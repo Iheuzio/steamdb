@@ -22,7 +22,7 @@ export default function GameDetails() {
                     const gameDetails = await response.json();
                     setGame(gameDetails);
                   }else {
-                    alert('Error: Problem fetching game info from API');
+                    setGame({});
                   }
                 } catch(error){
                   alert(error);
@@ -31,6 +31,15 @@ export default function GameDetails() {
 
         fetchGameDetails();
     }, [gameURL]);
+
+    if(Object.keys(game).length === 0){
+        return (
+        <>
+            <NavBar />
+            <h1>Nothing seems to be here...blame the lack of seeding</h1>
+        </>
+        )
+    }
 
     return (
         <>
