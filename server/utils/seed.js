@@ -10,7 +10,7 @@ async function retreiveSteamDescription(appID){
   }
   const data = await response.json();
   try{
-    return data[appID]['data']['short_description'];
+    return data[appID]['data']['header_image'];
   } catch{
     return 'No Description Available';
   }
@@ -28,12 +28,14 @@ async function retreiveSteamDescription(appID){
     const rows = csvFile.split('\n');
     const dataset = [];
     
-    for (let i = 1; i < rows.length - 1; i++) {
+    for (let i = 1; i < 50; i++) {
       const row = rows[i].split(',');
 
       //fetch description from steam api
       const gameID = row[2].match(/\d+/g);
       const descriptionData = await retreiveSteamDescription(gameID[0]);
+
+      console.log(i);
 
       const game = {
         title: row[1],

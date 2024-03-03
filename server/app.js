@@ -2,8 +2,10 @@ const express = require('express');
 const path = require('path');
 const passport = require('passport');
 const appRouter = require('./routes/steamIMDBRouter');
+const steamAPIRouter = require('./routes/steamapi');
 
 const app = express();
+
 
 // Middleware
 app.use('/api', require('./routes/auth'));
@@ -20,6 +22,9 @@ app.use('/', require('./routes/auth-steam'));
 
 // route to the mongo db api
 app.use('/localapi', appRouter);
+
+// Route to call the SteamAPI from the client since it does not allow for CORS
+app.use('/steamapi', steamAPIRouter);
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });

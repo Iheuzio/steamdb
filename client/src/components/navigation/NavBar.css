@@ -17,6 +17,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 15px;
 }
 
 #nav-nonlogo {
@@ -26,19 +27,15 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: -moz-available;
+    width: 100%;
 }
   
 li {
     padding: 10px;
 }
   
-a {
+li a {
     color: white;
     text-decoration: none;
     font-size: xx-large;
-}
-  
-.link:hover {
-    background-color: #555;
 }
