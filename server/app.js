@@ -30,6 +30,5 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });
 });
 
-app.listen(3000);
 
 module.exports = app;
