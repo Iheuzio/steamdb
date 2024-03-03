@@ -1,26 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {
+  createHashRouter,
+  RouterProvider,
+} from "react-router-dom";
 import './index.css';
-import App from './App';
+import Homepage from './components/main/Homepage';
+import ErrorPage from './components/misc/route_not_found.js'
+import SearchPage from './components/search/SearchPage';
 import reportWebVitals from './reportWebVitals';
 
+const router = createHashRouter([
+  {
+    path: '/', element: <Homepage />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: '/search', element: <SearchPage />
+  },
+]);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
-fetch('/account')
-  .then(response => response.json())
-  .then(data => {
-    if (data.error === 'Not Authenticated') {
-      window.location.href = '/auth/steam';
-    } else {
-      root.render(
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      );
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
+root.render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

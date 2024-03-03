@@ -18,9 +18,8 @@ app.use('/', require('./routes/index'));
 app.use('/', require('./routes/account'));
 app.use('/', require('./routes/auth-steam'));
 
-// 404 Handler
-app.use('/apiv2', appRouter);
-
+// route to the mongo db api
+app.use('/localapi', appRouter);
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });

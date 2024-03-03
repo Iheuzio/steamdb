@@ -1,7 +1,5 @@
 import './HorizontalScroller.css';
 
-
-
 export default function Scroller() {
   
 
