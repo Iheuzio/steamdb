@@ -13,11 +13,11 @@ export default function SearchPage() {
     const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All'});
 
     const updateFilters = (e) => {
-        let name = e.target.name;
-        const value = e.target.value;
+        const name = e.target.name;
+        let value = e.target.value;
         
         if (name === 'query') {
-            name = name.toLowerCase();
+            value = value.toLowerCase();
         }
 
         const updatedFilters = {...filters, [name]: value};
