@@ -2,3 +2,15 @@
     width: 20px;
     height: 20px;
 }
+
+.SearchForm {
+    display: flex;
+    width: 250px;
+    height: 35px;
+}
+
+.SearchForm select, .SearchForm input {
+    height: 100%;
+    padding: 0;
+}
+
