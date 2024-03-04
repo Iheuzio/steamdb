@@ -22,10 +22,12 @@ module.exports = function(passport, app) {
     }
   });
 
+  const env = process.env.STEAM_REL || 'localhost:3001';
+
   // Use the SteamStrategy within Passport.
   passport.use(new SteamStrategy({
-    returnURL: 'http://localhost:3001/auth/steam/return',
-    realm: 'http://localhost:3001/',
+    returnURL: `http://${env}/auth/steam/return`,
+    realm: `http://${env}/`,
     apiKey: '1EDC0D204A7716E809F0B2DABE207BE7'
   },
   function(identifier, profile, done) {
