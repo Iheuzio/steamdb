@@ -24,8 +24,8 @@ module.exports = function(passport, app) {
 
   // Use the SteamStrategy within Passport.
   passport.use(new SteamStrategy({
-    returnURL: 'http://localhost:3000/auth/steam/return',
-    realm: 'http://localhost:3000/',
+    returnURL: 'http://localhost:3001/auth/steam/return',
+    realm: 'http://localhost:3001/',
     apiKey: '1EDC0D204A7716E809F0B2DABE207BE7'
   },
   function(identifier, profile, done) {
