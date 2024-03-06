@@ -5,38 +5,22 @@ import RandomGameList from './RandomGamesList';
 
 import NavBar from '../navigation/NavBar';
 
-import { useState, useEffect } from 'react'; 
+import { useState } from 'react'; 
+
+
+
+import { games } from '../games';
 
 export default function Homepage() {
-  const [results, setResults] = useState({});
-  const [isBusy, setBusy] = useState(true);
-
-  useEffect(() => {
-      async function fetchGameDetails(){
-          try{
-              const response = await fetch(`/localapi/steamgames/`);
-              if(response.ok){
-                  const gameDetails = await response.json();
-                  setResults(gameDetails);
-                  setBusy(false);
-                }else {
-                  setResults({});
-                  setBusy(false);
-                }
-              } catch(error){
-                alert(error);
-              }
-      }
-
-      fetchGameDetails();
-  });
+  //const [results, setResults] = useState([])
+  const [games1, setResults] = useState(games)
+  
 
   
   return <div className="Home" >
     <NavBar />
     <Scroller />
-    <TopGameList results={results}
-                setResults={setResults}/>
+    <TopGameList results={games1}/>
     <RandomGameList />
   </div>
 }

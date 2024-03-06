@@ -4,17 +4,15 @@ import {Link} from 'react-router-dom';   // Import the Link component
 export default function TopGameList({results}) {
     return <table className="TopGameList">
     <thead>
-        <Link to={'/search'}>
         <tr>
             <th>Image</th>
             <th>Title</th>
             <th>Release date</th>
             <th>Primary genre</th>
         </tr>
-        </Link>
     </thead>
     <tbody>
-        { results.map(result => <SearchResult key={result.id} result={result} />) }
+        { results.map(result => <SearchResult key={result.id} result={result} />) } 
     </tbody>
 </table>
 }
@@ -32,7 +30,7 @@ function SearchResult({ result }) {
         <td>{ result.release }</td>
         <td>{ result.peak_players }</td>
         <td>{ result.rating }</td>
-       {/* <td>{ result.primary_genre }</td>
+        {/* <td>{ result.primary_genre }</td>
         <td>{ result.developer }</td> */}
     </tr>
 }
