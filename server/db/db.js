@@ -80,23 +80,35 @@ class DB {
 
 /**
    * Schema For Games
-   */
+*/
 
 const gameSchema = new mongoose.Schema({
   title: String,
   steam_api: String,
-  release_date: String,
+  release_date: Date,
   positive_reviews: Number,
   negative_reviews: Number,
   primary_genre: String,
   publisher: String,
   developer: String,
-  description: String
+  description: String,
+  GameReviews: [()]
+});
+
+const Game = mongoose.model('Game', gameSchema);
+
+/**
+   * Schema For Reviews
+*/
+
+const reviewSchema = new mongoose.Schema({
+  title: String,
+  content: String,
+  score: Number,
 });
 
 
-
-const Game = mongoose.model('Game', gameSchema);
+const Review = mongoose.model('Review', reviewSchema);
 
 module.exports = DB;
 
