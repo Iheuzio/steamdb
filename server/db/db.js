@@ -46,6 +46,26 @@ class DB {
     return await instance.collection.find().toArray();
   }
 
+  async readByDate(dateField, date, operator) {
+    const query = {};
+    
+    switch (operator) {
+    case 'gte':
+      query[dateField] = { $gte: new Date(date) };
+      break;
+    case 'lte':
+      query[dateField] = { $lte: new Date(date) };
+      break;
+    case 'eq':
+      query[dateField] = new Date(date);
+      break;
+    default:
+      throw new Error('Invalid operator');
+    }
+
+    return await instance.collection.find(query);
+  }
+
   async readBySteamAPIId(steamApiId) {
     return await instance.collection.findOne({ steam_api: steamApiId });
   }

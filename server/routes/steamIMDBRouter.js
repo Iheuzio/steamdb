@@ -13,6 +13,16 @@ router.get('/steamgames', async (req, res) => {
     res.status(500).json({error : 'Something went wrong, try again later'});
   }
 });
+
+router.get('/steamgames', async (req, res) => {
+  try {
+    const steamGames = await db.readAll();
+    res.type('json');
+    res.json(steamGames);
+  } catch (error) {
+    res.status(500).json({error : 'Something went wrong, try again later'});
+  }
+});
   
 router.get('/steamgames/:steam_api_id', async (req, res) => {
   try {
