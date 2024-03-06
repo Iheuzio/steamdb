@@ -46,21 +46,21 @@ class DB {
     return await instance.collection.find().toArray();
   }
 
-  async readByDate(dateField, date, operator) {
+  async readByDateOrNumber(field, value, operator) {
     const query = {};
     
     switch (operator) {
     case 'gte':
-      query[dateField] = { $gte: new Date(date) };
+      query[field] = { $gte: value };
       break;
     case 'lte':
-      query[dateField] = { $lte: new Date(date) };
+      query[field] = { $lte: value };
       break;
     case 'eq':
-      query[dateField] = new Date(date);
+      query[field] = value;
       break;
     default:
-      throw new Error('Invalid operator');
+      throw new Error(`Invalid operator. Allowed: "gte", "gte", "gte". Received: "${operator}"`);
     }
 
     return await instance.collection.find(query);
