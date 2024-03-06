@@ -8,6 +8,7 @@ export default function SearchResults({ results }) {
 }
 
 function SearchResult({ result }) {
+    // dummy images
     const sources = [
         "https://cdn.akamai.steamstatic.com/steam/apps/2231450/header.jpg?t=1674756021",
         "https://cdn.akamai.steamstatic.com/steam/apps/1817230/header.jpg?t=1706198637",
@@ -15,6 +16,7 @@ function SearchResult({ result }) {
         "https://cdn.akamai.steamstatic.com/steam/apps/2171690/header.jpg?t=1700764126",
         "https://cdn.akamai.steamstatic.com/steam/apps/1765350/header.jpg?t=1679056781"
     ];
+
     const api = result.link.match(/\d+/g);
 
     return <div className="SearchResult">
@@ -23,18 +25,4 @@ function SearchResult({ result }) {
         </div>
         <img src={sources[Math.floor(Math.random()*sources.length)]} alt="game icon"/>
     </div>
-
-    // //REGEX to retreive the api number from result.link
-    // const api = result.link.match(/\d+/g);
-
-    // return <tr>
-    //     <td>
-    //         <Link to={`/details?game=${api}`}> {result.game} </Link>
-    //     </td>
-    //     <td>{ result.release }</td>
-    //     <td>{ result.peak_players }</td>
-    //     <td>{ result.rating }</td>
-    //     <td>{ result.primary_genre }</td>
-    //     <td>{ result.developer }</td>
-    // </tr>
 }
