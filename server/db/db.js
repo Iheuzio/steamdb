@@ -50,20 +50,20 @@ class DB {
     const query = {};
     
     switch (operator) {
-    case 'gte':
-      query[field] = { $gte: value };
+    case 'gt':
+      query[field] = { $gt: value };
       break;
-    case 'lte':
-      query[field] = { $lte: value };
+    case 'lt':
+      query[field] = { $lt: value };
       break;
     case 'eq':
-      query[field] = value;
+      query[field] = { $eq: value };
       break;
     default:
-      throw new Error(`Invalid operator. Allowed: "gte", "gte", "gte". Received: "${operator}"`);
+      break;
     }
 
-    return await instance.collection.find(query);
+    return await instance.collection.find(query).toArray();
   }
 
   async readBySteamAPIId(steamApiId) {

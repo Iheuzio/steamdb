@@ -6,20 +6,28 @@ const db = new DB();
   
 router.get('/steamgames', async (req, res) => {
   try {
-    const steamGames = await db.readAll();
-    res.type('json');
-    res.json(steamGames);
-  } catch (error) {
-    res.status(500).json({error : 'Something went wrong, try again later'});
-  }
-});
+    const operator = req.query.operator;
+    let value = req.query.value;
+    const field = req.query.field;
 
-router.get('/steamgames', async (req, res) => {
-  try {
-    const steamGames = await db.readAll();
     res.type('json');
-    res.json(steamGames);
+
+    if (!operator || !value || !field) {
+      const steamGames = await db.readAll();
+      res.json(steamGames);
+      
+    } else {
+      if (field === 'release_date') {
+        value = new Date(value);
+      }
+
+      const steamGames = await db.readByDateOrNumber(field, value, operator);
+      res.json(steamGames);
+    }
+
+    
   } catch (error) {
+    console.log(error);
     res.status(500).json({error : 'Something went wrong, try again later'});
   }
 });
