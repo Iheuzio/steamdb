@@ -45,8 +45,8 @@ async function retreiveSteamDescription(appID){
         positive_reviews: row[5],
         negative_reviews: row[6],
         primary_genre: row[9],
-        publisher: row[12],
-        developer: row[13],
+        publisher: row[11],
+        developer: row[12],
         description: descriptionData
       };
       dataset.push(game);
