@@ -12,9 +12,21 @@ export default function SearchPage() {
     const [user, setUser] = useState(null);
     
     useEffect(() => {
-        fetch('/account')
-            .then(res => res.json())
-            .then(user => setUser(user));
+      fetch('/account')
+      .then(response => {
+        if (response.status === 401) {
+          window.location.href = '/auth/steam';
+        } else {
+          return response.json();
+        }
+      })
+      .then(data => {
+        if (data) {
+          setUser(data.user.displayName);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+      defaultFilters();
     }, []);
 
     const [results, setResults] = useState(games);
@@ -35,6 +47,14 @@ export default function SearchPage() {
         handleOptionChange(e, updatedFilters);
         setFilters(updatedFilters);
     };
+
+    const defaultFilters = () => {
+      const updatedFilters = { ...filters, query: '' };
+      setFilters(updatedFilters);
+
+      const defaultGames = games.slice(0, 5);
+      setResults(defaultGames);
+    }
 
     const handleOptionChange = (e, filters) => {
         e.preventDefault();
