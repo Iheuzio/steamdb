@@ -1,5 +1,6 @@
 // SearchPage.js
 import './SearchPage.css';
+import './ListPage.css';
 import { games } from '../games';
 import { useEffect, useState } from 'react';
 import Search from './Search';
@@ -8,7 +9,7 @@ import NavBar from '../navigation/NavBar';
 import Toolbar from '../navigation/ToolBar';
 import UserGameList from './UserGameList';
 
-export default function SearchPage() {
+export default function ListsPage() {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -95,22 +96,25 @@ export default function SearchPage() {
         <>
             <NavBar />
             <Toolbar />
-            <div className="SearchPage">
+            <div className="ListPage">
                 {isLoading ? (
                     <p>Loading...</p>
                 ) : (
                     <>
-                        <Search
-                            results={results}
-                            setResults={setResults}
-                            filters={filters}
-                            setFilters={setFilters}
-                            filterFields={filterFields}
-                            updateFilters={updateFilters}
-                            handleAddGame={handleAddGame}
-                            addedGames={userGames}
-                        />
-                        <GenreFilters updateFilters={updateFilters} />
+                        <h2 className='ListHeader'>{user}'s Explorer</h2>
+                        <div className="SearchPage">
+                          <Search
+                              results={results}
+                              setResults={setResults}
+                              filters={filters}
+                              setFilters={setFilters}
+                              filterFields={filterFields}
+                              updateFilters={updateFilters}
+                              handleAddGame={handleAddGame}
+                              addedGames={userGames}
+                          />
+                          <GenreFilters updateFilters={updateFilters} />
+                        </div>
                         <UserGameList userGames={userGames} setUserGames={setUserGames} username={user} />
                     </>
                 )}

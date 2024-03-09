@@ -1,3 +1,4 @@
+import './UserGameList.css';
 
 const UserGameList = ({ userGames, setUserGames, username }) => {
 
@@ -8,7 +9,7 @@ const UserGameList = ({ userGames, setUserGames, username }) => {
   };
 
   return (
-    <div>
+    <div className="UserGameList">
       <h2>{username}'s Game List</h2>
       {userGames.length === 0 ? (
         <p>Your list is empty.</p>
@@ -22,8 +23,10 @@ const UserGameList = ({ userGames, setUserGames, username }) => {
           ))}
         </ul>
       )}
-      <button onClick={() => setUserGames([])}>Clear List</button>
-      <button onClick={() => console.log('saved list')}>Save List</button>
+      <div className='ListButtons'>
+        <button onClick={() => setUserGames([])}>Clear List</button>
+        <button onClick={() => console.log('saved list')}>Save List</button>
+      </div>
     </div>
   );
 };

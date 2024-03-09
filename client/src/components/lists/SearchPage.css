@@ -2,3 +2,55 @@
     display: flex;
     gap: 3rem;
 }
+
+.Search {
+    flex: 2;
+}
+
+.SearchForm {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.SearchForm select,
+.SearchForm input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.SearchForm select {
+    margin-right: 0.5rem;
+}
+
+.SearchResults {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.SearchResults th,
+.SearchResults td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.SearchResults th {
+    background-color: #f5f5f5;
+}
+
+.GenreFilters {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.GenreFilter {
+    padding: 0.5rem 1rem;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
