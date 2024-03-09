@@ -92,7 +92,7 @@ export default function SearchPage() {
                   handleAddGame={handleAddGame}
               />
               <GenreFilters updateFilters={updateFilters} />
-              <UserGameList userGames={userGames} setUserGames={setUserGames} userName={user}/> 
+              <UserGameList userGames={userGames} setUserGames={setUserGames} username={user}/> 
           </div>
       </>
   );

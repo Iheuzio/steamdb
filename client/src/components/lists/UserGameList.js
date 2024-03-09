@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const UserGameList = ({ userGames, setUserGames }) => {
+const UserGameList = ({ userGames, setUserGames, username }) => {
   useEffect(() => {
     // Load user games from local storage on component mount
     const storedGames = JSON.parse(localStorage.getItem('userGames'));
@@ -22,7 +22,7 @@ const UserGameList = ({ userGames, setUserGames }) => {
 
   return (
     <div>
-      <h2>Your Game List</h2>
+      <h2>{username}'s Game List</h2>
       {userGames.length === 0 ? (
         <p>Your list is empty.</p>
       ) : (
