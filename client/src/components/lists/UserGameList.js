@@ -1,18 +1,5 @@
-import React, { useEffect } from 'react';
 
 const UserGameList = ({ userGames, setUserGames, username }) => {
-  useEffect(() => {
-    // Load user games from local storage on component mount
-    const storedGames = JSON.parse(localStorage.getItem('userGames'));
-    if (storedGames) {
-      setUserGames(storedGames);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Save user games to local storage whenever userGames changes
-    localStorage.setItem('userGames', JSON.stringify(userGames));
-  }, [userGames]);
 
   const deleteGame = (index) => {
     const newGames = [...userGames];

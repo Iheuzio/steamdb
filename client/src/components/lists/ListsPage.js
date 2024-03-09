@@ -1,3 +1,4 @@
+// SearchPage.js
 import './SearchPage.css';
 import { games } from '../games';
 import { useEffect, useState } from 'react';
@@ -8,31 +9,44 @@ import Toolbar from '../navigation/ToolBar';
 import UserGameList from './UserGameList';
 
 export default function SearchPage() {
-    // fetch user first to see if they are logged in:
     const [user, setUser] = useState(null);
-    
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
-      fetch('/account')
-      .then(response => {
-        if (response.status === 401) {
-          window.location.href = '/auth/steam';
-        } else {
-          return response.json();
-        }
-      })
-      .then(data => {
-        if (data) {
-          setUser(data.user.displayName);
-        }
-      })
-      .catch(error => console.error('Error:', error));
-      defaultFilters();
+        fetch('/account')
+            .then(response => {
+                if (response.status === 401) {
+                    window.location.href = '/auth/steam';
+                } else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                if (data) {
+                    setUser(data.user.displayName);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        defaultFilters();
+        loadUserGames();
     }, []);
 
     const [results, setResults] = useState(games);
     const filterFields = ['game', 'publisher', 'developer'];
     const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All' });
-    const [userGames, setUserGames] = useState([]); // Store user's games
+    const [userGames, setUserGames] = useState([]);
+
+    const loadUserGames = () => {
+        const storedGames = JSON.parse(localStorage.getItem('userGames'));
+        if (storedGames) {
+            setUserGames(storedGames);
+        }
+        setIsLoading(false);
+    };
+
+    useEffect(() => {
+        localStorage.setItem('userGames', JSON.stringify(userGames));
+    }, [userGames]);
 
     const updateFilters = (e) => {
         const name = e.target.name;
@@ -49,11 +63,11 @@ export default function SearchPage() {
     };
 
     const defaultFilters = () => {
-      const updatedFilters = { ...filters, query: '' };
-      setFilters(updatedFilters);
+        const updatedFilters = { ...filters, query: '' };
+        setFilters(updatedFilters);
 
-      const defaultGames = games.slice(0, 5);
-      setResults(defaultGames);
+        const defaultGames = games.slice(0, 5);
+        setResults(defaultGames);
     }
 
     const handleOptionChange = (e, filters) => {
@@ -74,26 +88,33 @@ export default function SearchPage() {
     };
 
     const handleAddGame = (game) => {
-        setUserGames([...userGames, game]); // Add the selected game to the user's list
+        setUserGames([...userGames, game]);
     };
 
     return (
-      <>
-          <NavBar />
-          <Toolbar />
-          <div className="SearchPage">
-              <Search
-                  results={results}
-                  setResults={setResults}
-                  filters={filters}
-                  setFilters={setFilters}
-                  filterFields={filterFields}
-                  updateFilters={updateFilters}
-                  handleAddGame={handleAddGame}
-              />
-              <GenreFilters updateFilters={updateFilters} />
-              <UserGameList userGames={userGames} setUserGames={setUserGames} username={user}/> 
-          </div>
-      </>
-  );
+        <>
+            <NavBar />
+            <Toolbar />
+            <div className="SearchPage">
+                {isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <>
+                        <Search
+                            results={results}
+                            setResults={setResults}
+                            filters={filters}
+                            setFilters={setFilters}
+                            filterFields={filterFields}
+                            updateFilters={updateFilters}
+                            handleAddGame={handleAddGame}
+                            addedGames={userGames}
+                        />
+                        <GenreFilters updateFilters={updateFilters} />
+                        <UserGameList userGames={userGames} setUserGames={setUserGames} username={user} />
+                    </>
+                )}
+            </div>
+        </>
+    );
 }
