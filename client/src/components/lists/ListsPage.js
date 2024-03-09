@@ -92,6 +92,12 @@ export default function ListsPage() {
         setUserGames([...userGames, game]);
     };
 
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setSidebarOpen(!sidebarOpen);
+    };
+
     return (
         <>
             <NavBar />
@@ -102,20 +108,25 @@ export default function ListsPage() {
                 ) : (
                     <>
                         <h2 className='ListHeader'>{user}'s Explorer</h2>
-                        <div className="SearchPage">
-                          <Search
-                              results={results}
-                              setResults={setResults}
-                              filters={filters}
-                              setFilters={setFilters}
-                              filterFields={filterFields}
-                              updateFilters={updateFilters}
-                              handleAddGame={handleAddGame}
-                              addedGames={userGames}
-                          />
-                          <GenreFilters updateFilters={updateFilters} />
-                        </div>
-                        <UserGameList userGames={userGames} setUserGames={setUserGames} username={user} />
+            <div className="SearchPage">
+                <button className="sidebar-toggle" onClick={toggleSidebar}>
+                    {sidebarOpen ? '<' : '>'}
+                </button>
+                <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+                    <GenreFilters updateFilters={updateFilters} />
+                </div>
+                <Search
+                    results={results}
+                    setResults={setResults}
+                    filters={filters}
+                    setFilters={setFilters}
+                    filterFields={filterFields}
+                    updateFilters={updateFilters}
+                    handleAddGame={handleAddGame}
+                    addedGames={userGames}
+                />
+                <UserGameList userGames={userGames} setUserGames={setUserGames} username={user} />
+            </div>
                     </>
                 )}
             </div>
