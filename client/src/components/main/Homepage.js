@@ -21,6 +21,6 @@ export default function Homepage() {
     <NavBar />
     <Scroller />
     <TopGameList results={games1}/>
-    <RandomGameList />
+    <RandomGameList results={games1}/>
   </div>
 }

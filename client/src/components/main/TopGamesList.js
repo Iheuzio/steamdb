@@ -3,13 +3,14 @@ import {Link} from 'react-router-dom';   // Import the Link component
 
 export default function TopGameList({results}) {
     return <table className="TopGameList">
+        <caption>Top Games</caption>
     <thead>
-        <tr>
+        {/* <tr>
             <th>Image</th>
             <th>Title</th>
             <th>Release date</th>
             <th>Primary genre</th>
-        </tr>
+        </tr> */}
     </thead>
     <tbody>
         { results.map(result => <SearchResult key={result.id} result={result} />) } 
@@ -24,6 +25,8 @@ function SearchResult({ result }) {
     const api = result.link.match(/\d+/g);
 
     return <tr>
+        {/* for mockup, delete after */}
+        <td> <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/capsule_sm_120.jpg?t=1709086268" width="50px" /></td>
         <td>
             <Link to={`/details?game=${api}`}> {result.game} </Link>
         </td>
