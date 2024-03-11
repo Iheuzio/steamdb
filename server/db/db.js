@@ -54,7 +54,7 @@ class DB {
     return await instance.collection.insertOne(quote);
   }
   async getUserBySteamId(steamId) {
-    return await instance.collection.findOne({ id: steamId });
+    return await Profile.findOne({id : steamId}).exec();
   }
 
   // delete all records in db
@@ -102,8 +102,7 @@ const Game = mongoose.model('Game', gameSchema);
 */
 
 const profileSchema = new mongoose.Schema({
-  user: {
-    _id: String,
+  profile: {
     provider: String,
     _json : {
       steamid: String,
