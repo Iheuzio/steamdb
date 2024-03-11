@@ -73,7 +73,7 @@ class DB {
   }
 
   async createUser(profile) {
-    return await instance.collection.insertOne(profile);
+    return await Profile.create(profile);
   }
 
 }
@@ -91,24 +91,61 @@ const gameSchema = new mongoose.Schema({
   primary_genre: String,
   publisher: String,
   developer: String,
-  description: String,
-  GameReviews: [()]
+  description: String
+  //GameReviews: [()]
 });
 
 const Game = mongoose.model('Game', gameSchema);
 
 /**
-   * Schema For Reviews
+   * Schema For Profiles
 */
 
-const reviewSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-  score: Number,
+const profileSchema = new mongoose.Schema({
+  user: {
+    _id: String,
+    provider: String,
+    _json : {
+      steamid: String,
+      communityvisibilitystate: Number,
+      profilestate: Number,
+      personaname: String,
+      profileurl: String,
+      avatar: String,
+      avatarmedium: String,
+      avatarfull: String,
+      personastate: Number,
+      primaryclanid: String,
+      timecreated: Number,
+      personastateflags: Number
+    },
+    id: String,
+    displayName: String,
+    photos: [
+      {
+        value : String
+      },
+      {
+        value: String
+      },
+      {
+        value: String
+      }
+    ],
+    identifier: String
+  }
 });
 
+const Profile = mongoose.model('Profile', profileSchema);
 
-const Review = mongoose.model('Review', reviewSchema);
+// const reviewSchema = new mongoose.Schema({
+//   title: String,
+//   content: String,
+//   score: Number,
+// });
+
+
+// const Review = mongoose.model('Review', reviewSchema);
 
 module.exports = DB;
 
