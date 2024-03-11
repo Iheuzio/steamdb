@@ -63,5 +63,14 @@ a:hover {
 }
 
 .details {
+    display: flex;
+    flex-direction: column;
     color: white;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+td {
+    width: 50%;
+    border: 1px solid white;
 }

@@ -27,7 +27,11 @@ function SearchResult({ result }) {
             <img src={sources[Math.floor(Math.random()*sources.length)]} alt="game icon"/>
             <div className="overlay">
                 <div className="details">
-                    Text
+                    <div><b>Game:</b> { result.game } </div>
+                    <div><b>Rating:</b> { result.rating } </div>
+                    <div><b>All time peak:</b> { result.all_time_peak } </div>
+                    <div><b>Genres:</b> { result.store_genres } </div>
+                    <div><b>Publisher:</b> { result.publisher } </div>
                 </div>
             </div>
         </div>
