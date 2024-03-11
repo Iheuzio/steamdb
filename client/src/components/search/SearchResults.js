@@ -23,6 +23,13 @@ function SearchResult({ result }) {
         <div className="LinkContainer">
             <Link to={`/details?game=${api}`} className="Link"> {result.game} </Link>
         </div>
-        <img src={sources[Math.floor(Math.random()*sources.length)]} alt="game icon"/>
+        <div className="img-container">
+            <img src={sources[Math.floor(Math.random()*sources.length)]} alt="game icon"/>
+            <div className="overlay">
+                <div className="details">
+                    Text
+                </div>
+            </div>
+        </div>
     </div>
 }

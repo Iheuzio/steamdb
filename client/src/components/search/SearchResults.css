@@ -26,13 +26,6 @@
     font-weight: bold;
 }
 
-.SearchResult > img {
-    width: auto;
-    height: auto;
-    max-width: 20rem;
-    flex: 4;
-}
-
 a {
     color: rgb(0, 0, 0);
     text-decoration: none;
@@ -40,4 +33,35 @@ a {
 
 a:hover {
     color: rgb(170, 133, 12)
+}
+
+.img-container {
+    display: grid;
+}
+
+.img-container .overlay {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgb(54, 54, 54);
+}
+
+.img-container img {
+    grid-column: 1;
+    grid-row: 1;
+    width: auto;
+    height: auto;
+    max-width: 20rem;
+    flex: 4;
+}
+
+.img-container:hover .overlay {
+    opacity: 1;
+}
+
+.details {
+    color: white;
 }
