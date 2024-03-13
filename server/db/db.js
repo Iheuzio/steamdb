@@ -76,6 +76,10 @@ class DB {
     return await Profile.create(profile);
   }
 
+  async createReview(review) {
+    return await Review.create(review);
+  }
+
 }
 
 /**
@@ -92,8 +96,8 @@ const gameSchema = new mongoose.Schema({
   primary_genre: String,
   publisher: String,
   developer: String,
-  description: String
-  //GameReviews: [()]
+  description: String,
+  GameReviews: []
 });
 
 const Game = mongoose.model('Game', gameSchema);
@@ -126,14 +130,19 @@ const profileSchema = new mongoose.Schema({
 
 const Profile = mongoose.model('Profile', profileSchema);
 
-// const reviewSchema = new mongoose.Schema({
-//   title: String,
-//   content: String,
-//   score: Number,
-// });
+/**
+   * Schema For Reviews
+*/
+
+const reviewSchema = new mongoose.Schema({
+  title: String,
+  content: String,
+  score: Number,
+  reviewer: String
+});
 
 
-// const Review = mongoose.model('Review', reviewSchema);
+const Review = mongoose.model('Review', reviewSchema);
 
 module.exports = DB;
 
