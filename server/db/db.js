@@ -54,7 +54,7 @@ class DB {
     return await instance.collection.insertOne(quote);
   }
   async getUserBySteamId(steamId) {
-    return await Profile.findOne({id : steamId}).exec();
+    return await Profile.findOne({ id: steamId });
   }
 
   // delete all records in db
@@ -86,6 +86,7 @@ const gameSchema = new mongoose.Schema({
   title: String,
   steam_api: String,
   release_date: Date,
+  peak: Number,
   positive_reviews: Number,
   negative_reviews: Number,
   primary_genre: String,
