@@ -102,37 +102,25 @@ const Game = mongoose.model('Game', gameSchema);
 */
 
 const profileSchema = new mongoose.Schema({
-  profile: {
-    provider: String,
-    _json : {
-      steamid: String,
-      communityvisibilitystate: Number,
-      profilestate: Number,
-      personaname: String,
-      profileurl: String,
-      avatar: String,
-      avatarmedium: String,
-      avatarfull: String,
-      personastate: Number,
-      primaryclanid: String,
-      timecreated: Number,
-      personastateflags: Number
-    },
-    id: String,
-    displayName: String,
-    photos: [
-      {
-        value : String
-      },
-      {
-        value: String
-      },
-      {
-        value: String
-      }
-    ],
-    identifier: String
-  }
+  provider: String,
+  _json : {
+    steamid: {type: String, required: true},
+    communityvisibilitystate: Number,
+    profilestate: Number,
+    personaname: String,
+    profileurl: String,
+    avatar: String,
+    avatarmedium: String,
+    avatarfull: String,
+    personastate: Number,
+    primaryclanid: String,
+    timecreated: Number,
+    personastateflags: Number
+  },
+  id: String,
+  displayName: String,
+  photos: [],
+  identifier: String
 });
 
 const Profile = mongoose.model('Profile', profileSchema);

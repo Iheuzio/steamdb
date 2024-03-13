@@ -14,38 +14,8 @@ module.exports = function(passport, app) {
     try {
       const user = await db.getUserBySteamId(obj.id);
       if(!user) {
-        await db.createUser({
-          provider: 'steam',
-          _json: {
-            steamid: '76561199641928112',
-            communityvisibilitystate: 3,
-            profilestate: 1,
-            personaname: 'testerwester22',
-            profileurl: 'https://steamcommunity.com/profiles/76561199641928112/',
-            avatar: 'https://avatars.steamstatic.com/e0a12200e37a0fcf51d9791e0407868c07433f70.jpg',
-            avatarmedium: 'https://avatars.steamstatic.com/e0a12200e37a0fcf51d9791e0407868c07433f70_medium.jpg',
-            avatarfull: 'https://avatars.steamstatic.com/e0a12200e37a0fcf51d9791e0407868c07433f70_full.jpg',
-            avatarhash: 'e0a12200e37a0fcf51d9791e0407868c07433f70',
-            personastate: 0,
-            primaryclanid: '103582791429521408',
-            timecreated: 1708355350,
-            personastateflags: 0,
-          },
-          id: '76561199641928112',
-          displayName: 'testerwester22',
-          photos: [
-            {
-              value: 'https://avatars.steamstatic.com/e0a12200e37a0fcf51d9791e0407868c07433f70.jpg',
-            },
-            {
-              value: 'https://avatars.steamstatic.com/e0a12200e37a0fcf51d9791e0407868c07433f70_medium.jpg',
-            },
-            {
-              value: 'https://avatars.steamstatic.com/e0a12200e37a0fcf51d9791e0407868c07433f70_full.jpg',
-            },
-          ],
-          identifier: 'https://steamcommunity.com/openid/id/76561199641928112',
-        });
+        //convert it 
+        await db.createUser(obj);
       }
       done(null, user);
     } catch (err) {
