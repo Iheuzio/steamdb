@@ -23,6 +23,17 @@ function SearchResult({ result }) {
         <div className="LinkContainer">
             <Link to={`/details?game=${api}`} className="Link"> {result.game} </Link>
         </div>
-        <img src={sources[Math.floor(Math.random()*sources.length)]} alt="game icon"/>
+        <div className="img-container">
+            <img src={sources[Math.floor(Math.random()*sources.length)]} alt="game icon"/>
+            <div className="overlay">
+                <div className="details">
+                    <div><b>Game:</b> { result.game } </div>
+                    <div><b>Rating:</b> { result.rating } </div>
+                    <div><b>All time peak:</b> { result.all_time_peak } </div>
+                    <div><b>Genres:</b> { result.store_genres } </div>
+                    <div><b>Publisher:</b> { result.publisher } </div>
+                </div>
+            </div>
+        </div>
     </div>
 }

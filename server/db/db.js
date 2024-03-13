@@ -46,6 +46,26 @@ class DB {
     return await instance.collection.find().toArray();
   }
 
+  async readByDateOrNumber(field, value, operator) {
+    const query = {};
+    
+    switch (operator) {
+    case 'gt':
+      query[field] = { $gt: value };
+      break;
+    case 'lt':
+      query[field] = { $lt: value };
+      break;
+    case 'eq':
+      query[field] = { $eq: value };
+      break;
+    default:
+      break;
+    }
+
+    return await instance.collection.find(query).toArray();
+  }
+
   async readBySteamAPIId(steamApiId) {
     return await instance.collection.findOne({ steam_api: steamApiId });
   }
