@@ -1,0 +1,21 @@
+.RandomGameList{
+    height: 1000px;
+    width: 43%;
+    margin: 50px;
+    border: 2px solid #000;
+    display: inline flow-root list-item;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+/* .tab_item {
+    position: relative;
+    display: block;
+    background: #202d39;
+    background: rgba( 0, 0, 0, 0.2 );
+    height: 69px;
+    margin-bottom: 5px;
+    padding-left: 198px;
+    text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+} */
