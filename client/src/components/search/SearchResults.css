@@ -1,11 +1,36 @@
 .SearchResults {
-    border-collapse: collapse;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-td, th {
-    border: 2px solid black;
+.SearchResult {
+    width: 20rem;
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.SearchResult > .LinkContainer {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Link {
+    margin: 0;
     text-align: center;
-    padding: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.SearchResult > img {
+    width: auto;
+    height: auto;
+    max-width: 20rem;
+    flex: 4;
 }
 
 a {
