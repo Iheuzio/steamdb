@@ -47,21 +47,8 @@ class DB {
   }
 
   async readByDateOrNumber(field, value, operator) {
-    const query = {};
-    
-    switch (operator) {
-    case 'gt':
-      query[field] = { $gt: value };
-      break;
-    case 'lt':
-      query[field] = { $lt: value };
-      break;
-    case 'eq':
-      query[field] = { $eq: value };
-      break;
-    default:
-      break;
-    }
+    // TODO: don't convert to int after mongoose schema is implemented
+    const query = { $expr: { [`$${operator}`]: [{ $toInt: `$${field}` }, Number(value)] } };
 
     return await instance.collection.find(query).toArray();
   }

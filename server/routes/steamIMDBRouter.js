@@ -22,12 +22,13 @@ router.get('/steamgames', async (req, res) => {
       }
 
       const steamGames = await db.readByDateOrNumber(field, value, operator);
+      
       res.json(steamGames);
     }
 
     
   } catch (error) {
-    console.log(error);
+    console.log(error); 
     res.status(500).json({error : 'Something went wrong, try again later'});
   }
 });
