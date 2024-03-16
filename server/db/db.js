@@ -117,7 +117,7 @@ const gameSchema = new mongoose.Schema({
   publisher: String,
   developer: String,
   description: String,
-  GameReviews: []
+  //GameReviews: []
 });
 
 const Game = mongoose.model('Game', gameSchema);
