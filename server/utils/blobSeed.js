@@ -51,7 +51,7 @@ async function seedGameImages() {
   const rows = csvFile.split('\n');
   //const dataset = [];
 
-  for (let i = 1; i < 10; i++) {
+  for (let i = 1; i < 20; i++) {
     const row = rows[i].split(',');
 
     //fetch description from steam api
@@ -80,7 +80,7 @@ async function seedGameImages() {
     //console.log(gameAPI);
 
     const gameUrl = `https://cdn.akamai.steamstatic.com/steam/apps/${gameAPI}/header.jpg?t=1695767057`;
-    uploadImageToBlob(gameUrl, game.title + '.png');
+    uploadImageToBlob(gameUrl, gameAPI + '.png');
   }
   console.log('done');
 }

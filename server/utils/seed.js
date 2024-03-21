@@ -27,6 +27,7 @@ async function retreiveSteamDescription(appID){
 
     const rows = csvFile.split('\n');
     const dataset = [];
+    const clusterURL = 'https://shlomytestcontainer.blob.core.windows.net/imageblobtest/';
     
     for (let i = 1; i < 50; i++) {
       const row = rows[i].split(',');
@@ -47,7 +48,8 @@ async function retreiveSteamDescription(appID){
         primary_genre: row[9],
         publisher: row[12],
         developer: row[13],
-        description: descriptionData
+        description: descriptionData,
+        image_url: clusterURL + gameID[0] + '.png'
       };
       dataset.push(game);
     }
