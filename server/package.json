@@ -24,6 +24,7 @@
     "express-session": "^1.13.0",
     "mongodb": "^6.2.0",
     "mongodb-memory-server": "^9.0.1",
+    "mongoose": "^8.2.1",
     "passport": "^0.3.2",
     "steam-web": "0.4.0",
     "streamifier": "^0.1.1"

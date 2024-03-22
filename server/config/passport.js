@@ -14,6 +14,7 @@ module.exports = function(passport, app) {
     try {
       const user = await db.getUserBySteamId(obj.id);
       if(!user) {
+        //convert it 
         await db.createUser(obj);
       }
       done(null, user);
