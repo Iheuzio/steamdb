@@ -21,17 +21,17 @@ export default function RandomGameList({results}) {
 function SearchResult({ result }) {
 
     //REGEX to retreive the api number from result.link
-    const api = result.link.match(/\d+/g);
+    const api = result.steam_api.match(/\d+/g);
 
     return <tr>
         {/* for mockup, delete after */}
-        <td> <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/capsule_sm_120.jpg?t=1709086268" width="50px" /></td>
+        <td> <img src={ result.image_url} alt='image' width="50px" /></td>
         <td>
-            <Link to={`/details?game=${api}`}> {result.game} </Link>
+            <Link to={`/details?game=${api}`}> {result.title} </Link>
         </td>
-        <td>{ result.release }</td>
-        <td>{ result.peak_players }</td>
-        <td>{ result.rating }</td>
+        <td>{ result.release_date }</td>
+        <td>{ result.peak }</td>
+        <td>{ result.positive_reviews }</td>
         {/* <td>{ result.primary_genre }</td>
         <td>{ result.developer }</td> */}
     </tr>
