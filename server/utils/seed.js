@@ -6,7 +6,8 @@ async function retreiveSteamDescription(appID){
 
   const response = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appID}`);
   if(!response.ok){
-    throw new Error('Error occured fetching songs!', appID);
+    //throw new Error('Error occured fetching songs!', appID);
+    return 'No Description Available';
   }
   const data = await response.json();
   try{
@@ -29,7 +30,7 @@ async function retreiveSteamDescription(appID){
     const dataset = [];
     const clusterURL = 'https://shlomytestcontainer.blob.core.windows.net/imageblobtest/';
     
-    for (let i = 1; i < 50; i++) {
+    for (let i = 1; i < 150; i++) {
       const row = rows[i].split(',');
 
       //fetch description from steam api

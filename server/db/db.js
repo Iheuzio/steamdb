@@ -117,6 +117,7 @@ const gameSchema = new mongoose.Schema({
   publisher: String,
   developer: String,
   description: String,
+  image_url: String
   //GameReviews: []
 });
 
