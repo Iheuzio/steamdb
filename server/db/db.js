@@ -159,7 +159,12 @@ const reviewSchema = new mongoose.Schema({
   title: String,
   content: String,
   score: Number,
-  reviewer: String
+  //review based on logged in users steam id
+  reviewer: String, 
+  recommend: Boolean,
+  user: String,
+  //based on the games steam_api
+  game: String
 });
 
 

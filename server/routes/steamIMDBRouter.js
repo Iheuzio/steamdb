@@ -31,6 +31,8 @@ router.get('/steamgames', async (req, res) => {
     res.status(500).json({error : 'Something went wrong, try again later'});
   }
 });
+
+//Gets a steam game from the DB based on its unique steam_api_id
   
 router.get('/steamgames/:steam_api_id', async (req, res) => {
   try {
