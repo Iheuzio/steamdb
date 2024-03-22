@@ -8,13 +8,8 @@ const streamifier = require('streamifier');
 const fs = require('fs');
 const path = require('path');
 
-
-
 const connectionString = 'DefaultEndpointsProtocol=https;AccountName=shlomytestcontainer;AccountKey=Z8ygBu1ITlB+UWJNpiGBRIa4YMJYizOfdFyJ//2f4MsAhq95TLz/gyEg3m2EXRNH7epa1R5l1u43+ASte5jveA==;EndpointSuffix=core.windows.net';
 const containerName = 'imageblobtest';
-
-
-//const blobName = 'shlomytestblob3.png'; // find a way to generate a unique name for linking to database
 
 async function uploadImageToBlob(url, blobName) {
   const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
@@ -26,9 +21,6 @@ async function uploadImageToBlob(url, blobName) {
   const uploadBlobResponse = await blockBlobClient.uploadStream(stream, response.data.length);
   console.log(`Upload block blob ${blobName} successfully`, uploadBlobResponse.requestId);
 }
-
-//uploadImageToBlob('https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1695767057');
-
 
 
 async function retreiveSteamDescription(appID) {
@@ -49,9 +41,9 @@ async function seedGameImages() {
   const csvFile = fs.readFileSync(path.join(__dirname, `../dataset/dataset_limited.csv`), 'utf-8');
 
   const rows = csvFile.split('\n');
-  //const dataset = [];
 
-  for (let i = 1; i < 20; i++) {
+  for (let i = 1; i < 60000; i++) {
+    setTimeout(() => {}, 1000);
     const row = rows[i].split(',');
 
     //fetch description from steam api
