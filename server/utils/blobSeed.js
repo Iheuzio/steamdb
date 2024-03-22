@@ -3,13 +3,13 @@
 const { BlobServiceClient } = require('@azure/storage-blob');
 const axios = require('axios');
 const streamifier = require('streamifier');
-
-
 const fs = require('fs');
 const path = require('path');
+//const fetch = require('node-fetch'); // Import fetch function
 
 const connectionString = 'DefaultEndpointsProtocol=https;AccountName=shlomytestcontainer;AccountKey=Z8ygBu1ITlB+UWJNpiGBRIa4YMJYizOfdFyJ//2f4MsAhq95TLz/gyEg3m2EXRNH7epa1R5l1u43+ASte5jveA==;EndpointSuffix=core.windows.net';
 const containerName = 'imageblobtest';
+
 
 async function uploadImageToBlob(url, blobName) {
   const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
@@ -23,32 +23,18 @@ async function uploadImageToBlob(url, blobName) {
 }
 
 
-async function retreiveSteamDescription(appID) {
-  const response = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appID}`);
-  if (!response.ok) {
-    throw new Error('Error occured fetching songs!', appID);
-  }
-  const data = await response.json();
-  try {
-    return data[appID]['data']['header_image'];
-  } catch {
-    return 'No Description Available';
-  }
-}
-
-
 async function seedGameImages() {
-  const csvFile = fs.readFileSync(path.join(__dirname, `../dataset/dataset_limited.csv`), 'utf-8');
-
+  const csvFile = fs.readFileSync(path.join(__dirname, `../dataset/game_data_all.csv`), 'utf-8');
   const rows = csvFile.split('\n');
+  const batchSize = 100;
+  const timeout = 30000;
 
   for (let i = 1; i < 60000; i++) {
-    setTimeout(() => {}, 1000);
     const row = rows[i].split(',');
 
     //fetch description from steam api
-    const gameID = row[2].match(/\d+/g);
-    const descriptionData = await retreiveSteamDescription(gameID[0]);
+    //const gameID = row[2].match(/\d+/g);
+    //const descriptionData = await retreiveSteamDescription(gameID[0]);
 
     console.log(i);
 
@@ -62,21 +48,21 @@ async function seedGameImages() {
       primary_genre: row[9],
       publisher: row[11],
       developer: row[12],
-      description: descriptionData
+      //description: descriptionData
     };
-    //dataset.push(game);
 
     // build the url for the image
-    //console.log(game.steam_api);
     const gameAPI = game.steam_api.match(/\d+/)[0];
-    //console.log(gameAPI);
-
     const gameUrl = `https://cdn.akamai.steamstatic.com/steam/apps/${gameAPI}/header.jpg?t=1695767057`;
     uploadImageToBlob(gameUrl, gameAPI + '.png');
+
+    // Add a timeout after every batchSize iterations
+    if (i % batchSize === 0) {
+      console.log(`Reached ${i} iterations, waiting for ${timeout / 1000} seconds...`);
+      await new Promise(resolve => setTimeout(resolve, timeout));
+    }
   }
   console.log('done');
 }
 
 seedGameImages();
-
-
