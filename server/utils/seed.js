@@ -40,13 +40,13 @@ async function retreiveSteamDescription(appID){
       const game = {
         title: row[1],
         steam_api: row[2],
-        release_date: row[3],
+        release_date: row[3].replace('/', '-'),
         peak: row[4],
         positive_reviews: row[5],
         negative_reviews: row[6],
         primary_genre: row[9],
-        publisher: row[12],
-        developer: row[13],
+        publisher: row[11],
+        developer: row[12],
         description: descriptionData
       };
       dataset.push(game);
