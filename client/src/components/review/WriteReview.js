@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 
 //Returns a html form allowing the user to make a POST request to the 
 //backend server with a review for the current game
-function WriteReview() {
+function WriteReview({gameURL}) {
 
     //sets the values to be sent to the backend for saving from the form
     const [recommendation, setRecommendation] = useState(true);
@@ -23,12 +24,31 @@ function WriteReview() {
         setReviewText(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Handle form submission here
+
+        //check if a user is signed in -- if no, prompt them to sign in to use the feature
+        try{
+            const response = await fetch(`/account`);
+            if(response.ok){
+                const accountDetails = await response.json();
+                const accountID = accountDetails.user.id;
+                console.log(accountID);
+              }else {
+                alert('Please Sign in to use the review feature!')
+              }
+
+              await axios.post(`localapi/`); 
+            
+            } catch(error){
+              alert(error);
+        }
+
         console.log("Recommendation:", recommendation);
         console.log("Title:", reviewTitle);
         console.log("Review:", reviewText);
+
+
     };
 
     return (
@@ -61,7 +81,6 @@ function WriteReview() {
             </form>
         </div>
     );
-
 }
 
 export {
