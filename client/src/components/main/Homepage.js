@@ -9,18 +9,32 @@ import { useState } from 'react';
 
 
 
-import { games } from '../games';
+//import { games } from '../games';
 
 export default function Homepage() {
   //const [results, setResults] = useState([])
-  const [games1, setResults] = useState(games)
+  const [allGames, setResults] = useState([])
   
+  async function fetchGames() {
+    try {
+      const response = await fetch('/localapi/steamgames');
+      if (response.ok) {
+        const games = await response.json();
+        setResults(games)
+      } else {
+        console.log("Error")
+      }
+    } catch (error) {
+      console.log('There was an error', error);
+    }
+  }
 
+  fetchGames();
   
   return <div className="Home" >
     <NavBar />
     <Scroller />
-    <TopGameList results={games1}/>
-    <RandomGameList results={games1}/>
+    <TopGameList results={allGames}/>
+    <RandomGameList results={allGames}/>
   </div>
 }

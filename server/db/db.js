@@ -43,7 +43,7 @@ class DB {
   }
 
   async readAll() {
-    return await instance.collection.find().toArray();
+    return await Game.find({});
   }
 
   async readByDateOrNumber(field, value, operator) {
@@ -67,7 +67,7 @@ class DB {
   }
 
   async readBySteamAPIId(steamApiId) {
-    return await instance.collection.findOne({ steam_api: steamApiId });
+    return await Game.findOne({ steam_api: steamApiId });
   }
 
   async create(quote) {
@@ -117,6 +117,7 @@ const gameSchema = new mongoose.Schema({
   publisher: String,
   developer: String,
   description: String,
+  image_url: String
   //GameReviews: []
 });
 
