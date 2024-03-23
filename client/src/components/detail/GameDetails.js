@@ -69,7 +69,7 @@ export default function GameDetails() {
                 <br/>
                 <hr class="rounded"></hr>
                 <section id='game-review-section'>
-                    <WriteReview/>
+                    <WriteReview game={gameURL} />
                 </section>
             </div>
         </>

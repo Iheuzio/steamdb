@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-
 
 //Returns a html form allowing the user to make a POST request to the 
 //backend server with a review for the current game
-function WriteReview({gameURL}) {
+function WriteReview({game}) {
 
     //sets the values to be sent to the backend for saving from the form
     const [recommendation, setRecommendation] = useState(true);
@@ -27,18 +25,44 @@ function WriteReview({gameURL}) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        let accountID = '';
+        let accountIMG = '';
+
         //check if a user is signed in -- if no, prompt them to sign in to use the feature
         try{
-            const response = await fetch(`/account`);
+            let response = await fetch(`/account`);
             if(response.ok){
                 const accountDetails = await response.json();
-                const accountID = accountDetails.user.id;
-                console.log(accountID);
+                accountID = accountDetails.user.id;
+                accountIMG = accountDetails.user.photos[1];
+                console.log(accountIMG);
               }else {
                 alert('Please Sign in to use the review feature!')
+                return;
               }
 
-              await axios.post(`localapi/`); 
+            response = await fetch('/localapi/reviews/addReview', {
+                method: 'POST',
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    title: reviewTitle,
+                    content: reviewText,
+                    score: 0,
+                    reviewer: accountID,
+                    reviewer_img: accountIMG.value,
+                    recommend: recommendation,
+                    game: game
+                })
+              });
+          
+              if (!response.ok) {
+                alert('Error creating review');
+              }
+              else{
+                alert('Review Added!');
+              }
             
             } catch(error){
               alert(error);
