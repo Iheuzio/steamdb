@@ -6,11 +6,12 @@ async function retreiveSteamDescription(appID){
 
   const response = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appID}`);
   if(!response.ok){
-    throw new Error('Error occured fetching songs!', appID);
+    //throw new Error('Error occured fetching songs!', appID);
+    return 'No Description Available';
   }
   const data = await response.json();
   try{
-    return data[appID]['data']['header_image'];
+    return data[appID]['data']['short_description'];
   } catch{
     return 'No Description Available';
   }
@@ -27,8 +28,9 @@ async function retreiveSteamDescription(appID){
 
     const rows = csvFile.split('\n');
     const dataset = [];
+    const clusterURL = 'https://shlomytestcontainer.blob.core.windows.net/imageblobtest/';
     
-    for (let i = 1; i < 50; i++) {
+    for (let i = 1; i < 150; i++) {
       const row = rows[i].split(',');
 
       //fetch description from steam api
@@ -40,14 +42,15 @@ async function retreiveSteamDescription(appID){
       const game = {
         title: row[1],
         steam_api: row[2],
-        release_date: row[3],
+        release_date: row[3].replace('/', '-'),
         peak: row[4],
         positive_reviews: row[5],
         negative_reviews: row[6],
         primary_genre: row[9],
         publisher: row[12],
         developer: row[13],
-        description: descriptionData
+        description: descriptionData,
+        image_url: clusterURL + gameID[0] + '.png'
       };
       dataset.push(game);
     }
