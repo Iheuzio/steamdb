@@ -7,6 +7,7 @@ import NavBar from '../navigation/NavBar';
 import { GameHeader, GameScore, GameDetailedInfo } from './GameInfo';
 
 import { WriteReview } from '../review/WriteReview';
+import { TopReviews } from '../review/HelpfulReviews';
 
 export default function GameDetails() {
 
@@ -70,6 +71,7 @@ export default function GameDetails() {
                 <hr class="rounded"></hr>
                 <section id='game-review-section'>
                     <WriteReview game={gameURL} />
+                    <TopReviews gameID={gameURL} />
                 </section>
             </div>
         </>

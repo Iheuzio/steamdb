@@ -100,6 +100,10 @@ class DB {
     return await Review.create(review);
   }
 
+  async getAllReviewsOfGame(gameID){
+    return await Review.find({game : gameID});
+  }
+
 }
 
 /**

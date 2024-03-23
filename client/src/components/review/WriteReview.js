@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 //Returns a html form allowing the user to make a POST request to the 
 //backend server with a review for the current game

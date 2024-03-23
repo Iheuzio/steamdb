@@ -59,7 +59,23 @@ router.post('/reviews/addReview', async (req, res) => {
   } catch (error) {
     res.status(500).send(error('Error adding review'));
   }
-
 });
+
+
+router.get('/reviews/:gameID', async (req, res) => {
+  try {
+    const reviews = await db.getAllReviewsOfGame(`${req.params.gameID}`);
+    if (!reviews) {
+      res.status(404).json({error : 'No Reviews for this game'});
+    } else{
+      res.type('json');
+      res.json(reviews);
+    }
+    
+  } catch (error) {
+    res.status(500).json({error : 'Something went wrong, try again later'});
+  }
+});
+
 
 module.exports = router;
