@@ -43,7 +43,7 @@ function ReviewForm({game}) {
                 return;
               }
 
-            response = await fetch('/localapi/reviews/addReview', {
+            response = await fetch('/localapi/reviews', {
                 method: 'POST',
                 headers: {
                   "Content-Type": "application/json"
@@ -70,12 +70,6 @@ function ReviewForm({game}) {
             } catch(error){
               alert(error);
         }
-
-        console.log("Recommendation:", recommendation);
-        console.log("Title:", reviewTitle);
-        console.log("Review:", reviewText);
-
-
     };
 
     return (

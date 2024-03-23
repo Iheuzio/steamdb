@@ -50,12 +50,11 @@ router.get('/steamgames/:steam_api_id', async (req, res) => {
 });
 
 //Adds the given review to the server
-router.post('/reviews/addReview', async (req, res) => {
+router.post('/reviews', async (req, res) => {
 
   try {
-    db.createReview(req.body).then((data) => {
-      res.send(data);
-    });
+    const data = await db.createReview(req.body);
+    res.send(data);
   } catch (error) {
     res.status(500).send(error('Error adding review'));
   }

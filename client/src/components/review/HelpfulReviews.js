@@ -24,7 +24,7 @@ function TopReviews({gameID}) {
                 }
         }
         fetchGameReviews();
-    }, [gameID]);
+    }, []);
 
     if(topReviews.length === 0) {
         return(
@@ -33,8 +33,6 @@ function TopReviews({gameID}) {
             </section>
         )
     }
-
-    console.log(topReviews);
 
     const listReviews = topReviews.map((review, index) =>
         <Review review={review} index={index}/>
@@ -54,7 +52,6 @@ function TopReviews({gameID}) {
 //Returns the html for a single review
 function Review({review, index}){
 
-    console.log(review);
     return(
         <div class="review-box">
         <div class="review-header">
@@ -63,7 +60,7 @@ function Review({review, index}){
                 <h3 class="username">{review.reviewerName}</h3>
                 <div class="review-date">{review.title}</div>
             </div>
-            <div class="review-rating">{review.score}</div>
+            <p class="review-rating">{review.score}</p>
         </div>
         <div class="review-content">
             <p>{review.content}</p>
