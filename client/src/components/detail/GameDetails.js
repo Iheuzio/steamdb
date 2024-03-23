@@ -6,7 +6,7 @@ import './GameDetails.css'
 import NavBar from '../navigation/NavBar';
 import { GameHeader, GameScore, GameDetailedInfo } from './GameInfo';
 
-import { WriteReview } from '../review/WriteReview';
+import { ReviewForm } from '../review/ReviewForm';
 import { TopReviews } from '../review/HelpfulReviews';
 
 export default function GameDetails() {
@@ -70,7 +70,7 @@ export default function GameDetails() {
                 <br/>
                 <hr class="rounded"></hr>
                 <section id='game-review-section'>
-                    <WriteReview game={gameURL} />
+                    <ReviewForm game={gameURL} />
                     <TopReviews gameID={gameURL} />
                 </section>
             </div>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 //Returns a html form allowing the user to make a POST request to the 
 //backend server with a review for the current game
-function WriteReview({game}) {
+function ReviewForm({game}) {
 
     //sets the values to be sent to the backend for saving from the form
     const [recommendation, setRecommendation] = useState(true);
@@ -27,6 +27,7 @@ function WriteReview({game}) {
 
         let accountID = '';
         let accountIMG = '';
+        let accountName = '';
 
         //check if a user is signed in -- if no, prompt them to sign in to use the feature
         try{
@@ -34,6 +35,7 @@ function WriteReview({game}) {
             if(response.ok){
                 const accountDetails = await response.json();
                 accountID = accountDetails.user.id;
+                accountName = accountDetails.user.displayName;
                 accountIMG = accountDetails.user.photos[1];
                 console.log(accountIMG);
               }else {
@@ -50,7 +52,8 @@ function WriteReview({game}) {
                     title: reviewTitle,
                     content: reviewText,
                     score: 0,
-                    reviewer: accountID,
+                    reviewerID: accountID,
+                    reviewerName: accountName,
                     reviewer_img: accountIMG.value,
                     recommend: recommendation,
                     game: game
@@ -108,5 +111,5 @@ function WriteReview({game}) {
 }
 
 export {
-    WriteReview
+    ReviewForm
 }

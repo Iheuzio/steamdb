@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import './Review.css'
+
 //Fetches and displays the most helpful reviews for a given 
 //game based on score
 function TopReviews({gameID}) {
@@ -54,7 +56,19 @@ function Review({review, index}){
 
     console.log(review);
     return(
-        <p>hehehee</p>
+        <div class="review-box">
+        <div class="review-header">
+            <img class='review-pfp' src={review.reviewer_img} alt='Review PFP' />
+            <div class="user-info">
+                <h3 class="username">{review.reviewerName}</h3>
+                <div class="review-date">{review.title}</div>
+            </div>
+            <div class="review-rating">{review.score}</div>
+        </div>
+        <div class="review-content">
+            <p>{review.content}</p>
+        </div>
+        </div>
     )
 
 }

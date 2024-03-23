@@ -84,6 +84,13 @@ class DB {
     return result.deletedCount;
   }
 
+  // delete all records in db
+  async deleteManyReviews(filter) {
+    // delete all records for the collection matching the filter
+    const result = await Review.deleteMany(filter);
+    return result.deletedCount;
+  }
+
   async createManyGameData(data) {
     return await Game.insertMany(data);
   }
@@ -164,7 +171,8 @@ const reviewSchema = new mongoose.Schema({
   content: String,
   score: Number,
   //review based on logged in users steam id
-  reviewer: String,
+  reviewerID: String,
+  reviewerName: String,
   reviewer_img: String, 
   recommend: Boolean,
   //based on the games steam_api
