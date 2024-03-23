@@ -49,17 +49,18 @@ class DB {
   async readByDateOrNumber(field, value, operator) {
     // TODO: don't convert to int after mongoose schema is implemented
     const query = { $expr: { [`$${operator}`]: [{ $toInt: `$${field}` }, Number(value)] } };
-
-    return await instance.collection.find(query).toArray();
+    return await Game.find(query).toArray();
   }
 
   async readBySteamAPIId(steamApiId) {
     return await Game.findOne({ steam_api: steamApiId });
   }
 
+  // vague function
   async create(quote) {
     return await instance.collection.insertOne(quote);
   }
+
   async getUserBySteamId(steamId) {
     return await Profile.findOne({ id: steamId });
   }
@@ -76,7 +77,7 @@ class DB {
   }
 
   async readAllUsers() {
-    return await this.collection.find().toArray();
+    return await Profile.find().toArray();
   }
 
   async createUser(profile) {
