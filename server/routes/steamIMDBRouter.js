@@ -8,22 +8,25 @@ router.get('/steamgames', async (req, res) => {
   try {
     const genre = req.query.genre;
     const operator = req.query.operator;
-    let value = req.query.value;
+    let query = req.query.query;
     const field = req.query.field;
+    const textQuery = req.query.textQuery;
 
     let steamGames = [];
-  
-    if (!operator || !value || !field) {
+
+    if (textQuery) {
+      steamGames = await db.readByQuery(field, query);
+    } else if (!operator || !query || !field) {
       steamGames = await db.readAll();
     } else {
       if (field === 'release_date') {
-        value = new Date(value);
+        query = new Date(query);
       }
 
-      steamGames = await db.readByDateOrNumber(field, value, operator);
+      steamGames = await db.readByDateOrNumber(field, query, operator);
     }
 
-    if (genre) {
+    if (genre && genre !== 'All') {
       steamGames = steamGames.filter(game => {
         return game.primary_genre === genre;
       });

@@ -51,6 +51,11 @@ class DB {
     return await Game.find(query);
   }
 
+  async readByQuery(field, value) {
+    const query = { [field] : { $regex: value } };
+    return await Game.find(query);
+  }
+
   async readBySteamAPIId(steamApiId) {
     return await Game.findOne({ steam_api: steamApiId });
   }
