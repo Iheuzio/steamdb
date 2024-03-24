@@ -48,8 +48,9 @@ class DB {
 
   async readByDateOrNumber(field, value, operator) {
     // TODO: don't convert to int after mongoose schema is implemented
-    const query = { $expr: { [`$${operator}`]: [{ $toInt: `$${field}` }, Number(value)] } };
-    return await Game.find(query).toArray();
+    //[`$${operator}`]
+    const query = { [field] : { [`$${operator}`] : value } };
+    return await Game.find(query);
   }
 
   async readBySteamAPIId(steamApiId) {
