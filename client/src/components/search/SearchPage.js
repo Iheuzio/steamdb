@@ -49,7 +49,7 @@ export default function SearchPage() {
                 {sidebarOpen ? '<' : '>'}
             </button>
             <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-                <GenreFilters updateFilters={updateFilters} />
+                <GenreFilters filters={filters} updateFilters={updateFilters} />
             </div>
             <Search results={results}
                 setResults={setResults}
