@@ -6,6 +6,9 @@ import './GameDetails.css'
 import NavBar from '../navigation/NavBar';
 import { GameHeader, GameScore, GameDetailedInfo } from './GameInfo';
 
+import { ReviewForm } from '../review/ReviewForm';
+import { TopReviews } from '../review/HelpfulReviews';
+
 export default function GameDetails() {
 
     const location = useLocation();
@@ -50,21 +53,27 @@ export default function GameDetails() {
     return (
         <>
             <NavBar />
-            <div id='game-details'>
-                <section id='left-details'>
-                    <GameHeader id='game-header' gameURL={gameURL} title={game.title} shortDesc={game.description} />
-                </section>
-                <section id='right-details'>
-                    <GameDetailedInfo id='game-detailed-info' publisher={game.publisher}
-                    genre={game.primary_genre}
-                    releaseDate={game.release_date} />
-                    <GameScore peak={game.peak}
-                    positiveReviews={game.positive_reviews}
-                    negativeReviews={game.negative_reviews} />
+            <div id='detail-content'>
+                <div id='game-details'>
+                    <section id='left-details'>
+                        <GameHeader id='game-header' gameURL={gameURL} title={game.title} shortDesc={game.description} />
+                    </section>
+                    <section id='right-details'>
+                        <GameDetailedInfo id='game-detailed-info' publisher={game.publisher}
+                        genre={game.primary_genre}
+                        releaseDate={game.release_date} />
+                        <GameScore peak={game.peak}
+                        positiveReviews={game.positive_reviews}
+                        negativeReviews={game.negative_reviews} />
+                    </section>
+                </div>
+                <br/>
+                <hr class="rounded"></hr>
+                <section id='game-review-section'>
+                    <ReviewForm game={gameURL} />
+                    <TopReviews gameID={gameURL} />
                 </section>
             </div>
-            <br/>
-            <h1 id='under-cons'> REVIEW SECTION UNDER CONSTRUCTION </h1>
         </>
     );
 };

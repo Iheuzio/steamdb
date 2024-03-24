@@ -84,6 +84,13 @@ class DB {
     return result.deletedCount;
   }
 
+  // delete all records in db
+  async deleteManyReviews(filter) {
+    // delete all records for the collection matching the filter
+    const result = await Review.deleteMany(filter);
+    return result.deletedCount;
+  }
+
   async createManyGameData(data) {
     return await Game.insertMany(data);
   }
@@ -98,6 +105,15 @@ class DB {
 
   async createReview(review) {
     return await Review.create(review);
+  }
+
+  async getAllReviewsOfGame(gameID){
+    return await Review.find({game : gameID});
+  }
+
+  //adds an upvote to the current review
+  async addUpVote(vote){
+    return await Review.create(vote);
   }
 
 }
@@ -159,11 +175,29 @@ const reviewSchema = new mongoose.Schema({
   title: String,
   content: String,
   score: Number,
-  reviewer: String
+  //review based on logged in users steam id
+  reviewerID: String,
+  reviewerName: String,
+  reviewer_img: String, 
+  recommend: Boolean,
+  //based on the games steam_api
+  game: String
 });
 
-
 const Review = mongoose.model('Review', reviewSchema);
+
+/**
+ * Schema for Votes
+
+
+basically, keeps track of which users have already upvoted reviews
+const voteSchema = new mongoose.Schema({
+  reviewID: String,
+  reviewerID: String
+});
+
+const Vote = mongoose.model('Vote', voteSchema);
+*/
 
 module.exports = DB;
 
