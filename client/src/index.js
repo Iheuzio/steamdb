@@ -12,6 +12,7 @@ import SearchPage from './components/search/SearchPage';
 import GameDetails from './components/detail/GameDetails.js';
 import reportWebVitals from './reportWebVitals';
 import ProfilePage from './components/profile/ProfilePage';
+import ListsPage from './components/lists/ListsPage';
 
 const router = createHashRouter([
   {
@@ -26,6 +27,9 @@ const router = createHashRouter([
   },
   {
     path: '/details', element: <GameDetails />
+  },
+  {
+    path: '/lists', element: <ListsPage />
   }
 ]);
 
