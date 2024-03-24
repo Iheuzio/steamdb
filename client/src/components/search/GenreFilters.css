@@ -1,4 +1,4 @@
-.GenreFilters {
+/* .GenreFilters {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -13,4 +13,42 @@
     padding: 1rem;
     width: 8rem;
     text-align: center;
+} */
+
+.GenreFilters {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.GenreFilter {
+    padding: 0.5rem 1rem;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* .GenreFilters {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+}
+
+.GenreFilter {
+    border: 1px solid #ccc;
+    border-radius: 5rem;
+    padding: 1rem;
+    width: 8rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+} */
+
+.GenreFilter:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transform: scale(1.05);
 }
