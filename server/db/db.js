@@ -188,15 +188,16 @@ const Review = mongoose.model('Review', reviewSchema);
 
 /**
  * Schema for Votes
- */
 
-//basically, keeps track of which users have already upvoted reviews
+
+basically, keeps track of which users have already upvoted reviews
 const voteSchema = new mongoose.Schema({
   reviewID: String,
   reviewerID: String
 });
 
 const Vote = mongoose.model('Vote', voteSchema);
+*/
 
 module.exports = DB;
 
