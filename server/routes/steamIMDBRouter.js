@@ -93,5 +93,23 @@ router.get('/reviews/:gameID', async (req, res) => {
   }
 });
 
+router.get('/user/:userID/games', async (req, res) => {
+  try {
+    const userGameList = await db.getUserList(req.params.userID);
+    res.json(userGameList);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Create a new user game list
+router.post('/user/:userID/updateList', async (req, res) => {
+  try {
+    const newUserList = await db.createUserList(req.params.userID, req.body.games);
+    res.status(201).json(newUserList);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 module.exports = router;

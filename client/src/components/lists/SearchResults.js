@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 export default function SearchResults({ results, handleAddGame, addedGames }) {
     return (
-        <table className="SearchResults">
+        <table className="SearchResultsList">
             <thead>
                 <tr>
                     <th>Title</th>

@@ -8,59 +8,61 @@ import GenreFilters from './GenreFilters';
 import NavBar from '../navigation/NavBar';
 import Toolbar from '../navigation/ToolBar';
 import UserGameList from './UserGameList';
-
-async function fetchAccount() {
-    const response = await fetch('/account');
-    if (response.status === 401) {
-        window.location.href = '/auth/steam';
-    } else {
-        return response.json();
-    }
-}
+import { fetchUserGameList  } from './apiFunctions';
 
 export default function ListsPage() {
     const [user, setUser] = useState(null);
+    const [userID, setUserID] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    
-    
-    fetchAccount();
-  
+
     useEffect(() => {
-        async function fetchData() {
-            await fetch('/account')
-                .then(response => {
-                    if (response.status === 401) {
-                        window.location.href = '/auth/steam';
-                    } else {
-                        return response.json();
-                    }
-                })
-                .then(data => {
-                    if (data) {
-                        setUser(data.user.displayName);
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-            defaultFilters();
-            loadUserGames();
-        }
-        fetchData();
+        fetch('/account')
+            .then(response => {
+                if (response.status === 401) {
+                    window.location.href = '/auth/steam';
+                } else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                if (data) {
+                    setUser(data.user.displayName);
+                    setUserID(data.user.id);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        defaultFilters();
     }, []);
 
-    const [results, setResults] = useState(games);
-    const filterFields = ['game', 'publisher', 'developer'];
-    const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All' });
-    const [userGames, setUserGames] = useState([]);
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    useEffect(() => {
+        if (userID) {
+            loadUserGames();
+        }
+    }, [userID]);
 
+const [results, setResults] = useState(games);
+const filterFields = ['game', 'publisher', 'developer'];
+const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All' });
+const [userGames, setUserGames] = useState([]);
 
-    const loadUserGames = () => {
+const loadUserGames = async () => {
+    try {
+        const userGameList = await fetchUserGameList(userID);
+        console.log(userGameList.games); // This console.log should now work
+        if (userGameList.games) {
+            setUserGames(userGameList.games);
+        } else {
+            setUserGames([]);
+        }
+    } catch (e) {
+        console.log(e)
         const storedGames = JSON.parse(localStorage.getItem('userGames'));
         if (storedGames) {
             setUserGames(storedGames);
         }
-        setIsLoading(false);
-    };
+    }
+    setIsLoading(false);
+};
 
     useEffect(() => {
         localStorage.setItem('userGames', JSON.stringify(userGames));
@@ -109,6 +111,7 @@ export default function ListsPage() {
         setUserGames([...userGames, game]);
     };
 
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
@@ -119,7 +122,7 @@ export default function ListsPage() {
             <NavBar />
             <Toolbar />
             <div className="ListPage">
-                {isLoading || user === null ? (
+                {isLoading ? (
                     <p>Loading...</p>
                 ) : (
                     <>
@@ -141,7 +144,7 @@ export default function ListsPage() {
                     handleAddGame={handleAddGame}
                     addedGames={userGames}
                 />
-                <UserGameList userGames={userGames} setUserGames={setUserGames} username={user} />
+                <UserGameList userGames={userGames} setUserGames={setUserGames} username={user} userID={userID} />
             </div>
                     </>
                 )}
