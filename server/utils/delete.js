@@ -7,7 +7,7 @@ const DB = require('../db/db');
     await db.connect('dataset', 'dataset');
     
     // Pass an empty filter to delete all documents in the collection
-    const num = await db.deleteMany({});
+    const num = await db.deleteManyGames({});
     console.log(`Deleted ${num} documents`);
   } catch (e) {
     console.error('Could not delete', e);

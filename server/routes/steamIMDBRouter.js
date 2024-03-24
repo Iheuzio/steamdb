@@ -6,13 +6,33 @@ const db = new DB();
   
 router.get('/steamgames', async (req, res) => {
   try {
-    const steamGames = await db.readAll();
+    const operator = req.query.operator;
+    let value = req.query.value;
+    const field = req.query.field;
+
     res.type('json');
-    res.json(steamGames);
+
+    if (!operator || !value || !field) {
+      const steamGames = await db.readAll();
+      res.json(steamGames);
+      
+    } else {
+      if (field === 'release_date') {
+        value = new Date(value);
+      }
+
+      const steamGames = await db.readByDateOrNumber(field, value, operator);
+      res.json(steamGames);
+    }
+
+    
   } catch (error) {
+    console.log(error);
     res.status(500).json({error : 'Something went wrong, try again later'});
   }
 });
+
+//Gets a steam game from the DB based on its unique steam_api_id
   
 router.get('/steamgames/:steam_api_id', async (req, res) => {
   try {
@@ -28,5 +48,33 @@ router.get('/steamgames/:steam_api_id', async (req, res) => {
     res.status(500).json({error : 'Something went wrong, try again later'});
   }
 });
+
+//Adds the given review to the server
+router.post('/reviews', async (req, res) => {
+
+  try {
+    const data = await db.createReview(req.body);
+    res.send(data);
+  } catch (error) {
+    res.status(500).send(error('Error adding review'));
+  }
+});
+
+
+router.get('/reviews/:gameID', async (req, res) => {
+  try {
+    const reviews = await db.getAllReviewsOfGame(`${req.params.gameID}`);
+    if (!reviews) {
+      res.status(404).json({error : 'No Reviews for this game'});
+    } else{
+      res.type('json');
+      res.json(reviews);
+    }
+    
+  } catch (error) {
+    res.status(500).json({error : 'Something went wrong, try again later'});
+  }
+});
+
 
 module.exports = router;
