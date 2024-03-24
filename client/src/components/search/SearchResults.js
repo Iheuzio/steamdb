@@ -8,7 +8,6 @@ export default function SearchResults({ results }) {
 }
 
 function SearchResult({ result }) {
-    console.log(result);
     return <div className="SearchResult">
         <div className="LinkContainer">
             <Link to={`/details?game=${result.steam_api}`} className="Link"> {result.title} </Link>

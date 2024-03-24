@@ -13,19 +13,7 @@ export default function SearchPage() {
     const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All'});
 
     useEffect(() => {
-        async function fetchGames() {
-            const response = await fetch('/localapi/steamgames');
-            const json = await response.json();
-
-            if (!response.ok) {
-                alert(json.error);
-                setResults([]);
-            } else {
-                setResults(json);
-            }
-        }
-
-        fetchGames();
+        fetchGames(setResults);
     }, []);
 
     const updateFilters = (e) => {
@@ -78,8 +66,19 @@ export default function SearchPage() {
                 setFilters={setFilters}
                 filterFields={filterFields}
                 updateFilters={updateFilters} />    
-            {/* <GenreFilters updateFilters={updateFilters} /> */}
         </div>
     </>
     )
+}
+
+async function fetchGames(setResults, filters = '') {
+    const response = await fetch(`/localapi/steamgames?${filters}`);
+    const json = await response.json();
+
+    if (!response.ok) {
+        alert(json.error);
+        setResults([]);
+    } else {
+        setResults(json);
+    }
 }

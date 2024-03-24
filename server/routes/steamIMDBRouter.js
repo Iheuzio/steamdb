@@ -6,29 +6,35 @@ const db = new DB();
   
 router.get('/steamgames', async (req, res) => {
   try {
+    const genre = req.query.genre;
     const operator = req.query.operator;
     let value = req.query.value;
     const field = req.query.field;
 
-    res.type('json');
-
+    let steamGames = [];
+  
     if (!operator || !value || !field) {
-      const steamGames = await db.readAll();
-      res.json(steamGames);
-      
+      steamGames = await db.readAll();
     } else {
       if (field === 'release_date') {
         value = new Date(value);
       }
 
-      const steamGames = await db.readByDateOrNumber(field, value, operator);
-      
-      if (!steamGames.length) {
-        res.status(404).json({error: 'No games were found'});
-      } else {
-        res.json(steamGames);
-      }
-      
+      steamGames = await db.readByDateOrNumber(field, value, operator);
+    }
+
+    if (genre) {
+      steamGames = steamGames.filter(game => {
+        return game.primary_genre === genre;
+      });
+    }
+
+    res.type('json');
+
+    if (!steamGames.length) {
+      res.status(404).json({error: 'No games were found'});
+    } else {
+      res.json(steamGames);
     }
   } catch (error) {
     res.status(500).json({error : 'Something went wrong, try again later'});
