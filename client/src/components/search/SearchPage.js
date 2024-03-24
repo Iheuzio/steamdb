@@ -8,8 +8,8 @@ import NavBar from '../navigation/NavBar';
 
 export default function SearchPage() {
     const [results, setResults] = useState([])
-    const filterFields = ['title', 'publisher', 'developer'];
-    const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All', textQuery: true});
+    const filterFields = ['title', 'publisher', 'developer', 'peak', 'release_date'];
+    const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All', operator: 'lt'});
 
     useEffect(() => {
         fetchGames(setResults);

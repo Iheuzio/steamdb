@@ -8,9 +8,11 @@ export default function SearchResults({ results }) {
 }
 
 function SearchResult({ result }) {
+    const apiLink = result.steam_api.match(/\d+/g);
+
     return <div className="SearchResult">
         <div className="LinkContainer">
-            <Link to={`/details?game=${result.steam_api}`} className="Link"> {result.title} </Link>
+            <Link to={`/details?game=${apiLink}`} className="Link"> {result.title} </Link>
         </div>
         <div className="img-container">
             <img src={result.image_url} alt="game icon"/>
@@ -20,6 +22,7 @@ function SearchResult({ result }) {
                     <div><b>All time peak:</b> { result.peak } </div>
                     <div><b>Genre:</b> { result.primary_genre } </div>
                     <div><b>Publisher:</b> { result.publisher } </div>
+                    <div><b>Release date:</b> { result.release_date.split("T")[0] } </div>
                 </div>
             </div>
         </div>

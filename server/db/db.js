@@ -52,7 +52,7 @@ class DB {
   }
 
   async readByQuery(field, value) {
-    const query = { [field] : { $regex: value } };
+    const query = { [field] : { $regex: value, $options: 'i' } };
     return await Game.find(query);
   }
 

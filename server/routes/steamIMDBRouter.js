@@ -10,12 +10,16 @@ router.get('/steamgames', async (req, res) => {
     const operator = req.query.operator;
     let query = req.query.query;
     const field = req.query.field;
-    const textQuery = req.query.textQuery;
+    let textQuery = false;
 
     let steamGames = [];
+    
+    if (/^[a-zA-Z ]+$/.test(String(query))) {
+      textQuery = true;
+    }
 
-    if (textQuery) {
-      steamGames = await db.readByQuery(field, query);
+    if (textQuery && query) {
+      steamGames = await db.readByQuery(field, String(query));
     } else if (!operator || !query || !field) {
       steamGames = await db.readAll();
     } else {
@@ -40,6 +44,7 @@ router.get('/steamgames', async (req, res) => {
       res.json(steamGames);
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({error : 'Something went wrong, try again later'});
   }
 });
