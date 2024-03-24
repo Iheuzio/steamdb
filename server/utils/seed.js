@@ -29,14 +29,12 @@ async function retreiveSteamDescription(appID){
     const dataset = [];
     const clusterURL = 'https://shlomytestcontainer.blob.core.windows.net/imageblobtest/';
     
-    for (let i = 1; i < 100; i++) {
+    for (let i = 1; i < 150; i++) {
       const row = rows[i].split(',');
 
       //fetch description from steam api
       const gameID = row[2].match(/\d+/g);
       const descriptionData = await retreiveSteamDescription(gameID[0]);
-
-      console.log(i);
 
       const game = {
         title: row[1],
@@ -45,7 +43,7 @@ async function retreiveSteamDescription(appID){
         peak: row[4],
         positive_reviews: row[5],
         negative_reviews: row[6],
-        primary_genre: row[9],
+        primary_genre: row[9].split(' ')[0],
         publisher: row[12],
         developer: row[13],
         description: descriptionData,

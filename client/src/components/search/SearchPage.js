@@ -1,16 +1,32 @@
 import './SearchPage.css';
 
 import { games } from '../games';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Search from './Search';
 import GenreFilters from './GenreFilters';
 import NavBar from '../navigation/NavBar';
 
 export default function SearchPage() {
-    const [results, setResults] = useState(games)
+    const [results, setResults] = useState([])
     const filterFields = ['game', 'publisher', 'developer'];
     const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All'});
+
+    useEffect(() => {
+        async function fetchGames() {
+            const response = await fetch('/localapi/steamgames');
+            const json = await response.json();
+
+            if (!response.ok) {
+                alert(json.error);
+                setResults([]);
+            } else {
+                setResults(json);
+            }
+        }
+
+        fetchGames();
+    }, []);
 
     const updateFilters = (e) => {
         const name = e.target.name;
