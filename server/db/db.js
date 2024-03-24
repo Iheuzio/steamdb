@@ -116,6 +116,30 @@ class DB {
     return await Review.create(vote);
   }
 
+  async getUserList(userID) {
+    return await userList.findOne({ userID });
+  }
+  
+  async createUserList(userID, games) {
+    const userListData = await userList.findOne({ userID });
+  
+    if (userListData) {
+      // Update the existing document
+      userListData.games = games;
+      return await userListData.save();
+    } else {
+      // Create a new document
+      const newUserList = new userList({ userID, games });
+      return await newUserList.save();
+    }
+  }
+  
+  async addUserGameList(userID, newGame) {
+    const userListData = await userList.findOne({ userID });
+    userListData.games.push(newGame);
+    return await userListData.save();
+  }
+
 }
 
 /**
@@ -185,6 +209,28 @@ const reviewSchema = new mongoose.Schema({
 });
 
 const Review = mongoose.model('Review', reviewSchema);
+
+const userGameSchema = new mongoose.Schema({
+  game: String,
+  link: String,
+  release_date: Date,
+  peak: Number,
+  positive_reviews: Number,
+  negative_reviews: Number,
+  primary_genre: String,
+  publisher: String,
+  developer: String,
+  description: String,
+  image_url: String,
+  id: Number
+});
+
+const userListSchema = new mongoose.Schema({
+  userID: String,
+  games: [userGameSchema]
+});
+
+const userList = mongoose.model('UserList', userListSchema);
 
 /**
  * Schema for Votes
