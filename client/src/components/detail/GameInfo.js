@@ -51,27 +51,34 @@ function GameScore({peak, positiveReviews, negativeReviews}){
     {reviewClass = 'pos-reviews'};
 
     return (
-        <>
+        <div id='info-reviews'>
             <h2>Reviews</h2>
-            <p>Positive: {positiveReviews}</p>
-            <p>Negative: {negativeReviews}</p>
-            <p className={reviewClass}> {averageScore}% </p>
-            <p>Peak Players: {peak}</p>
-        </>
+            <div id='game-stats'>
+                <div>
+                    <p className={reviewClass}> {averageScore}% </p>
+                    <p className='greenText'>{positiveReviews}</p>
+                    <p className='redText'>{negativeReviews}</p>
+                    
+                </div>
+                <div>
+                    <p>Peak Players: {peak}</p>
+                </div>
+            </div>
+        </div>
     )
 
 }
 
 function GameDetailedInfo({publisher, genre, releaseDate}){
     return (
-        <>
+        <div id='more-info'>
             <h2>More Info</h2>
             <ul id='game-details-ul'>
                 <li>Release Date: {releaseDate}</li>
                 <li>Publisher: {publisher}</li>
                 <li>Genre: {genre}</li>
             </ul>
-        </>
+        </div>
     )
 }
 
