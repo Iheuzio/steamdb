@@ -121,8 +121,17 @@ class DB {
   }
   
   async createUserList(userID, games) {
-    const newUserList = new userList({ userID, games });
-    return await newUserList.save();
+    const userListData = await userList.findOne({ userID });
+  
+    if (userListData) {
+      // Update the existing document
+      userListData.games = games;
+      return await userListData.save();
+    } else {
+      // Create a new document
+      const newUserList = new userList({ userID, games });
+      return await newUserList.save();
+    }
   }
   
   async addUserGameList(userID, newGame) {
@@ -202,8 +211,8 @@ const reviewSchema = new mongoose.Schema({
 const Review = mongoose.model('Review', reviewSchema);
 
 const userGameSchema = new mongoose.Schema({
-  title: String,
-  steam_api: String,
+  game: String,
+  link: String,
   release_date: Date,
   peak: Number,
   positive_reviews: Number,
@@ -212,7 +221,8 @@ const userGameSchema = new mongoose.Schema({
   publisher: String,
   developer: String,
   description: String,
-  image_url: String
+  image_url: String,
+  id: Number
 });
 
 const userListSchema = new mongoose.Schema({

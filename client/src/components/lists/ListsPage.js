@@ -8,9 +8,11 @@ import GenreFilters from './GenreFilters';
 import NavBar from '../navigation/NavBar';
 import Toolbar from '../navigation/ToolBar';
 import UserGameList from './UserGameList';
+import { fetchUserGameList  } from './apiFunctions';
 
 export default function ListsPage() {
     const [user, setUser] = useState(null);
+    const [userID, setUserID] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -25,25 +27,42 @@ export default function ListsPage() {
             .then(data => {
                 if (data) {
                     setUser(data.user.displayName);
+                    setUserID(data.user.id);
                 }
             })
             .catch(error => console.error('Error:', error));
         defaultFilters();
-        loadUserGames();
     }, []);
 
-    const [results, setResults] = useState(games);
-    const filterFields = ['game', 'publisher', 'developer'];
-    const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All' });
-    const [userGames, setUserGames] = useState([]);
+    useEffect(() => {
+        if (userID) {
+            loadUserGames();
+        }
+    }, [userID]);
 
-    const loadUserGames = () => {
+const [results, setResults] = useState(games);
+const filterFields = ['game', 'publisher', 'developer'];
+const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All' });
+const [userGames, setUserGames] = useState([]);
+
+const loadUserGames = async () => {
+    try {
+        const userGameList = await fetchUserGameList(userID);
+        console.log(userGameList.games); // This console.log should now work
+        if (userGameList.games) {
+            setUserGames(userGameList.games);
+        } else {
+            setUserGames([]);
+        }
+    } catch (e) {
+        console.log(e)
         const storedGames = JSON.parse(localStorage.getItem('userGames'));
         if (storedGames) {
             setUserGames(storedGames);
         }
-        setIsLoading(false);
-    };
+    }
+    setIsLoading(false);
+};
 
     useEffect(() => {
         localStorage.setItem('userGames', JSON.stringify(userGames));
@@ -125,7 +144,7 @@ export default function ListsPage() {
                     handleAddGame={handleAddGame}
                     addedGames={userGames}
                 />
-                <UserGameList userGames={userGames} setUserGames={setUserGames} username={user} />
+                <UserGameList userGames={userGames} setUserGames={setUserGames} username={user} userID={userID} />
             </div>
                     </>
                 )}

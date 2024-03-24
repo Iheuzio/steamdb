@@ -1,11 +1,26 @@
 import './UserGameList.css';
+import { saveUserGameList } from './apiFunctions';
 
-const UserGameList = ({ userGames, setUserGames, username }) => {
+const UserGameList = ({ userGames, setUserGames, username, userID }) => {
 
   const deleteGame = (index) => {
     const newGames = [...userGames];
     newGames.splice(index, 1);
     setUserGames(newGames);
+  };
+
+  const saveList = async () => {
+    try {
+      console.log(`${userID} : ${userGames}`)
+      const savedList = await saveUserGameList(userID, userGames);
+      if (savedList) {
+        console.log('List saved successfully');
+      } else {
+        console.error('Error saving list');
+      }
+    } catch (e) {
+      console.error('Error saving list:', e);
+    }
   };
 
   return (
@@ -25,7 +40,7 @@ const UserGameList = ({ userGames, setUserGames, username }) => {
       )}
       <div className='ListButtons'>
         <button onClick={() => setUserGames([])}>Clear List</button>
-        <button onClick={() => console.log('saved list')}>Save List</button>
+        <button onClick={() => saveList()}>Save List</button>
       </div>
     </div>
   );
