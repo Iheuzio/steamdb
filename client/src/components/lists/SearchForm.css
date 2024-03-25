@@ -5,12 +5,21 @@
 
 .SearchForm {
     display: flex;
-    width: 250px;
-    height: 35px;
+    width: 500px;
+    height: 45px;
 }
 
 .SearchForm select, .SearchForm input {
     height: 100%;
     padding: 0;
 }
+
+.SearchForm select {
+    flex: 1;
+}
+
+.SearchForm input {
+    flex: 2;
+}
+
 

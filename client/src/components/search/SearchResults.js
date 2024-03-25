@@ -1,5 +1,6 @@
 import './SearchResults.css';
 import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
 export default function SearchResults({ results }) {
     return <div className="SearchResults">
@@ -8,32 +9,37 @@ export default function SearchResults({ results }) {
 }
 
 function SearchResult({ result }) {
-    // dummy images
-    const sources = [
-        "https://cdn.akamai.steamstatic.com/steam/apps/2231450/header.jpg?t=1674756021",
-        "https://cdn.akamai.steamstatic.com/steam/apps/1817230/header.jpg?t=1706198637",
-        "https://cdn.akamai.steamstatic.com/steam/apps/1201270/header.jpg?t=1704699294",
-        "https://cdn.akamai.steamstatic.com/steam/apps/2171690/header.jpg?t=1700764126",
-        "https://cdn.akamai.steamstatic.com/steam/apps/1765350/header.jpg?t=1679056781"
-    ];
+    const [imageError, setImageError] = useState(false);
 
-    const api = result.link.match(/\d+/g);
+    const handleImageError = () => {
+        setImageError(true);
+    };
 
-    return <div className="SearchResult">
-        <div className="LinkContainer">
-            <Link to={`/details?game=${api}`} className="Link"> {result.game} </Link>
-        </div>
-        <div className="img-container">
-            <img src={sources[Math.floor(Math.random()*sources.length)]} alt="game icon"/>
-            <div className="overlay">
-                <div className="details">
-                    <div><b>Game:</b> { result.game } </div>
-                    <div><b>Rating:</b> { result.rating } </div>
-                    <div><b>All time peak:</b> { result.all_time_peak } </div>
-                    <div><b>Genres:</b> { result.store_genres } </div>
-                    <div><b>Publisher:</b> { result.publisher } </div>
+    const defaultImageUrl = 'https://shlomytestcontainer.blob.core.windows.net/imageblobtest/default.png';
+
+    const apiLink = result.steam_api.match(/\d+/g);
+
+    return (
+        <div className="SearchResult">
+            <div className="LinkContainer">
+                <Link to={`/details?game=${apiLink}`} className="Link"> {result.title} </Link>
+            </div>
+            <div className="img-container">
+                {imageError ? (
+                    <img src={defaultImageUrl} alt="game icon" />
+                ) : (   
+                    <img src={result.image_url} alt="game icon" onError={handleImageError} />
+                )}
+                <div className="overlay">
+                    <div className="details">
+                        <div><b>Positive reviews:</b> {result.positive_reviews} </div>
+                        <div><b>All time peak:</b> {result.peak} </div>
+                        <div><b>Genre:</b> {result.primary_genre} </div>
+                        <div><b>Publisher:</b> {result.publisher} </div>
+                        <div><b>Release date:</b> {result.release_date.split("T")[0]} </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    );
 }

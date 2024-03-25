@@ -32,7 +32,7 @@ a {
 }
 
 a:hover {
-    color: rgb(170, 133, 12)
+    color: #007bff;
 }
 
 .img-container {
@@ -46,7 +46,7 @@ a:hover {
     height: auto;
     opacity: 0;
     transition: .5s ease;
-    background-color: rgb(54, 54, 54);
+    background-color: #007bff;
 }
 
 .img-container img {

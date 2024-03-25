@@ -47,32 +47,24 @@ class DB {
   }
 
   async readByDateOrNumber(field, value, operator) {
-    const query = {};
-    
-    switch (operator) {
-    case 'gt':
-      query[field] = { $gt: value };
-      break;
-    case 'lt':
-      query[field] = { $lt: value };
-      break;
-    case 'eq':
-      query[field] = { $eq: value };
-      break;
-    default:
-      break;
-    }
+    const query = { [field] : { [`$${operator}`] : value } };
+    return await Game.find(query);
+  }
 
-    return await instance.collection.find(query).toArray();
+  async readByQuery(field, value) {
+    const query = { [field] : { $regex: value, $options: 'i' } };
+    return await Game.find(query);
   }
 
   async readBySteamAPIId(steamApiId) {
     return await Game.findOne({ steam_api: steamApiId });
   }
 
+  // vague function
   async create(quote) {
     return await instance.collection.insertOne(quote);
   }
+
   async getUserBySteamId(steamId) {
     return await Profile.findOne({ id: steamId });
   }
@@ -96,7 +88,7 @@ class DB {
   }
 
   async readAllUsers() {
-    return await this.collection.find().toArray();
+    return await Profile.find().toArray();
   }
 
   async createUser(profile) {
