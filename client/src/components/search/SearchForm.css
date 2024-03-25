@@ -1,0 +1,16 @@
+.SearchForm button img {
+    width: 20px;
+    height: 20px;
+}
+
+.SearchForm {
+    display: flex;
+    width: 500px;
+    height: 45px;
+}
+
+.SearchForm select, .SearchForm input {
+    height: 100%;
+    padding: 0;
+}
+

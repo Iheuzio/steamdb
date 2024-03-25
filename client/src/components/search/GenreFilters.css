@@ -1,0 +1,19 @@
+.GenreFilters {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.GenreFilter {
+    padding: 0.5rem 1rem;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.GenreFilter:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transform: scale(1.05);
+}
