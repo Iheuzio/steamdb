@@ -103,9 +103,11 @@ class DB {
     return await Review.find({game : gameID});
   }
 
-  //adds an upvote to the current review
-  async addUpVote(vote){
-    return await Review.create(vote);
+  async addUpvote(objID, reviewerID){
+    const review = await Review.findOne({_id : mongoose.Types.ObjectID(objID)});
+
+    review.reviews.push(reviewerID);
+    return await review.save();
   }
 
   async getUserList(userID) {
@@ -150,7 +152,6 @@ const gameSchema = new mongoose.Schema({
   developer: String,
   description: String,
   image_url: String
-  //GameReviews: []
 });
 
 const Game = mongoose.model('Game', gameSchema);
@@ -197,7 +198,8 @@ const reviewSchema = new mongoose.Schema({
   reviewer_img: String, 
   recommend: Boolean,
   //based on the games steam_api
-  game: String
+  game: String,
+  reviewers: [String] 
 });
 
 const Review = mongoose.model('Review', reviewSchema);
@@ -223,19 +225,6 @@ const userListSchema = new mongoose.Schema({
 });
 
 const userList = mongoose.model('UserList', userListSchema);
-
-/**
- * Schema for Votes
-
-
-basically, keeps track of which users have already upvoted reviews
-const voteSchema = new mongoose.Schema({
-  reviewID: String,
-  reviewerID: String
-});
-
-const Vote = mongoose.model('Vote', voteSchema);
-*/
 
 module.exports = DB;
 
