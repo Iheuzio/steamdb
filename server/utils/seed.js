@@ -34,7 +34,6 @@ async function retreiveSteamDescription(appID){
 
       //fetch description from steam api
       const gameID = row[2].match(/\d+/g);
-      const descriptionData = await retreiveSteamDescription(gameID[0]);
 
       const game = {
         title: row[1],
@@ -46,7 +45,7 @@ async function retreiveSteamDescription(appID){
         primary_genre: row[9].split(' ')[0],
         publisher: row[12],
         developer: row[13],
-        description: descriptionData,
+        description: '',
         image_url: clusterURL + gameID[0] + '.png'
       };
       dataset.push(game);

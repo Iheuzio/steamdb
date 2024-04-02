@@ -2,17 +2,15 @@ import './UserGameList.css';
 import { saveUserGameList } from './apiFunctions';
 
 const UserGameList = ({ userGames, setUserGames, username, userID }) => {
-
-  const deleteGame = (index) => {
-    const newGames = [...userGames];
-    newGames.splice(index, 1);
-    setUserGames(newGames);
+  const deleteGame = (gameId) => {
+    const newGames = userGames.games.filter((game) => game._id !== gameId);
+    setUserGames({ ...userGames, games: newGames });
   };
 
   const saveList = async () => {
     try {
-      console.log(`${userID} : ${userGames}`)
-      const savedList = await saveUserGameList(userID, userGames);
+      console.log(`${userID} : ${JSON.stringify(userGames.games)}`);
+      const savedList = await saveUserGameList(userID, userGames.games);
       if (savedList) {
         console.log('List saved successfully');
       } else {
@@ -26,20 +24,20 @@ const UserGameList = ({ userGames, setUserGames, username, userID }) => {
   return (
     <div className="UserGameList">
       <h2>{username}'s Game List</h2>
-      {userGames.length === 0 ? (
+      {userGames.games.length === 0 ? (
         <p>Your list is empty.</p>
       ) : (
         <ul>
-          {userGames.map((game, index) => (
-            <li key={index}>
-              {game.game}
-              <button onClick={() => deleteGame(index)}>Delete</button>
+          {userGames.games.map((game) => (
+            <li key={game._id}>
+              {game.title}
+              <button onClick={() => deleteGame(game._id)}>Delete</button>
             </li>
           ))}
         </ul>
       )}
       <div className='ListButtons'>
-        <button onClick={() => setUserGames([])}>Clear List</button>
+        <button onClick={() => setUserGames({ ...userGames, games: [] })}>Clear List</button>
         <button onClick={() => saveList()}>Save List</button>
       </div>
     </div>

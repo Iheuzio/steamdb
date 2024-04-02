@@ -1,7 +1,6 @@
 // SearchPage.js
 import './SearchPage.css';
 import './ListPage.css';
-import { games } from '../games';
 import { useEffect, useState } from 'react';
 import Search from './Search';
 import GenreFilters from './GenreFilters';
@@ -14,6 +13,9 @@ export default function ListsPage() {
     const [user, setUser] = useState(null);
     const [userID, setUserID] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [games, setGames] = useState([]);
+    const [results, setResults] = useState(games);
+
 
     useEffect(() => {
         fetch('/account')
@@ -30,6 +32,18 @@ export default function ListsPage() {
                     setUserID(data.user.id);
                 }
             })
+            .then(() => {
+                // fetch from /localapi/steamgames for the games to populate the list of games
+                fetch('/localapi/steamgames')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data) {
+                            setGames(data);
+                            setResults(data);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            })
             .catch(error => console.error('Error:', error));
         defaultFilters();
     }, []);
@@ -40,7 +54,6 @@ export default function ListsPage() {
         }
     }, [userID]);
 
-const [results, setResults] = useState(games);
 const filterFields = ['game', 'publisher', 'developer'];
 const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All' });
 const [userGames, setUserGames] = useState([]);
@@ -48,9 +61,10 @@ const [userGames, setUserGames] = useState([]);
 const loadUserGames = async () => {
     try {
         const userGameList = await fetchUserGameList(userID);
-        console.log(userGameList.games); // This console.log should now work
-        if (userGameList.games) {
-            setUserGames(userGameList.games);
+        console.log(userGameList); // This console.log should now work
+        if (userGameList) {
+            console.log(userGameList);
+            setUserGames(userGameList);
         } else {
             setUserGames([]);
         }
@@ -99,7 +113,7 @@ const loadUserGames = async () => {
             } else {
                 return (
                     game[filters.field].toLowerCase().includes(filters.query) &&
-                    game.primary_genre.includes(filters.genre)
+                    game.primary_genre.includes(filters.primary_genre)
                 );
             }
         }).slice(0, 5);
@@ -108,8 +122,12 @@ const loadUserGames = async () => {
     };
 
     const handleAddGame = (game) => {
-        setUserGames([...userGames, game]);
+        setUserGames(prevUserGames => ({
+            ...prevUserGames,
+            games: [...prevUserGames.games, game]
+        }));
     };
+    
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
