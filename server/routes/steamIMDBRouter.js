@@ -6,11 +6,18 @@ const db = new DB();
   
 router.get('/steamgames', async (req, res) => {
   try {
-    const genre = req.query.genre;
+    const genre =    req.query.genre;
     const operator = req.query.operator;
-    let query = req.query.query;
-    const field = req.query.field;
+    let query =      req.query.query;
+    let field =      req.query.field;
+    let page =       req.query.page;
     let textQuery = false;
+
+    const recordsToSend = 20;
+
+    if (!page || isNaN(page) || page < 0) {
+      page = 1;
+    }
 
     let steamGames = [];
     
@@ -19,9 +26,11 @@ router.get('/steamgames', async (req, res) => {
     }
 
     if (textQuery && query) {
-      steamGames = await db.readByQuery(field, String(query));
+      steamGames = await db.readByQuery(field, String(query), recordsToSend, page);
     } else if (!operator || !query || !field) {
-      steamGames = await db.readAll();
+      field = 'title';
+      query = 'ab';
+      steamGames = await db.readByQuery(field, String(query), recordsToSend, page);
     } else {
       if (field === 'release_date') {
         query = new Date(query);

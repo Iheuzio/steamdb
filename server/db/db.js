@@ -46,14 +46,14 @@ class DB {
     return await Game.find({});
   }
 
-  async readByDateOrNumber(field, value, operator) {
+  async readByDateOrNumber(field, value, operator, quantity, page) {
     const query = { [field] : { [`$${operator}`] : value } };
-    return await Game.find(query);
+    return await Game.find(query).limit(quantity).skip(page * quantity);
   }
 
-  async readByQuery(field, value) {
+  async readByQuery(field, value, quantity, page) {
     const query = { [field] : { $regex: value, $options: 'i' } };
-    return await Game.find(query);
+    return await Game.find(query).limit(quantity).skip(page * quantity);
   }
 
   async readBySteamAPIId(steamApiId) {
