@@ -77,6 +77,23 @@ router.post('/reviews', async (req, res) => {
   }
 });
 
+//check if user has already reviewd a game -- return 1 for true, 2 for false
+router.get('/reviews/checkVote/:reviewerID', async (req, res) => {
+  
+});
+
+//add user to upvote array of a review
+router.post('/reviews/addVote', async (req, res) => {
+
+  try {
+    const data = await db.addUpvote(req.body.objID, req.body.reviewer);
+    res.send(data);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
 
 router.get('/reviews/:gameID', async (req, res) => {
   try {

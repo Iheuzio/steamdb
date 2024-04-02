@@ -54,6 +54,36 @@ function Review({review, index}){
 
     const handleUpvote = async () =>{
         console.log(review);
+        let accountID = '';
+        let _idString = review._id.toString()
+        //check if a user is signed in -- if no, prompt them to sign in to use the feature
+        try{
+            let response = await fetch(`/account`);
+            if(response.ok){
+                const accountDetails = await response.json();
+                accountID = accountDetails.user.id;
+              }else {
+                alert('Please Sign in to use the review feature!')
+                return;
+            }
+
+            response = await fetch('/localapi/reviews/addVote', {
+                method: 'POST',
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    objID: _idString,
+                    reviewer: accountID
+                })
+              });
+          
+              if (!response.ok) {
+                alert('Error adding Upvote');
+              }
+            } catch (error) {
+                alert(error);
+            }
     }
 
     return(

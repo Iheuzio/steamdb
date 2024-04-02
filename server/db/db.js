@@ -1,6 +1,7 @@
 require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
 const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
 
 let instance;
 
@@ -104,9 +105,10 @@ class DB {
   }
 
   async addUpvote(objID, reviewerID){
-    const review = await Review.findOne({_id : mongoose.Types.ObjectID(objID)});
+    objID = new ObjectId(objID);
+    const review = await Review.findOne({_id : objID});
 
-    review.reviews.push(reviewerID);
+    review.reviewers.push(reviewerID);
     return await review.save();
   }
 
