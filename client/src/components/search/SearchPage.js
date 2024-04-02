@@ -24,12 +24,11 @@ export default function SearchPage() {
         }
 
         const updatedFilters = {...filters, [name]: value};
-        
-        handleOptionChange(e, updatedFilters);
+    
         setFilters(updatedFilters);    
     }
 
-    const handleOptionChange = async (e, filters) => {
+    const handleSubmit = async (e, filters) => {
         e.preventDefault();
         
         await fetchGames(setResults, formatFilters(filters));
@@ -56,7 +55,8 @@ export default function SearchPage() {
                 filters={filters}
                 setFilters={setFilters}
                 filterFields={filterFields}
-                updateFilters={updateFilters} />    
+                updateFilters={updateFilters}
+                handleSubmit={handleSubmit} />    
         </div>
     </>
     )

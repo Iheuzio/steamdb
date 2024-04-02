@@ -11,7 +11,13 @@ router.get('/steamgames', async (req, res) => {
     let query =      req.query.query;
     let field =      req.query.field;
     let page =       req.query.page;
-    let textQuery = false;
+    let textQuery =  false;
+
+    const textFields = ['title', 'publisher', 'developer'];
+
+    if (field) {
+      textQuery = textFields.includes(field);
+    }
 
     const recordsToSend = 20;
 
@@ -20,10 +26,6 @@ router.get('/steamgames', async (req, res) => {
     }
 
     let steamGames = [];
-    
-    if (/^[a-zA-Z ]+$/.test(String(query))) {
-      textQuery = true;
-    }
 
     if (textQuery && query) {
       steamGames = await db.readByQuery(field, String(query), recordsToSend, page);
