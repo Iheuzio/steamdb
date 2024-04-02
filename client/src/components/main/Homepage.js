@@ -8,7 +8,7 @@ import NavBar from '../navigation/NavBar';
 import { useState } from 'react'; 
 
 export default function Homepage() {
-  const [allGames, setResults] = useState([])
+  const [setAllGames, setResults] = useState([])
   
   async function fetchGames() {
     try {
@@ -28,8 +28,8 @@ export default function Homepage() {
   
   return <div className="Home" >
     <NavBar />
-    <Scroller results={allGames} />
-    <TopGameList results={allGames}/>
-    <RandomGameList results={allGames}/>
+    <Scroller results={setAllGames} />
+    <TopGameList results={setAllGames}/>
+    <RandomGameList results={setAllGames}/>
   </div>
 }

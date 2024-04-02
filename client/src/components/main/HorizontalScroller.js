@@ -20,7 +20,7 @@ function SearchResult({ result }) {
 
     return <div>
         <Link to={`/details?game=${api}`}>
-        <img src={ result.image_url}  class="slide bg-pink-500" alt='image' width="50px" />
+        <img src={ result.image_url}  className="slide bg-pink-500" alt='image' width="50px" />
         </Link>
     </div>
 }
