@@ -53,7 +53,6 @@ function TopReviews({gameID}) {
 function Review({review, index}){
 
     const handleUpvote = async () =>{
-        console.log(review);
         let accountID = '';
         let _idString = review._id.toString()
         //check if a user is signed in -- if no, prompt them to sign in to use the feature
@@ -66,7 +65,11 @@ function Review({review, index}){
                 alert('Please Sign in to use the review feature!')
                 return;
             }
-
+            let voted = checkVote(_idString, accountID);
+            if(voted){
+                //run the removeVote method here
+                //RETURN PLEASE
+            }
             response = await fetch('/localapi/reviews/addVote', {
                 method: 'POST',
                 headers: {
@@ -109,6 +112,12 @@ function Review({review, index}){
         </div>
     )
 
+}
+
+//Runs the fetch to the DB to see if user has already upvoted a post
+//returns true or false
+async function checkVote(objID, reviewerID){
+    
 }
 
 export {

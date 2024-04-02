@@ -80,6 +80,10 @@ router.post('/reviews', async (req, res) => {
 //check if user has already reviewd a game -- return 1 for true, 2 for false
 router.get('/reviews/checkVote/:reviewerID', async (req, res) => {
   
+  try{
+    const response = await db.checkVote(req.body.objID, req.body.reviewer)
+  }
+
 });
 
 //add user to upvote array of a review

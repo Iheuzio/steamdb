@@ -104,12 +104,21 @@ class DB {
     return await Review.find({game : gameID});
   }
 
+  //adds upvote by the reviewer to a specified review
   async addUpvote(objID, reviewerID){
     objID = new ObjectId(objID);
     const review = await Review.findOne({_id : objID});
 
     review.reviewers.push(reviewerID);
     return await review.save();
+  }
+
+  async checkVote(objID, reviewerID){
+    objID = new ObjectId(objID);
+    const review = await Review.findOne({_id : objID});
+
+    const something = review.reviewers.includes(reviewerID);
+    return something;
   }
 
   async getUserList(userID) {
