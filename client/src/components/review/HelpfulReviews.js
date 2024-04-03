@@ -65,19 +65,16 @@ function Review({review, index}){
                 alert('Please Sign in to use the review feature!')
                 return;
             }
-            let voted = checkVote(_idString, accountID);
-            if(voted){
-                //run the removeVote method here
-                //RETURN PLEASE
-            }
-            response = await fetch('/localapi/reviews/addVote', {
+            let voted = await checkVote(_idString, accountID);
+            response = await fetch('/localapi/reviews/changeVote', {
                 method: 'POST',
                 headers: {
                   "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     objID: _idString,
-                    reviewer: accountID
+                    reviewer: accountID,
+                    vote: voted
                 })
               });
           
@@ -117,7 +114,18 @@ function Review({review, index}){
 //Runs the fetch to the DB to see if user has already upvoted a post
 //returns true or false
 async function checkVote(objID, reviewerID){
-    
+    try{
+        const response = await fetch(`localapi/reviews/checkVote/${reviewerID}?objID=${objID}`);
+        if(response.ok){
+            const data = await response.json();
+            console.log("in checkvote helper", data);
+            return data;
+          }else {
+            alert('Error: Problem checking if user has upvoted this post');
+          }
+        } catch(error){
+          alert(error);
+        }
 }
 
 export {

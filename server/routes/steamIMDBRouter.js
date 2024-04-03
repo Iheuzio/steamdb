@@ -44,7 +44,6 @@ router.get('/steamgames', async (req, res) => {
       res.json(steamGames);
     }
   } catch (error) {
-    console.log(error);
     res.status(500).json({error : 'Something went wrong, try again later'});
   }
 });
@@ -81,17 +80,26 @@ router.post('/reviews', async (req, res) => {
 router.get('/reviews/checkVote/:reviewerID', async (req, res) => {
   
   try{
-    const response = await db.checkVote(req.body.objID, req.body.reviewer)
+    const data = await db.checkVote(req.query.objID, req.params.reviewerID);
+    res.send(data);
+  } catch (error) {
+    res.status(500).send(error);
   }
 
 });
 
 //add user to upvote array of a review
-router.post('/reviews/addVote', async (req, res) => {
+router.post('/reviews/changeVote', async (req, res) => {
 
   try {
-    const data = await db.addUpvote(req.body.objID, req.body.reviewer);
-    res.send(data);
+    //if vote is true, we increase score
+    if(!req.body.vote){
+      const data = await db.addUpvote(req.body.objID, req.body.reviewer);
+      res.send(data);
+    }else{
+      const data = await db.removeUpvote(req.body.objID, req.body.reviewer);
+      res.send(data);
+    }
   } catch (error) {
     res.status(500).send(error);
   }
