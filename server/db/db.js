@@ -46,6 +46,10 @@ class DB {
     return await Game.find({});
   }
 
+  async readTopFifty() {
+    return await Game.find().sort({ peak: -1 }).limit(50);
+  }
+
   async readByDateOrNumber(field, value, operator) {
     const query = { [field] : { [`$${operator}`] : value } };
     return await Game.find(query);

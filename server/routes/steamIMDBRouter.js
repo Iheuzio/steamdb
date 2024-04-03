@@ -60,11 +60,29 @@ router.get('/steamgames/:steam_api_id', async (req, res) => {
       res.type('json');
       res.json(game);
     }
-    
   } catch (error) {
     res.status(500).json({error : 'Something went wrong, try again later'});
   }
 });
+ 
+
+// Gets the top fifty games from the DB using peak concurrent players
+router.get('/topFifty', async (req, res) => {
+  try {
+    const data = await db.readTopFifty();
+    if (!data) {
+      res.status(404).json({error : 'Error retrieving top fifty games'});
+    } else{
+      res.type('json');
+      res.json(data);
+    }
+  } catch (error) {
+    res.status(500).json({error : 'Something went wrong, try again later'});
+  }
+});
+
+
+
 
 //Adds the given review to the server
 router.post('/reviews', async (req, res) => {

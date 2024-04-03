@@ -9,6 +9,7 @@ import { useState } from 'react';
 
 export default function Homepage() {
   const [setAllGames, setResults] = useState([])
+  const [setTopFifty, setTopGames] = useState([])
   
   async function fetchGames() {
     try {
@@ -24,12 +25,30 @@ export default function Homepage() {
     }
   }
 
+  async function fetchTopFifty() {
+    try {
+      const response = await fetch('/localapi/topFifty');
+      if (response.ok) {
+        const topGames = await response.json();
+        setTopGames(topGames)
+      } else {
+        console.log("Error")
+      }
+    } catch (error) {
+      console.log('There was an error', error);
+    }
+  }
+
+
+
+
   fetchGames();
+  fetchTopFifty();
   
   return <div className="Home" >
     <NavBar />
-    <Scroller results={setAllGames} />
-    <TopGameList results={setAllGames}/>
+    <Scroller results={setTopFifty} />
+    <TopGameList results={setTopFifty}/>
     <RandomGameList results={setAllGames}/>
   </div>
 }
