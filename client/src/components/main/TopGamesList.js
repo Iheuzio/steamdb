@@ -24,8 +24,7 @@ function SearchResult({ result }) {
     const api = result.steam_api.match(/\d+/g);
 
     return <tr>
-        {/* for mockup, delete after */}
-        <td> <img src={ result.image_url} alt='image' width="50px" /></td>
+        <td> <img src={ result.image_url} alt='image' width="100%" height="100%" /></td>
         <td>
             <Link to={`/details?game=${api}`}> {result.title} </Link>
         </td>
