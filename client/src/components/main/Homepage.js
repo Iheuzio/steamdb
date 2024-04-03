@@ -5,15 +5,17 @@ import RandomGameList from './RandomGamesList';
 
 import NavBar from '../navigation/NavBar';
 
-import { useState } from 'react'; 
+import { useState, useEffect } from 'react'; 
 
 export default function Homepage() {
   const [setAllGames, setResults] = useState([])
   const [setTopFifty, setTopGames] = useState([])
   
-  async function fetchGames() {
+  useEffect(() => { 
+
+  async function fetchRandomFifty() {
     try {
-      const response = await fetch('/localapi/steamgames');
+      const response = await fetch('/localapi/randomFifty');
       if (response.ok) {
         const games = await response.json();
         setResults(games)
@@ -24,26 +26,30 @@ export default function Homepage() {
       console.log('There was an error', error);
     }
   }
+  fetchRandomFifty()
+}, [])
 
-  async function fetchTopFifty() {
-    try {
-      const response = await fetch('/localapi/topFifty');
-      if (response.ok) {
-        const topGames = await response.json();
-        setTopGames(topGames)
-      } else {
-        console.log("Error")
+  useEffect(() => {
+    async function fetchTopFifty() {
+      try {
+        const response = await fetch('/localapi/topFifty');
+        if (response.ok) {
+          const topGames = await response.json();
+          setTopGames(topGames)
+        } else {
+          console.log("Error")
+        }
+      } catch (error) {
+        console.log('There was an error', error);
       }
-    } catch (error) {
-      console.log('There was an error', error);
     }
-  }
+    fetchTopFifty();
+  }, [])
 
 
 
-
-  fetchGames();
-  fetchTopFifty();
+  // fetchRandomFifty();
+  // fetchTopFifty();
   
   return <div className="Home" >
     <NavBar />

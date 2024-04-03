@@ -81,7 +81,20 @@ router.get('/topFifty', async (req, res) => {
   }
 });
 
-
+// Gets fifty random games from the DB using random sort
+router.get('/randomFifty', async (req, res) => {
+  try {
+    const data = await db.readRandomFifty();
+    if (!data) {
+      res.status(404).json({error : 'Error retrieving fifty random games'});
+    } else{
+      res.type('json');
+      res.json(data);
+    }
+  } catch (error) {
+    res.status(500).json({error : 'Something went wrong, try again later'});
+  }
+});
 
 
 //Adds the given review to the server

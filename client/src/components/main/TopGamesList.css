@@ -13,12 +13,6 @@ body {
     scrollbar-width: none;
   }
 
- 
-
-
-
-
-  
   /* Styles for screens that are 600px or less */
   @media screen and (max-width: 600px) {
     body {
