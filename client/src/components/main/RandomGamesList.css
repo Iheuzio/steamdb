@@ -8,14 +8,64 @@
     scrollbar-width: none;
 }
 
-/* .tab_item {
-    position: relative;
+/* Default styles for all devices */
+body {
+    background-color: lightgray;
+  }
+  
+  .RandomGameList {
+    height: 100%;
+    width: 80%;
+    margin: 50px auto;
+    border: 2px solid #000;
     display: block;
-    background: #202d39;
-    background: rgba( 0, 0, 0, 0.2 );
-    height: 69px;
-    margin-bottom: 5px;
-    padding-left: 198px;
-    text-size-adjust: none;
-    -webkit-text-size-adjust: none;
-} */
+    overflow: auto;
+    scrollbar-width: none;
+  }
+
+ 
+
+
+
+
+  
+  /* Styles for screens that are 600px or less */
+  @media screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  
+    .RandomGameList {
+      width: 90%;
+      margin: 20px auto;
+    }
+  }
+  
+  /* Styles for screens that are between 600px and 1200px */
+  @media screen and (min-width: 601px) and (max-width: 1200px) {
+    body {
+      background-color: lightgreen;
+    }
+  
+    .RandomGameList {
+      width: 80%;
+      margin: 30px auto;
+    }
+  }
+  
+  /* Styles for screens that are more than 1200px */
+  @media screen and (min-width: 1201px) {
+    body {
+      background-color: lightpink;
+    }
+  
+    .RandomGameList {
+        height: 1000px;
+        width: 43%;
+        margin: 50px;
+        border: 2px solid #000;
+        display: inline flow-root list-item;
+        overflow: scroll;
+        scrollbar-width: none;
+    }
+  }

@@ -1,9 +1,61 @@
-.TopGameList {
-    height: 1000px;
-    width: 43%;
-    margin: 50px;
+/* Default styles for all devices */
+body {
+    background-color: lightgray;
+  }
+  
+  .TopGameList {
+    height: 100%;
+    width: 80%;
+    margin: 50px auto;
     border: 2px solid #000;
-    display: inline flow-root list-item;
-    overflow: scroll;
+    display: block;
+    overflow: auto;
     scrollbar-width: none;
-}
+  }
+
+ 
+
+
+
+
+  
+  /* Styles for screens that are 600px or less */
+  @media screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  
+    .TopGameList {
+      width: 90%;
+      margin: 20px auto;
+    }
+  }
+  
+  /* Styles for screens that are between 600px and 1200px */
+  @media screen and (min-width: 601px) and (max-width: 1200px) {
+    body {
+      background-color: lightgreen;
+    }
+  
+    .TopGameList {
+      width: 80%;
+      margin: 30px auto;
+    }
+  }
+  
+  /* Styles for screens that are more than 1200px */
+  @media screen and (min-width: 1201px) {
+    body {
+      background-color: lightpink;
+    }
+  
+    .TopGameList {
+        height: 1000px;
+        width: 43%;
+        margin: 50px;
+        border: 2px solid #000;
+        display: inline flow-root list-item;
+        overflow: scroll;
+        scrollbar-width: none;
+    }
+  }
