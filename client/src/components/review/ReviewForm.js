@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './ReviewForm.css';
 
 //Returns a html form allowing the user to make a POST request to the 
 //backend server with a review for the current game

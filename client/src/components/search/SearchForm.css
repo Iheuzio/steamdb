@@ -14,3 +14,22 @@
     padding: 0;
 }
 
+/* Styles for screens that are 600px or less */
+@media screen and (max-width: 600px) {
+    .SearchForm {
+        display: block;
+        width: 500px;
+        height: 45px;
+    }
+
+    .SearchForm input {
+        width: 50%;
+        display: block;
+        background-color: red;
+    }
+
+    .SearchForm select{
+        width: 50%;
+        display: block;
+    }
+}
