@@ -1,9 +1,9 @@
-/* Default styles for all devices */
+/* Default styles for all devices
 body {
     background-color: lightgray;
   }
   
-  .RandomGameList {
+  .TopGameList {
     height: 100%;
     width: 80%;
     margin: 50px auto;
@@ -13,7 +13,6 @@ body {
     scrollbar-width: none;
   }
 
- 
   td img {
     width: 100%;
     height: 100%;
@@ -22,9 +21,9 @@ body {
 
   td{
     padding: 0px;
-  }
+  } */
 
-  
+
   /* Styles for screens that are 600px or less */
   @media screen and (max-width: 600px) {
     body {
@@ -32,9 +31,17 @@ body {
     }
   
     .RandomGameList {
+      height: 25%;
       width: 90%;
       margin: 20px auto;
     }
+
+    td img {
+      width: 50%;
+      height: 100px;
+      padding: 0%;
+    }
+
   }
   
   /* Styles for screens that are between 600px and 1200px */
