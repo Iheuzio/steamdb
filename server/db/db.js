@@ -116,12 +116,12 @@ class DB {
   //adds upvote by the reviewer to a specified review
   async removeUpvote(objID, reviewerID){
     objID = new ObjectId(objID);
+    const review = await Review.findOne({_id : objID});
 
-    Review.updateOne({ _id: objID }, {
-      $pullAll: {
-        reviewers: reviewerID,
-      },
-    });
+    const reviewerIndex = review.reviewers.indexOf(reviewerID);
+    review.reviewers.splice(reviewerIndex, 1);
+
+    return await review.save();
   }
 
   async checkVote(objID, reviewerID){
