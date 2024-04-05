@@ -121,6 +121,9 @@ function Review({review, index, accountID}){
                 <h3 class="username">{review.reviewerName}</h3>
                 <div class="review-date">{review.title}</div>
             </div>
+            <div class='recommended-info'>
+                {review.recommend ? <p className='recommended'> Recommended! </p> : <p className='not-recommended'> Not Recommended</p>}
+            </div>
             <div class="vote-section">
                 <span class="vote" onClick={handleUpvote}>
                     <svg width="50" height="30">

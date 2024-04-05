@@ -59,3 +59,15 @@
   .vote.on {
     color: #f90
   }
+
+  .recommended-info{
+    padding: 5%;
+  }
+
+  .recommended {
+    color: darkolivegreen;
+  }
+
+  .not-recommended {
+    color: rgb(136, 35, 17);
+  }

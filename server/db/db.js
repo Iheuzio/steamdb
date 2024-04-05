@@ -101,7 +101,7 @@ class DB {
   }
 
   async getAllReviewsOfGame(gameID){
-    return await Review.find({game : gameID});
+    return await Review.find({game : gameID}).sort({score: -1});
   }
 
   //adds upvote by the reviewer to a specified review
