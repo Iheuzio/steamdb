@@ -1,4 +1,4 @@
-/* Default styles for all devices */
+/* Default styles for all devices
 body {
     background-color: lightgray;
   }
@@ -21,7 +21,7 @@ body {
 
   td{
     padding: 0px;
-  }
+  } */
 
 
   /* Styles for screens that are 600px or less */
@@ -31,9 +31,17 @@ body {
     }
   
     .TopGameList {
+      height: 25%;
       width: 90%;
       margin: 20px auto;
     }
+
+    td img {
+      width: 50%;
+      height: 100px;
+      padding: 0%;
+    }
+
   }
   
   /* Styles for screens that are between 600px and 1200px */

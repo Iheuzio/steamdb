@@ -28,10 +28,8 @@ function SearchResult({ result }) {
         <td>
             <Link to={`/details?game=${api}`}> {result.title} </Link>
         </td>
-        <td>{ result.release_date }</td>
+        <td>{ result.release_date.split('T')[0] }</td>
         <td>{ result.peak }</td>
         <td>{ result.positive_reviews }</td>
-        {/* <td>{ result.primary_genre }</td>
-        <td>{ result.developer }</td> */}
     </tr>
 }
