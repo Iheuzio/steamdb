@@ -109,6 +109,9 @@ class DB {
     objID = new ObjectId(objID);
     const review = await Review.findOne({_id : objID});
 
+    //add 1 to the score value
+    review.score = review.score + 1;
+
     review.reviewers.push(reviewerID);
     return await review.save();
   }
@@ -117,6 +120,9 @@ class DB {
   async removeUpvote(objID, reviewerID){
     objID = new ObjectId(objID);
     const review = await Review.findOne({_id : objID});
+
+    //subtract 1 to the score value
+    review.score = review.score - 1;
 
     const reviewerIndex = review.reviewers.indexOf(reviewerID);
     review.reviewers.splice(reviewerIndex, 1);
