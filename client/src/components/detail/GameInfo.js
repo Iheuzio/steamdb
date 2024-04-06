@@ -70,6 +70,9 @@ function GameScore({peak, positiveReviews, negativeReviews}){
 }
 
 function GameDetailedInfo({publisher, genre, releaseDate}){
+
+    releaseDate = releaseDate.substring(0,10);
+
     return (
         <div id='more-info'>
             <h2>More Info</h2>

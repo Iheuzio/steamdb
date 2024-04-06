@@ -71,3 +71,7 @@
   .not-recommended {
     color: rgb(136, 35, 17);
   }
+
+  .game-review-section{
+    border: 1px solid #131313;
+  }
