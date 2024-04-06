@@ -15,11 +15,9 @@ export default function GameDetails() {
     const gameURL = new URLSearchParams(location.search).get('game');
 
     const[game, setGame] = useState({});
-    const[description, setDescription] = useState('');
+    const[engDescription, setEngDescription] = useState('');
     const [isBusy, setBusy] = useState(true);
     const [lang, setLang] =  useState(localStorage.getItem('i18nextLng'));
-
-    console.log(lang);
 
     const handleLang = (language) => {
         setLang(language);
@@ -32,7 +30,7 @@ export default function GameDetails() {
                 if(response.ok){
                     const gameDetails = await response.json();
                     setGame(gameDetails);
-                    setDescription(gameDetails.description);
+                    setEngDescription(gameDetails.description);
                     setBusy(false);
                   }else {
                     setGame({});
@@ -44,15 +42,6 @@ export default function GameDetails() {
         }
         fetchGameDetails();
     }, [gameURL]);
-
-    //this useEffect translates the short Description value in the game 
-    //to the current stored language value in currentLang
-    useEffect(() => {
-        function translateDescription(){
-            console.log(lang);
-        }
-        translateDescription();
-    }, [lang]);
 
     //Check if API is done fetching -- only render when its done
     if(isBusy) { return <NavBar />}
@@ -72,7 +61,7 @@ export default function GameDetails() {
             <div id='detail-content'>
                 <div id='game-details'>
                     <section id='left-details'>
-                        <GameHeader id='game-header' gameURL={gameURL} title={game.title} shortDesc={description} />
+                        <GameHeader id='game-header' gameURL={gameURL} title={game.title} shortDesc={engDescription} lang={lang} />
                     </section>
                     <section id='right-details'>
                         <GameDetailedInfo id='game-detailed-info' publisher={game.publisher}

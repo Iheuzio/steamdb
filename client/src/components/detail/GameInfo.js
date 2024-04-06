@@ -4,9 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 //Accepts a prop for the gameLink and fetches the header image from the steamapi
 //returns an image tag
-function GameHeader({gameURL, title, shortDesc}){
-
-    const {t} = useTranslation();
+function GameHeader({gameURL, title, shortDesc, lang}){
 
     const[headerURL, setHeaderURL] = useState('');
 
