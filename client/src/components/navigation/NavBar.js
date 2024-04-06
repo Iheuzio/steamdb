@@ -1,4 +1,5 @@
 import './NavBar.css';
+import './NavSelect.css'
 import { Link } from "react-router-dom";
 import logo from '../../static-images/steamdb.png'
 import { Trans, useTranslation } from 'react-i18next';
