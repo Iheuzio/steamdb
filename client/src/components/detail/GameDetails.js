@@ -61,7 +61,7 @@ export default function GameDetails() {
             <div id='detail-content'>
                 <div id='game-details'>
                     <section id='left-details'>
-                        <GameHeader id='game-header' gameURL={gameURL} title={game.title} shortDesc={engDescription} lang={lang} />
+                        <GameHeader id='game-header' gameURL={gameURL} title={game.title} shortDesc={game.description} />
                     </section>
                     <section id='right-details'>
                         <GameDetailedInfo id='game-detailed-info' publisher={game.publisher}
