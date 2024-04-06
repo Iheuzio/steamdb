@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   createHashRouter,
@@ -13,6 +13,9 @@ import GameDetails from './components/detail/GameDetails.js';
 import reportWebVitals from './reportWebVitals';
 import ProfilePage from './components/profile/ProfilePage';
 import ListsPage from './components/lists/ListsPage';
+
+//language support
+import './i18n.js'
 
 const router = createHashRouter([
   {
@@ -36,7 +39,9 @@ const router = createHashRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <RouterProvider router={router} />
+    </Suspense>
   </React.StrictMode>
 );
 
