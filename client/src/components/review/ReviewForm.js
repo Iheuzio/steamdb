@@ -1,5 +1,6 @@
 import { useState } from 'react';
-
+import { toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 
 
@@ -44,7 +45,9 @@ function ReviewForm({game}) {
                 accountIMG = accountDetails.user.photos[1];
                 console.log(accountIMG);
               }else {
-                alert(t("alerts.sign-in"));
+                toast.warn(t("alerts.sign-in"), {
+                    position: "top-center"
+                });
                 return;
               }
 
@@ -66,10 +69,16 @@ function ReviewForm({game}) {
               });
           
               if (!response.ok) {
-                alert(t("alerts.review-added"));
+                toast.error(t("alerts.review-error"), {
+                    position: "top-center"
+                });
+                return;
               }
               else{
-                alert(t("alerts.review-error"));
+                toast.success(t("alerts.review-added"), {
+                    position: "top-center"
+                });
+                return;
               }
             
             } catch(error){
@@ -105,6 +114,7 @@ function ReviewForm({game}) {
                     <input type="submit" value={t("add-review.submit")} />
                 </div>
             </form>
+            <ToastContainer />
         </div>
     );
 }

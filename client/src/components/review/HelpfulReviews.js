@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 
 import './Review.css'
@@ -87,7 +89,10 @@ function Review({review, index, accountID}){
         //check if a user is signed in -- if no, prompt them to sign in to use the feature
         try{
             if (accountID === ''){
-                alert(t("alerts.sign-in"));
+                console.log('here');
+                toast.warn(t("alerts.sign-in"), {
+                    position: "top-center"
+                });
                 return;
             }
             let voted = await checkVote(_idString, accountID);
@@ -141,6 +146,7 @@ function Review({review, index, accountID}){
         <div class="review-content">
             <p>{review.content}</p>
         </div>
+        <ToastContainer />
         </div>
     )
 
