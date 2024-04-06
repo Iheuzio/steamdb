@@ -8,9 +8,7 @@ import './Review.css'
 function TopReviews({gameID}) {
 
     const {t} = useTranslation();
-
-    console.log(t);
-
+    
     const [topReviews, setTopReviews] = useState([]);
     const [accountID, setAccountID] = useState('');
 

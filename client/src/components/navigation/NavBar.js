@@ -4,12 +4,17 @@ import logo from '../../static-images/steamdb.png'
 import { Trans, useTranslation } from 'react-i18next';
 
 
-export default function NavBar() {
+export default function NavBar({setLang=''}) {
 
   const {t, i18n} = useTranslation();
 
   const changeLanguage = (language) => {
-    i18n.changeLanguage(language)
+    //check if setLang was defined, if yes, setLanguage for details page translation
+    if(setLang !== ''){
+      setLang(language);
+    }
+    localStorage.setItem("currentLang", JSON.stringify(language))
+    i18n.changeLanguage(language);
   }
 
   return (
