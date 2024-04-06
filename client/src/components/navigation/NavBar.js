@@ -43,8 +43,12 @@ export default function NavBar({setLang=''}) {
                 </Link>
               </li>
             </div>
-            <button onClick={() => changeLanguage('en')}>EN</button>
-            <button onClick={() => changeLanguage('de')}>DE</button>
+            <select id='lang-select' onChange={(e) => changeLanguage(e.target.value)}>
+              <option value="en">English</option>
+              <option value="de">Deutsch</option>
+              <option value="fr">Français</option>
+              <option value="ar">عَرَبِيّ</option>
+            </select>
           </ul>
         </nav>
     </>

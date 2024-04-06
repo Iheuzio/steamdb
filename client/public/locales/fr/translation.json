@@ -1,0 +1,36 @@
+{
+    "navbar" : {
+        "search" : "Rechercher",
+        "lists" : "Listes",
+        "profile" : "Profil"
+    },
+    "detail" : {
+        "more-info" : "Plus d'informations :",
+        "release-date": "Date de sortie :",
+        "publisher" : "Éditeur :",
+        "genre": "Genre",
+        "reviews": "Avis",
+        "peak-players": "Joueurs simultanés maximum :"
+    },
+    "add-review" : {
+        "title" : "Dites-nous ce que vous avez pensé !",
+        "rec" : "Recommandez-vous ce jeu ?",
+        "title-form" : "Titre :",
+        "review" : "Critique :",
+        "submit" : "Soumettre",
+        "yes" : "Oui",
+        "no" : "Non"
+    },
+    "reviews" : {
+        "no-reviews" : "Aucun avis pour le moment !",
+        "top-rated" : "Meilleurs avis",
+        "recommend" : "Recommandé !",
+        "no-rec" : "Non recommandé"
+    },
+    "alerts" : {
+        "sign-in" : "Veuillez vous connecter pour utiliser la fonction d'évaluation !",
+        "review-added" : "Avis ajouté !",
+        "review-error" : "Erreur lors de la création de l'avis",
+        "upvote-error" : "Erreur lors de l'ajout du vote positif"
+    }
+}
