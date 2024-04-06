@@ -1,10 +1,51 @@
 import { useState, useEffect } from 'react';
-import noHeader from '../../static-images/no-header.png'
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 //Accepts a prop for the imageURL, title, and shortDescription and returns them formatted
 
-function GameHeader({imageURL, title, shortDesc, lang}){
+function GameHeader({imageURL, title, engDesc, lang}){
+
+    const [shortDesc, setShortDesc] = useState(engDesc);
+
+    //this useEffect translates the short Description value in the game 
+    //to the current stored language value in Lang using the swift-translate
+    //link: https://rapidapi.com/myl117/api/swift-translate
+    useEffect(() => {
+
+        //check if lang is en, if so, don't run the translation and
+        // just serve the engslish translation
+        if(lang === 'en') {
+            setShortDesc(engDesc);
+            return;
+        }
+
+        async function translateDescription(){
+            const options = {
+            method: 'POST',
+            url: 'https://swift-translate.p.rapidapi.com/translate',
+            headers: {
+                'content-type': 'application/json',
+                'X-RapidAPI-Key': 'd07db34971msh5890022cd98e8fep17f8e3jsnb9517efc6725',
+                'X-RapidAPI-Host': 'swift-translate.p.rapidapi.com'
+            },
+            data: {
+                text: engDesc,
+                sourceLang: 'en',
+                targetLang: lang
+            }
+            };
+
+            try {
+                const response = await axios.request(options);
+                console.log(response.data.translatedText);
+                setShortDesc(response.data.translatedText);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        translateDescription();
+    }, [engDesc, lang]);
 
     return (
         <>

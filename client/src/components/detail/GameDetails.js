@@ -15,7 +15,6 @@ export default function GameDetails() {
     const gameURL = new URLSearchParams(location.search).get('game');
 
     const[game, setGame] = useState({});
-    const[engDescription, setEngDescription] = useState('');
     const [isBusy, setBusy] = useState(true);
     const [lang, setLang] =  useState(localStorage.getItem('i18nextLng'));
 
@@ -30,7 +29,6 @@ export default function GameDetails() {
                 if(response.ok){
                     const gameDetails = await response.json();
                     setGame(gameDetails);
-                    setEngDescription(gameDetails.description);
                     setBusy(false);
                   }else {
                     setGame({});
@@ -61,7 +59,7 @@ export default function GameDetails() {
             <div id='detail-content'>
                 <div id='game-details'>
                     <section id='left-details'>
-                        <GameHeader id='game-header' gameURL={gameURL} title={game.title} shortDesc={game.description} />
+                        <GameHeader id='game-header' imageURL={game.image_url} title={game.title} engDesc={game.description} lang={lang} />
                     </section>
                     <section id='right-details'>
                         <GameDetailedInfo id='game-detailed-info' publisher={game.publisher}
