@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import noHeader from '../../static-images/no-header.png'
+import { useTranslation } from 'react-i18next';
 
 //Accepts a prop for the gameLink and fetches the header image from the steamapi
 //returns an image tag
 function GameHeader({gameURL, title, shortDesc}){
+
+    const {t} = useTranslation();
 
     const[headerURL, setHeaderURL] = useState('');
 
@@ -43,6 +46,8 @@ function GameHeader({gameURL, title, shortDesc}){
 
 function GameScore({peak, positiveReviews, negativeReviews}){
 
+    const {t} = useTranslation();
+
     let reviewClass = '';
     let averageScore = (Number(positiveReviews) / (Number(positiveReviews) + Number(negativeReviews)) * 100);
     averageScore = averageScore.toFixed(2);
@@ -52,7 +57,7 @@ function GameScore({peak, positiveReviews, negativeReviews}){
 
     return (
         <div id='info-reviews'>
-            <h2>Reviews</h2>
+            <h2>{t("detail.reviews")}</h2>
             <div id='game-stats'>
                 <div>
                     <p className={reviewClass}> {averageScore}% </p>
@@ -61,7 +66,7 @@ function GameScore({peak, positiveReviews, negativeReviews}){
                     
                 </div>
                 <div>
-                    <p>Peak Players: {peak}</p>
+                    <p>{t("detail.peak-players")} {peak}</p>
                 </div>
             </div>
         </div>
@@ -71,15 +76,17 @@ function GameScore({peak, positiveReviews, negativeReviews}){
 
 function GameDetailedInfo({publisher, genre, releaseDate}){
 
+    const {t} = useTranslation();
+
     releaseDate = releaseDate.substring(0,10);
 
     return (
         <div id='more-info'>
-            <h2>More Info</h2>
+            <h2>{t("detail.more-info")}</h2>
             <ul id='game-details-ul'>
-                <li>Release Date: {releaseDate}</li>
-                <li>Publisher: {publisher}</li>
-                <li>Genre: {genre}</li>
+                <li>{t("detail.release-date")} {releaseDate}</li>
+                <li>{t("detail.publisher")} {publisher}</li>
+                <li>{t("detail.genre")} {genre}</li>
             </ul>
         </div>
     )

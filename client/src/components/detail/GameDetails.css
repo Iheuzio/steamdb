@@ -10,6 +10,7 @@
 
 #right-details{
     margin-right: 5%;
+    justify-content: center;
 }
 
 #left-details, #right-details{
@@ -43,6 +44,8 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    padding-left: 10%;
+    width: 100%;
 }
 
 #game-review-section{

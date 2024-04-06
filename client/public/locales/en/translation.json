@@ -1,5 +1,36 @@
 {
     "navbar" : {
-        "search" : "Search"
+        "search" : "Search",
+        "lists" : "Lists",
+        "profile" : "Profile"
+    },
+    "detail" : {
+        "more-info" : "More Info:",
+        "release-date": "Release Date:",
+        "publisher" : "Publisher:",
+        "genre": "Genre",
+        "reviews": "Reviews",
+        "peak-players": "Peak Players:"
+    },
+    "add-review" : {
+        "title" : "Tell Us What You Thought!",
+        "rec" : "Do you recommend this game?",
+        "title-form" : "Title:",
+        "review" : "Review:",
+        "submit" : "Submit",
+        "yes" : "Yes",
+        "no" : "No"
+    },
+    "reviews" : {
+        "no-reviews" : "No Reviews Yet!",
+        "top-rated" : "Top Rated Reviews",
+        "recommend" : "Recommended!",
+        "no-rec" : "Not Recommended"
+    },
+    "alerts" : {
+        "sign-in" : "Please Sign in to use the review feature!",
+        "review-added" : "Review Added!",
+        "review-error" : "Error Creating Review",
+        "upvote-error" : "Error Addding Upvote"
     }
 }

@@ -6,7 +6,7 @@ import { Trans, useTranslation } from 'react-i18next';
 
 export default function NavBar() {
 
-  const {t, i18n} = useTranslation()
+  const {t, i18n} = useTranslation();
 
   const changeLanguage = (language) => {
     i18n.changeLanguage(language)
@@ -28,10 +28,14 @@ export default function NavBar() {
                 </Link>
               </li>
               <li>
-                <Link className='link' to={`/lists`}> Lists </Link>
+                <Link className='link' to={`/lists`}>
+                  <Trans i18nKey="navbar.lists"></Trans> 
+                </Link>
               </li>
               <li>
-                <Link className='link' to={`/profile`}> Profile </Link>
+                <Link className='link' to={`/profile`}>
+                  <Trans i18nKey="navbar.profile"></Trans>
+                </Link>
               </li>
             </div>
             <button onClick={() => changeLanguage('en')}>EN</button>
