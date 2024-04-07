@@ -2,7 +2,7 @@ import './UserGameList.css';
 import { saveUserGameList } from './apiFunctions';
 
 const UserGameList = ({ userGames, handleDeleteGame, username, userID, setUserGames }) => {
-
+  console.log(userGames)
   const saveList = async () => {
     try {
       console.log(`${userID} : ${JSON.stringify(userGames)}`);
@@ -20,14 +20,14 @@ const UserGameList = ({ userGames, handleDeleteGame, username, userID, setUserGa
   return (
     <div className="UserGameList">
       <h2>{username}'s Game List</h2>
-      {userGames.length === 0 || !userGames[0].title ? (
+      {userGames.length <= 1 ? (
         <p>Your list is empty.</p>
       ) : (
         <ul>
-          {Array.isArray(userGames) && userGames.map((game) => (
+          {Array.isArray(userGames) && userGames.slice(1).map((game) => (
             <li key={game._id}>
               {game.title}
-              {<button onClick={() => handleDeleteGame(game._id)}>Delete</button>}
+              {game.title && <button onClick={() => handleDeleteGame(game._id)}>Delete</button>}
             </li>
           ))}
         </ul>
