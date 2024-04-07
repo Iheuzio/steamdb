@@ -135,11 +135,7 @@ class DB {
     const review = await Review.findOne({_id : objID});
 
     const hasUpvoted = review.reviewers.includes(reviewerID);
-    if(hasUpvoted) {
-      return true;
-    } else{
-      return false;
-    }
+    return hasUpvoted;
   }
 
   async getUserList(userID) {
