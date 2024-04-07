@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 
 export default function SearchResults({ results }) {
-    return <div className="SearchResults">
-        { results.map(result => <SearchResult key={result.id} result={result} />) }
-    </div>
+    return <>
+        <div className="SearchResults">
+            { results.map(result => <SearchResult key={result.title} result={result} />) }
+            
+        </div>
+        <button>More</button>
+    </>
 }
 
 function SearchResult({ result }) {

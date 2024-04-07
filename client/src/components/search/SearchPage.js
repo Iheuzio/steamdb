@@ -7,9 +7,10 @@ import GenreFilters from './GenreFilters';
 import NavBar from '../navigation/NavBar';
 
 export default function SearchPage() {
-    const [results, setResults] = useState([])
+    const [results, setResults] = useState([]);
     const filterFields = ['title', 'publisher', 'developer', 'peak', 'release_date'];
-    const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All', operator: 'lt'});
+    const [filters, setFilters] = useState({ field: filterFields[0], query: '', operator: 'lt'});
+    const [selectedGenres, setSelectedGenres] = useState(['All']);
 
     useEffect(() => {
         fetchGames(setResults);
@@ -40,6 +41,12 @@ export default function SearchPage() {
         setSidebarOpen(!sidebarOpen);
     };
 
+    let resultsToDisplay = results;
+
+    if (!selectedGenres.includes('All')) {
+        resultsToDisplay = results.filter(result => selectedGenres.includes(result.primary_genre));
+    }
+
     return (
     <>
         <NavBar />
@@ -48,9 +55,9 @@ export default function SearchPage() {
                 {sidebarOpen ? '<' : '>'}
             </button>
             <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-                <GenreFilters filters={filters} updateFilters={updateFilters} />
+                <GenreFilters selectedGenres={selectedGenres} setSelectedGenres={setSelectedGenres}/>
             </div>
-            <Search results={results}
+            <Search results={resultsToDisplay}
                 setResults={setResults}
                 filters={filters}
                 setFilters={setFilters}
@@ -68,7 +75,6 @@ async function fetchGames(setResults, filters = '') {
     const json = await response.json();
 
     if (!response.ok) {
-        //alert(json.error);
         setResults([]);
     } else {
         setResults(json);
