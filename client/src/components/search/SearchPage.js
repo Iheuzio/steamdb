@@ -13,7 +13,7 @@ export default function SearchPage() {
     const [selectedGenres, setSelectedGenres] = useState(['All']);
 
     useEffect(() => {
-        fetchGames(setResults);
+        fetchGames(setResults, filters);
     }, []);
 
     const updateFilters = (e) => {
@@ -32,7 +32,7 @@ export default function SearchPage() {
     const handleSubmit = async (e, filters) => {
         e.preventDefault();
         
-        await fetchGames(setResults, formatFilters(filters));
+        await fetchGames(setResults, filters, formatFilters(filters));
     }
     
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -69,9 +69,16 @@ export default function SearchPage() {
     )
 }
 
-async function fetchGames(setResults, filters = '') {
-    console.log(`/localapi/steamgames${filters}`);
-    const response = await fetch(`/localapi/steamgames${filters}`);
+async function fetchGames(setResults, filters, parameters = '') {
+    let type = 'string';
+    
+    switch (filters.field) {
+        case 'release_date': type = 'date'; break;
+        case 'peak': type = 'number'; break;
+        default: break;
+    }
+
+    const response = await fetch(`/localapi/search/${type}?${parameters}`);
     const json = await response.json();
 
     if (!response.ok) {
@@ -82,7 +89,7 @@ async function fetchGames(setResults, filters = '') {
 }
 
 function formatFilters(filters) {
-    let formatted = '?';
+    let formatted = '';
 
     for (const key of Object.keys(filters)) {
         formatted += `${key}=${filters[key]}&`;

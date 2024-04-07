@@ -5,10 +5,10 @@ import React, { useState } from 'react';
 export default function SearchResults({ results }) {
     return <>
         <div className="SearchResults">
-            { results.map(result => <SearchResult key={result.title} result={result} />) }
+            { results.map((result, i) => <SearchResult key={i} result={result} />) }
             
         </div>
-        <button>More</button>
+        <button className="More">More</button>
     </>
 }
 

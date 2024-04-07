@@ -19,11 +19,11 @@ router.get('/search/:type', async (req, res, next) => {
 
 router.get('/search/string', async (req, res) => {
   try {
+    const allowedFields = ['title', 'publisher', 'developer'];
+
     const page = req.query.page;
     const query = req.query.query || ' ';
-    const field = req.query.field;
-
-    const allowedFields = ['title', 'publisher', 'developer'];
+    const field = req.query.field || allowedFields[0];
 
     if (!allowedFields.includes(field)) {
       res.status(400).json(
