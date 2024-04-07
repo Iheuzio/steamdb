@@ -63,6 +63,7 @@
 .SearchResults {
     width: 100%;
     border-collapse: collapse;
+    justify-content: center;
 }
 
 .SearchResults th,
@@ -90,3 +91,15 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+
+/* Hide the sidebar on screens that are 768px or less */
+@media screen and (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+
+  .sidebar.open {
+    display: block;
+  }
+  }

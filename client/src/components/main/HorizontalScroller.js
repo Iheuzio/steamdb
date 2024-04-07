@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';   // Import the Link component
 
 export default function HorizontalScroller({results}) {
     return <div>
-        <h1 class="mt-12 mb-4 font-semibold  text-xl">Horizontal Game Slider</h1>
+        <h1 class="mt-12 mb-4 font-semibold  text-xl">Weekly Top 50</h1>
         <div class="slider">
         <div class="slide-track2">
             { results.map(result => <SearchResult key={result.id} result={result} />) } 
