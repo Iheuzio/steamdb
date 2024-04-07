@@ -34,17 +34,13 @@ function SearchResult({ result, handleAddGame, addedGames }) {
     const [isGameAdded, setIsGameAdded] = useState(false);
 
     useEffect(() => {
-        if (Array.isArray(addedGames)) {
-            const gameExists = addedGames.some(game => game._id === result._id);
-            setIsGameAdded(gameExists);
-        }
+        const gameExists = Array.isArray(addedGames) && addedGames.some(game => game._id === result._id);
+        setIsGameAdded(gameExists);
     }, [addedGames, result._id]);
 
     const handleClick = () => {
-        if (!isGameAdded) {
-            handleAddGame(result);
-            setIsGameAdded(true);
-        }
+        handleAddGame(result);
+        setIsGameAdded(true);
     };
 
     const apiLink = result.steam_api.match(/\d+/g);

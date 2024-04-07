@@ -61,10 +61,9 @@ const [userGames, setUserGames] = useState([]);
 const loadUserGames = async () => {
     try {
         const userGameList = await fetchUserGameList(userID);
-        console.log(userGameList); // This console.log should now work
         if (userGameList) {
             console.log(userGameList);
-            setUserGames(userGameList);
+            setUserGames(userGameList.games);
         } else {
             setUserGames([]);
         }
@@ -113,7 +112,7 @@ const loadUserGames = async () => {
             } else {
                 return (
                     game[filters.field].toLowerCase().includes(filters.query) &&
-                    game.primary_genre.includes(filters.primary_genre)
+                    game.primary_genre.includes(filters.genre)
                 );
             }
         }).slice(0, 5);
@@ -122,15 +121,14 @@ const loadUserGames = async () => {
     };
 
     const handleAddGame = (game) => {
-        setUserGames(prevUserGames => ({
-            ...prevUserGames,
-            games: [...(prevUserGames.games || []), game]
-        }));
+        setUserGames([...userGames, game]);
     };
 
+    const handleDeleteGame = (gameId) => {
+        const newGames = userGames.filter((game) => game._id !== gameId);
+        setUserGames(newGames);
+    };
     
-    
-
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
@@ -164,7 +162,7 @@ const loadUserGames = async () => {
                     handleAddGame={handleAddGame}
                     addedGames={userGames}
                 />
-                <UserGameList userGames={userGames} setUserGames={setUserGames} username={user} userID={userID} />
+                <UserGameList userGames={userGames} handleDeleteGame={handleDeleteGame} username={user} userID={userID} setUserGames={setUserGames} />
             </div>
                     </>
                 )}
