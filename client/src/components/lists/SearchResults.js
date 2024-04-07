@@ -4,29 +4,16 @@ import React, { useState, useEffect } from 'react';
 
 export default function SearchResults({ results, handleAddGame, addedGames }) {
     return (
-        <table className="SearchResultsList">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Release date</th>
-                    <th>Peak players</th>
-                    <th>Rating</th>
-                    <th>Primary genre</th>
-                    <th>Developer</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {results.map(result => (
-                    <SearchResult
-                        key={result._id}
-                        result={result}
-                        handleAddGame={handleAddGame}
-                        addedGames={addedGames}
-                    />
-                ))}
-            </tbody>
-        </table>
+        <div className='SearchRList'>
+            {results.map(result => (
+                <SearchResult
+                    key={result._id}
+                    result={result}
+                    handleAddGame={handleAddGame}
+                    addedGames={addedGames}
+                />
+            ))}
+        </div>
     );
 }
 
@@ -52,8 +39,7 @@ function SearchResult({ result, handleAddGame, addedGames }) {
     };
 
     return (
-        <tr>
-            <td>
+            <div className='containerThing'>
                 <div className="LinkContainer">
                     <Link to={`/details?game=${apiLink}`} className="Link"> {result.title} </Link>
                 </div>
@@ -64,26 +50,17 @@ function SearchResult({ result, handleAddGame, addedGames }) {
                         <img src={result.image_url} alt="game icon" onError={handleImageError} />
                     )}
                     <div className="overlay">
-                        <div className="details">
-                            <div><b>Positive reviews:</b> {result.positive_reviews} </div>
-                            <div><b>All time peak:</b> {result.peak} </div>
-                            <div><b>Genre:</b> {result.primary_genre} </div>
-                            <div><b>Publisher:</b> {result.publisher} </div>
-                            <div><b>Release date:</b> {result.release_date.split("T")[0]} </div>
-                        </div>
+                        <button onClick={handleClick} disabled={isGameAdded}>
+                            <div className="details">
+                                <div><b>Rating:</b> {Math.round(result.positive_reviews / (result.positive_reviews + result.negative_reviews) * 100)}% </div>
+                                <div><b>All time peak:</b> {result.peak} </div>
+                                <div><b>Genre:</b> {result.primary_genre} </div>
+                                <div><b>Publisher:</b> {result.publisher} </div>
+                                <div><b>Release date:</b> {result.release_date.split("T")[0]} </div>
+                            </div>
+                        </button>
                     </div>
                 </div>
-            </td>
-            <td>{result.release_date.split("T")[0]}</td>
-            <td>{result.peak}</td>
-            <td>{Math.round(result.positive_reviews / (result.positive_reviews + result.negative_reviews) * 100)}%</td>
-            <td>{result.primary_genre}</td>
-            <td>{result.developer}</td>
-            <td>
-                <button onClick={handleClick} disabled={isGameAdded}>
-                    {isGameAdded ? 'Added' : 'Add'}
-                </button>
-            </td>
-        </tr>
+            </div>
     );
 }

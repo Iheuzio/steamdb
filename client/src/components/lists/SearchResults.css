@@ -1,18 +1,75 @@
-.SearchResultsList {
-    border-collapse: collapse;
-}
-
-td, th {
-    border: 2px solid black;
-    text-align: center;
-    padding: 0.5rem;
-}
-
-a {
-    color: rgb(0, 0, 0);
+.SearchRList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  
+  .containerThing {
+    width: 33.33%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .LinkContainer {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .Link {
     text-decoration: none;
-}
-
-a:hover {
-    color: #007bff
-}
+    color: inherit;
+  }
+  
+  .img-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    overflow: hidden;
+  }
+  
+  .img-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .overlay:hover {
+    opacity: 1;
+  }
+  
+  .overlay button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+  }
+  
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
