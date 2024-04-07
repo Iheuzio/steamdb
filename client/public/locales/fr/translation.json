@@ -29,7 +29,7 @@
     },
     "alerts" : {
         "sign-in" : "Veuillez vous connecter pour utiliser la fonction d'évaluation !",
-        "review-added" : "Avis ajouté !",
+        "review-added" : "Avis ajouté!",
         "review-error" : "Erreur lors de la création de l'avis",
         "upvote-error" : "Erreur lors de l'ajout du vote positif"
     }
