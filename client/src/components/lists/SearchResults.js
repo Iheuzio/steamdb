@@ -40,10 +40,10 @@ function SearchResult({ result, handleAddGame, addedGames }) {
     };
 
     return (
-        <div className="containerThing">
+        <div className="containerThing" style={{ opacity: isGameAdded ? 0.5 : 1, backdropFilter: isGameAdded ? 'blur(10px)' : 'none', cursor: isGameAdded ? 'not-allowed' : 'pointer'}}>
             <div className="LinkContainer">
                 {apiLink ? (
-                    <Link to={`/details?game=${apiLink}`} className="Link">
+                    <Link to={`/details?game=${apiLink}`} className="Link" style={{ color: isGameAdded ? 'red' : 'inherit'}}>
                         {result.title}
                     </Link>
                 ) : (
@@ -57,9 +57,9 @@ function SearchResult({ result, handleAddGame, addedGames }) {
                     <img src={result.image_url} alt="game icon" onError={handleImageError} />
                 )}
                 <div
-                    className="overlay"
+                    className="overlayG"
                     onClick={handleClick}
-                    style={{ pointerEvents: isGameAdded ? 'none' : 'auto', opacity: isGameAdded ? 0.5 : 1 }}
+                    style={{pointerEvents: isGameAdded ? 'none' : 'auto'}}
                 >
                     <div className="details">
                         <div>
