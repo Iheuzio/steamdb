@@ -122,7 +122,7 @@ class DB {
     const review = await Review.findOne({_id : objID});
 
     //subtract 1 to the score value
-    review.score = review.score - 1;
+    review.score -= 1;
 
     const reviewerIndex = review.reviewers.indexOf(reviewerID);
     review.reviewers.splice(reviewerIndex, 1);
