@@ -12,9 +12,10 @@ export default function SearchPage() {
     const [filters, setFilters] = useState({ field: filterFields[0], query: '', operator: 'lt'});
     const [selectedGenres, setSelectedGenres] = useState(['All']);
     const [page, setPage] = useState(1);
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        fetchGames(setResults, filters, true, formatParameters(filters, page));
+        fetchGames(setResults, filters, setError, true, formatParameters(filters, page));
     }, [page]);
 
     const updateFilters = (e) => {
@@ -34,7 +35,7 @@ export default function SearchPage() {
         e.preventDefault();
         setPage(1);
 
-        await fetchGames(setResults, filters, false, formatParameters(filters, 1));
+        await fetchGames(setResults, filters, setError, false, formatParameters(filters, 1));
     }
     
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -67,14 +68,14 @@ export default function SearchPage() {
                 updateFilters={updateFilters}
                 handleSubmit={handleSubmit}
                 setPage={setPage}
-                />    
+                error={error}
+                />
         </div>
     </>
     )
 }
 
-async function fetchGames(setResults, filters, sameQuery = false, parameters = '') {
-    console.log("fetching")
+async function fetchGames(setResults, filters, setError, sameQuery = false, parameters = '') {
     let type = 'string';
     
     switch (filters.field) {
@@ -87,11 +88,21 @@ async function fetchGames(setResults, filters, sameQuery = false, parameters = '
     const json = await response.json();
 
     if (!response.ok) {
-        setResults([]);
-    } else if (sameQuery) {
-        setResults(results => [...results, ...json]);
+        if (!sameQuery) {
+            setResults([]);
+            setError(json.error);
+        } else {
+            if (response.status !== 404) {
+                setError(json.error);
+            }
+        }
     } else {
-        setResults(json);
+        setError('');
+        if (sameQuery) {
+            setResults(results => [...results, ...json]);
+        } else {
+            setResults(json);
+        }
     }
 }
 
