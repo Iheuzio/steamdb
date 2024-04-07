@@ -24,11 +24,11 @@ const UserGameList = ({ userGames, setUserGames, username, userID }) => {
   return (
     <div className="UserGameList">
       <h2>{username}'s Game List</h2>
-      {userGames.games.length === 0 ? (
+      {userGames && userGames.games && userGames.games.length === 0 ? (
         <p>Your list is empty.</p>
       ) : (
         <ul>
-          {userGames.games.map((game) => (
+          {userGames && userGames.games && userGames.games.map((game) => (
             <li key={game._id}>
               {game.title}
               <button onClick={() => deleteGame(game._id)}>Delete</button>

@@ -36,14 +36,15 @@ function SearchResult({ result, handleAddGame, addedGames }) {
     useEffect(() => {
         if (Array.isArray(addedGames)) {
             const gameExists = addedGames.some(game => game._id === result._id);
-            setIsGameAdded(Boolean(gameExists));
+            setIsGameAdded(gameExists);
         }
     }, [addedGames, result._id]);
 
     const handleClick = () => {
-        console.log(result);
-        handleAddGame(result);
-        setIsGameAdded(true);
+        if (!isGameAdded) {
+            handleAddGame(result);
+            setIsGameAdded(true);
+        }
     };
 
     const apiLink = result.steam_api.match(/\d+/g);

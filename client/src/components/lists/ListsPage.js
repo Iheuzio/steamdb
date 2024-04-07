@@ -124,9 +124,11 @@ const loadUserGames = async () => {
     const handleAddGame = (game) => {
         setUserGames(prevUserGames => ({
             ...prevUserGames,
-            games: [...prevUserGames.games, game]
+            games: [...(prevUserGames.games || []), game]
         }));
     };
+
+    
     
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
