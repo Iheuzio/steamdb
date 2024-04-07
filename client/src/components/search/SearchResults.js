@@ -1,14 +1,27 @@
 import './SearchResults.css';
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function SearchResults({ results }) {
+export default function SearchResults({ results, setPage }) {
+    useEffect(() => {
+        const handleScroll = (e) => {
+            const scrollHeight = e.target.documentElement.scrollHeight;
+            const currentHeight = e.target.documentElement.scrollTop + window.innerHeight;
+
+            if (currentHeight + 1 >= scrollHeight) {
+                setPage((prev) => prev + 1);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);    
+    }, []);
+
+
     return <>
         <div className="SearchResults">
             { results.map((result, i) => <SearchResult key={i} result={result} />) }
-            
         </div>
-        <button className="More">More</button>
     </>
 }
 

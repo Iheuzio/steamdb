@@ -11,10 +11,11 @@ export default function SearchPage() {
     const filterFields = ['title', 'publisher', 'developer', 'peak', 'release_date'];
     const [filters, setFilters] = useState({ field: filterFields[0], query: '', operator: 'lt'});
     const [selectedGenres, setSelectedGenres] = useState(['All']);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
-        fetchGames(setResults, filters);
-    }, []);
+        fetchGames(setResults, filters, true, formatParameters(filters, page));
+    }, [page]);
 
     const updateFilters = (e) => {
         const name = e.target.name;
@@ -31,8 +32,9 @@ export default function SearchPage() {
 
     const handleSubmit = async (e, filters) => {
         e.preventDefault();
-        
-        await fetchGames(setResults, filters, formatFilters(filters));
+        setPage(1);
+
+        await fetchGames(setResults, filters, false, formatParameters(filters, 1));
     }
     
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -63,13 +65,16 @@ export default function SearchPage() {
                 setFilters={setFilters}
                 filterFields={filterFields}
                 updateFilters={updateFilters}
-                handleSubmit={handleSubmit} />    
+                handleSubmit={handleSubmit}
+                setPage={setPage}
+                />    
         </div>
     </>
     )
 }
 
-async function fetchGames(setResults, filters, parameters = '') {
+async function fetchGames(setResults, filters, sameQuery = false, parameters = '') {
+    console.log("fetching")
     let type = 'string';
     
     switch (filters.field) {
@@ -83,17 +88,21 @@ async function fetchGames(setResults, filters, parameters = '') {
 
     if (!response.ok) {
         setResults([]);
+    } else if (sameQuery) {
+        setResults(results => [...results, ...json]);
     } else {
         setResults(json);
     }
 }
 
-function formatFilters(filters) {
+function formatParameters(filters, page) {
     let formatted = '';
 
     for (const key of Object.keys(filters)) {
         formatted += `${key}=${filters[key]}&`;
     }
+
+    formatted += `page=${page}`;
 
     return formatted;
 }
