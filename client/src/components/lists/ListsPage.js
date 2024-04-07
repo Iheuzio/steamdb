@@ -54,7 +54,7 @@ export default function ListsPage() {
         }
     }, [userID]);
 
-const filterFields = ['game', 'publisher', 'developer'];
+const filterFields = ['title', 'publisher', 'developer'];
 const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All' });
 const [userGames, setUserGames] = useState([]);
 
@@ -107,14 +107,18 @@ const loadUserGames = async () => {
         e.preventDefault();
 
         const filteredGames = games.filter(game => {
-            if (filters.genre === 'All') {
-                return game[filters.field].toLowerCase().includes(filters.query);
-            } else {
-                return (
-                    game[filters.field].toLowerCase().includes(filters.query) &&
-                    game.primary_genre.includes(filters.genre)
-                );
+            const gameField = game[filters.field];
+            if (gameField) {
+                if (filters.genre === 'All') {
+                    return gameField.toLowerCase().includes(filters.query);
+                } else {
+                    return (
+                        gameField.toLowerCase().includes(filters.query) &&
+                        game.primary_genre.includes(filters.genre)
+                    );
+                }
             }
+            return false;
         }).slice(0, 5);
 
         setResults(filteredGames);
