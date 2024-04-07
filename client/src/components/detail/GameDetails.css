@@ -1,6 +1,7 @@
 #game-details {
     display: flex;
     width: 85%;
+    border: 1px solid #131313;
 }
 
 #left-details{
@@ -25,6 +26,7 @@
 
 #header-image{
     height: 215px;
+    padding-top: 10px;
 }
 
 #detail-content{
@@ -55,4 +57,12 @@
 
 .redText{
     color: rgb(136, 35, 17)
+}
+
+li {
+    list-style-type: none;
+}
+
+#more-info {
+    display: flex;
 }
