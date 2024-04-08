@@ -38,7 +38,7 @@ export default function SearchPage() {
         await fetchGames(setResults, filters, setError, false, formatParameters(filters, 0));
     }
     
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);

@@ -17,6 +17,7 @@
     "ava": "^0.10.0",
     "axios": "^1.6.7",
     "compression": "^1.7.4",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
     "dotenv": "^16.3.1",

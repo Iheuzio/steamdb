@@ -10,3 +10,10 @@
   margin-right: auto;
   padding-left: 5%;
 }
+
+/* Styles for screens that are 600px or less */
+@media screen and (max-width: 600px) {
+  .list-item {
+      padding: 10px;
+  }
+}

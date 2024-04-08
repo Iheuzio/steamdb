@@ -1,5 +1,7 @@
 import './App.css';
 import HorizontalScroller from './components/main/HorizontalScroller';
+
+
 // import Navbar from './components/NavBar';
 // import Homepage from './components/Homepage';
 // import SearchPage from './components/search/SearchPage'
