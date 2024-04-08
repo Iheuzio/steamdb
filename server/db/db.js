@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
 const mongoose = require('mongoose');
