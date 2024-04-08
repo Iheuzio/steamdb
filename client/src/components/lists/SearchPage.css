@@ -1,0 +1,112 @@
+/* SearchPage.css */
+.SearchPage {
+    display: flex;
+    gap: 3rem;
+    position: relative;
+    width:100%;
+    max-height: 80vh;
+}
+
+.sidebar {
+    position: sticky;
+    /* Changed from fixed to sticky */
+    top: 0;
+    left: -250px;
+    /* Initially hidden */
+    width: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Changed to semi-transparent */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out;
+    z-index: 100;
+    padding: 1rem;
+    visibility: hidden;
+    max-height: 75vh;
+}
+
+.sidebar.open {
+    left: 0;
+    /* Slide in */
+    width: 250px;
+    visibility: visible;
+    max-height: 75vh;
+}
+
+.sidebar-toggle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    z-index: 101;
+}
+
+.Search {
+    flex: 2;
+}
+
+.SearchForm {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.SearchForm select,
+.SearchForm input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.SearchForm select {
+    margin-right: 0.5rem;
+}
+
+.SearchResults {
+    width: 100%;
+    border-collapse: collapse;
+    justify-content: center;
+}
+
+.SearchResults th,
+.SearchResults td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.SearchResults th {
+    background-color: #f5f5f5;
+}
+
+.GenreFilters {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.GenreFilter {
+    padding: 0.5rem 1rem;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+/* Hide the sidebar on screens that are 768px or less */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .sidebar.open {
+        display: block;
+    }
+}

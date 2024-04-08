@@ -1,0 +1,80 @@
+#game-details {
+    display: flex;
+    width: 85%;
+    border: 1px solid #131313;
+}
+
+#left-details{
+    margin-left: 5%;
+}
+
+#right-details{
+    margin-right: 5%;
+    justify-content: center;
+}
+
+#left-details, #right-details{
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%
+}
+
+#under-cons {
+    text-align: center;
+}
+
+#header-image{
+    height: 215px;
+    padding-top: 10px;
+}
+
+#detail-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#info-reviews{
+    width: 50%;
+}
+
+#game-stats{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-left: 10%;
+    width: 100%;
+}
+
+#game-review-section{
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+}
+
+.greenText{
+    color:darkolivegreen 
+}
+
+.redText{
+    color: rgb(136, 35, 17)
+}
+
+/* Styles for screens that are 600px or less */
+@media screen and (max-width: 600px) {
+    #game-details {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #left-details, #right-details {
+        margin: 0;
+        width: 100%;
+    }
+
+    #header-image {
+        height: auto;
+    }
+}
