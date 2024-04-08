@@ -5,6 +5,11 @@
   margin-top: 20px;
 }
 
+.ListHeader {
+  margin-bottom: 0;
+  margin-right: auto;
+  padding-left: 5%;
+}
 
 /* Styles for screens that are 600px or less */
 @media screen and (max-width: 600px) {

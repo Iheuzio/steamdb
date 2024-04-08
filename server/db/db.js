@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
 const mongoose = require('mongoose');
@@ -242,8 +243,8 @@ const reviewSchema = new mongoose.Schema({
 const Review = mongoose.model('Review', reviewSchema);
 
 const userGameSchema = new mongoose.Schema({
-  game: String,
-  link: String,
+  title: String,
+  steam_api: String,
   release_date: Date,
   peak: Number,
   positive_reviews: Number,
@@ -252,8 +253,7 @@ const userGameSchema = new mongoose.Schema({
   publisher: String,
   developer: String,
   description: String,
-  image_url: String,
-  id: Number
+  image_url: String
 });
 
 const userListSchema = new mongoose.Schema({

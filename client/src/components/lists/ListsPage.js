@@ -1,7 +1,6 @@
 // SearchPage.js
 import './SearchPage.css';
 import './ListPage.css';
-import { games } from '../games';
 import { useEffect, useState } from 'react';
 import Search from './Search';
 import GenreFilters from './GenreFilters';
@@ -14,24 +13,35 @@ export default function ListsPage() {
     const [user, setUser] = useState(null);
     const [userID, setUserID] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [games, setGames] = useState([]);
+    const [results, setResults] = useState(games);
+
 
     useEffect(() => {
-        fetch('/account')
-            .then(response => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/account');
                 if (response.status === 401) {
                     window.location.href = '/auth/steam';
                 } else {
-                    return response.json();
+                    const data = await response.json();
+                    if (data) {
+                        setUser(data.user.displayName);
+                        setUserID(data.user.id);
+                    }
                 }
-            })
-            .then(data => {
-                if (data) {
-                    setUser(data.user.displayName);
-                    setUserID(data.user.id);
+                const gameResponse = await fetch('/localapi/steamgamesAll');
+                const gameData = await gameResponse.json();
+                if (gameData) {
+                    setGames(gameData);
+                    setResults(gameData);
                 }
-            })
-            .catch(error => console.error('Error:', error));
-        defaultFilters();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            defaultFilters();
+        };
+        fetchData();
     }, []);
 
     useEffect(() => {
@@ -40,22 +50,20 @@ export default function ListsPage() {
         }
     }, [userID]);
 
-const [results, setResults] = useState(games);
-const filterFields = ['game', 'publisher', 'developer'];
+const filterFields = ['title', 'publisher', 'developer'];
 const [filters, setFilters] = useState({ field: filterFields[0], query: '', genre: 'All' });
 const [userGames, setUserGames] = useState([]);
 
 const loadUserGames = async () => {
     try {
         const userGameList = await fetchUserGameList(userID);
-        console.log(userGameList.games); // This console.log should now work
-        if (userGameList.games) {
+        if (userGameList) {
             setUserGames(userGameList.games);
         } else {
             setUserGames([]);
         }
     } catch (e) {
-        console.log(e)
+        console.error(e)
         const storedGames = JSON.parse(localStorage.getItem('userGames'));
         if (storedGames) {
             setUserGames(storedGames);
@@ -85,24 +93,25 @@ const loadUserGames = async () => {
     const defaultFilters = () => {
         const updatedFilters = { ...filters, query: '' };
         setFilters(updatedFilters);
-
-        const defaultGames = games.slice(0, 5);
-        setResults(defaultGames);
     }
 
     const handleOptionChange = (e, filters) => {
         e.preventDefault();
 
         const filteredGames = games.filter(game => {
-            if (filters.genre === 'All') {
-                return game[filters.field].toLowerCase().includes(filters.query);
-            } else {
-                return (
-                    game[filters.field].toLowerCase().includes(filters.query) &&
-                    game.primary_genre.includes(filters.genre)
-                );
+            const gameField = game[filters.field];
+            if (gameField) {
+                if (filters.genre === 'All') {
+                    return gameField.toLowerCase().includes(filters.query);
+                } else {
+                    return (
+                        gameField.toLowerCase().includes(filters.query) &&
+                        game.primary_genre.includes(filters.genre)
+                    );
+                }
             }
-        }).slice(0, 5);
+            return false;
+        })
 
         setResults(filteredGames);
     };
@@ -111,6 +120,11 @@ const loadUserGames = async () => {
         setUserGames([...userGames, game]);
     };
 
+    const handleDeleteGame = (gameId) => {
+        const newGames = userGames.filter((game) => game._id !== gameId);
+        setUserGames(newGames);
+    };
+    
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
@@ -144,7 +158,7 @@ const loadUserGames = async () => {
                     handleAddGame={handleAddGame}
                     addedGames={userGames}
                 />
-                <UserGameList userGames={userGames} setUserGames={setUserGames} username={user} userID={userID} />
+                <UserGameList userGames={userGames} handleDeleteGame={handleDeleteGame} username={user} userID={userID} setUserGames={setUserGames} />
             </div>
                     </>
                 )}
