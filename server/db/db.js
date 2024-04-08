@@ -47,6 +47,15 @@ class DB {
     return await Game.find({});
   }
 
+  async readTopFifty() {
+    return await Game.find().sort({ peak: -1 }).limit(50);
+  }
+
+  async readRandomFifty() {
+    return await Game.aggregate([{ $sample: { size: 50 } }]);
+  }
+
+  // async readByDateOrNumber(field, value, operator) {
   async readByDateOrNumber(field, value, operator, quantity, page) {
     const query = { [field] : { [`$${operator}`] : value } };
     return await Game.find(query).limit(quantity).skip(page * quantity);

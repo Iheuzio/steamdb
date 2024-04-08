@@ -75,6 +75,13 @@ td {
     border: 1px solid white;
 }
 
+
+/* Styles for screens that are 600px or less */
+@media screen and (max-width: 600px) {
+    td {
+        width: 100%;
+    }
 .More {
     padding: 1rem;
+}
 }

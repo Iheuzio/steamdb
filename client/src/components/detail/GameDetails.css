@@ -62,10 +62,19 @@
     color: rgb(136, 35, 17)
 }
 
-li {
-    list-style-type: none;
-}
+/* Styles for screens that are 600px or less */
+@media screen and (max-width: 600px) {
+    #game-details {
+        flex-direction: column;
+        width: 100%;
+    }
 
-#more-info {
-    display: flex;
+    #left-details, #right-details {
+        margin: 0;
+        width: 100%;
+    }
+
+    #header-image {
+        height: auto;
+    }
 }

@@ -40,3 +40,15 @@ li a {
     text-decoration: none;
     font-size: xx-large;
 }
+
+
+/* Styles for screens that are 600px or less */
+@media screen and (max-width: 600px) {
+    nav img {
+        width: 100px;
+    }
+
+    #nav-ul, #nav-nonlogo {
+        flex-direction: column;
+    }
+}

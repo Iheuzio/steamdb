@@ -45,3 +45,14 @@
 .ListButtons button{
   float:none;
 }
+  
+  @media screen and (max-width: 600px) {
+    .UserGameList {
+      padding: 0.5rem;
+    }
+  
+    .UserGameList button {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.8rem;
+    }
+  }
