@@ -13,6 +13,7 @@ import GameDetails from './components/detail/GameDetails.js';
 import reportWebVitals from './reportWebVitals';
 import ProfilePage from './components/profile/ProfilePage';
 import ListsPage from './components/lists/ListsPage';
+import Recaptcha from './components/google/Recaptcha';
 
 //language support
 import './i18n.js'
@@ -38,9 +39,12 @@ const router = createHashRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Suspense fallback={<div>Loading...</div>}>
-    <RouterProvider router={router} />
-  </Suspense>
+  <React.StrictMode>
+    <Recaptcha />
+    <Suspense fallback={<div>Loading...</div>}>
+      <RouterProvider router={router} />
+    </Suspense>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -3,9 +3,16 @@ const path = require('path');
 const passport = require('passport');
 const appRouter = require('./routes/steamIMDBRouter');
 const steamAPIRouter = require('./routes/steamapi');
+const bodyParser = require('body-parser');
+
 
 const app = express();
 
+// Parse URL-encoded bodies (as sent by HTML forms)
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Parse JSON bodies (as sent by API clients)
+app.use(bodyParser.json());
 
 // Middleware
 app.use('/api', require('./routes/auth'));
