@@ -1,6 +1,7 @@
 require('dotenv').config();
 const dbUrl = process.env.ATLAS_URI;
 const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
 
 let instance;
 
@@ -100,12 +101,41 @@ class DB {
   }
 
   async getAllReviewsOfGame(gameID){
-    return await Review.find({game : gameID});
+    return await Review.find({game : gameID}).sort({score: -1});
   }
 
-  //adds an upvote to the current review
-  async addUpVote(vote){
-    return await Review.create(vote);
+  //adds upvote by the reviewer to a specified review
+  async addUpvote(objID, reviewerID){
+    objID = new ObjectId(objID);
+    const review = await Review.findOne({_id : objID});
+
+    //add 1 to the score value
+    review.score = review.score + 1;
+
+    review.reviewers.push(reviewerID);
+    return await review.save();
+  }
+
+  //adds upvote by the reviewer to a specified review
+  async removeUpvote(objID, reviewerID){
+    objID = new ObjectId(objID);
+    const review = await Review.findOne({_id : objID});
+
+    //subtract 1 to the score value
+    review.score -= 1;
+
+    const reviewerIndex = review.reviewers.indexOf(reviewerID);
+    review.reviewers.splice(reviewerIndex, 1);
+
+    return await review.save();
+  }
+
+  async checkVote(objID, reviewerID){
+    objID = new ObjectId(objID);
+    const review = await Review.findOne({_id : objID});
+
+    const hasUpvoted = review.reviewers.includes(reviewerID);
+    return hasUpvoted;
   }
 
   async getUserList(userID) {
@@ -150,7 +180,6 @@ const gameSchema = new mongoose.Schema({
   developer: String,
   description: String,
   image_url: String
-  //GameReviews: []
 });
 
 const Game = mongoose.model('Game', gameSchema);
@@ -197,7 +226,8 @@ const reviewSchema = new mongoose.Schema({
   reviewer_img: String, 
   recommend: Boolean,
   //based on the games steam_api
-  game: String
+  game: String,
+  reviewers: [String] 
 });
 
 const Review = mongoose.model('Review', reviewSchema);
@@ -223,19 +253,6 @@ const userListSchema = new mongoose.Schema({
 });
 
 const userList = mongoose.model('UserList', userListSchema);
-
-/**
- * Schema for Votes
-
-
-basically, keeps track of which users have already upvoted reviews
-const voteSchema = new mongoose.Schema({
-  reviewID: String,
-  reviewerID: String
-});
-
-const Vote = mongoose.model('Vote', voteSchema);
-*/
 
 module.exports = DB;
 
