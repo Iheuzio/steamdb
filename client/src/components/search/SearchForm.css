@@ -7,12 +7,19 @@
     display: flex;
     width: 500px;
     height: 45px;
+    top: 0;
+    position:sticky;
+    background-color: #f9f9f9;
+    padding: 20px; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); 
+    margin-bottom: 20px;
 }
 
-.SearchForm select, .SearchForm input {
+/* .SearchForm select, .SearchForm input {
     height: 100%;
     padding: 0;
-}
+} */
 
 /* Styles for screens that are 600px or less */
 @media screen and (max-width: 600px) {
@@ -25,14 +32,15 @@
     .SearchForm input {
         width: 50%;
         display: block;
-        background-color: red;
     }
 
     .SearchForm select{
         width: 50%;
         display: block;
     }
-.SearchForm button {
+
+
+/* .SearchForm button {
     height: 100%;
 }
 
@@ -42,5 +50,5 @@
 
 .SearchForm input {
     flex: 1;
-}
+} */
 }
