@@ -11,7 +11,6 @@ export default function Homepage() {
   const [setTopFifty, setTopGames] = useState([])
 
   useEffect(() => {
-
     async function fetchRandomFifty() {
       try {
         const response = await fetch('/localapi/randomFifty');
@@ -22,7 +21,7 @@ export default function Homepage() {
           console.log("Error")
         }
       } catch (error) {
-        console.log('There was an error', error);
+        console.log('There was an error fetching random fifty games', error);
       }
     }
     fetchRandomFifty()
@@ -39,7 +38,7 @@ export default function Homepage() {
           console.log("Error")
         }
       } catch (error) {
-        console.log('There was an error', error);
+        console.log('There was an error fetching top fifty games', error);
       }
     }
     fetchTopFifty();

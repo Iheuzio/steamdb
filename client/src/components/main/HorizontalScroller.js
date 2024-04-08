@@ -8,14 +8,12 @@ export default function HorizontalScroller({results}) {
         <div class="slider">
         <div class="slide-track2">
             { results.map(result => <SearchResult key={result.id} result={result} />) } 
-
         </div>
         </div>
     </div>
 }
 
 function SearchResult({ result }) {
-    //REGEX to retrieve the api number from result.link
     const api = result.steam_api.match(/\d+/g);
 
     return <div>

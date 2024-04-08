@@ -18,8 +18,6 @@
     transform: scale(1.05);
 }
 
-
-
 /* Styles for screens that are 600px or less */
 @media screen and (max-width: 600px) {
     .GenreFilters {

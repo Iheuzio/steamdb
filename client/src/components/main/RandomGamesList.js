@@ -13,12 +13,10 @@ export default function RandomGameList({results}) {
 }
 
 function SearchResult({ result }) {
-
-    //REGEX to retreive the api number from result.link
     const api = result.steam_api.match(/\d+/g);
 
     return <tr>
-        <td> <img src={ result.image_url} alt='image' width="100%" height="100%" /></td>
+        <td> <img src={ result.image_url} alt='image' /></td>
         <td>
             <Link to={`/details?game=${api}`}> {result.title} </Link>
         </td>

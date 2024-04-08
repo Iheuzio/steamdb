@@ -156,8 +156,7 @@ body {
       place-items: center;
       overflow: hidden;
     }
-    .slider::before,
-    .slider::after{
+    .slider::before, .slider::after{
       position:absolute;
       background-image:linear-gradient(to right,rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
       content:'';
