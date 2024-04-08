@@ -43,9 +43,9 @@ function SearchResult({ result }) {
             </div>
             <div className="img-container">
                 {imageError ? (
-                    <img src={defaultImageUrl} alt="game icon" />
+                    <img loading="lazy" src={defaultImageUrl} alt="game icon" />
                 ) : (   
-                    <img src={result.image_url} alt="game icon" onError={handleImageError} />
+                    <img loading="lazy" src={result.image_url} alt="game icon" onError={handleImageError} />
                 )}
                 <div className="overlay">
                     <div className="details">

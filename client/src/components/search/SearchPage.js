@@ -11,7 +11,7 @@ export default function SearchPage() {
     const filterFields = ['title', 'publisher', 'developer', 'peak', 'release_date'];
     const [filters, setFilters] = useState({ field: filterFields[0], query: '', operator: 'lt'});
     const [selectedGenres, setSelectedGenres] = useState(['All']);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -33,9 +33,9 @@ export default function SearchPage() {
 
     const handleSubmit = async (e, filters) => {
         e.preventDefault();
-        setPage(1);
+        setPage(0);
 
-        await fetchGames(setResults, filters, setError, false, formatParameters(filters, 1));
+        await fetchGames(setResults, filters, setError, false, formatParameters(filters, 0));
     }
     
     const [sidebarOpen, setSidebarOpen] = useState(true);
