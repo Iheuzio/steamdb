@@ -141,7 +141,7 @@ const loadUserGames = async () => {
                 ) : (
                     <>
                         <h2 className='ListHeader'>{user}'s Explorer</h2>
-            <div className="SearchPage">
+            <div className="SearchPageR">
                 <button className="sidebar-toggle" onClick={toggleSidebar}>
                     {sidebarOpen ? '<' : '>'}
                 </button>
