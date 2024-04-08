@@ -30,7 +30,7 @@ export default function ListsPage() {
                         setUserID(data.user.id);
                     }
                 }
-                const gameResponse = await fetch('/localapi/steamgames');
+                const gameResponse = await fetch('/localapi/steamgamesAll');
                 const gameData = await gameResponse.json();
                 if (gameData) {
                     setGames(gameData);

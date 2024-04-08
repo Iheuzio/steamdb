@@ -3,9 +3,12 @@ const path = require('path');
 const passport = require('passport');
 const appRouter = require('./routes/steamIMDBRouter');
 const steamAPIRouter = require('./routes/steamapi');
+const compression = require('compression');
+
 
 const app = express();
 
+app.use(compression());
 
 // Middleware
 app.use('/api', require('./routes/auth'));
