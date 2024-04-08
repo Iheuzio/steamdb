@@ -10,31 +10,36 @@ const path = require('path');
 const connectionString = 'DefaultEndpointsProtocol=https;AccountName=shlomytestcontainer;AccountKey=Z8ygBu1ITlB+UWJNpiGBRIa4YMJYizOfdFyJ//2f4MsAhq95TLz/gyEg3m2EXRNH7epa1R5l1u43+ASte5jveA==;EndpointSuffix=core.windows.net';
 const containerName = 'imageblobtest';
 
-
 async function uploadImageToBlob(url, blobName) {
   const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
   const containerClient = blobServiceClient.getContainerClient(containerName);
   const response = await axios.get(url, { responseType: 'arraybuffer' });
   const stream = streamifier.createReadStream(response.data);
-
   const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-  const uploadBlobResponse = await blockBlobClient.uploadStream(stream, response.data.length);
-  console.log(`Upload block blob ${blobName} successfully`, uploadBlobResponse.requestId);
+
+  // Upload the image
+  const uploadOptions = {
+    blockSize: 4 * 1024 * 1024, // Set block size to 4MB
+    concurrency: 10 // Set maximum parallel uploads
+  };
+
+  try {
+    await blockBlobClient.uploadStream(stream, undefined, undefined, uploadOptions);
+    console.log(`Upload block blob ${blobName} successfully`);
+  } catch (error) {
+    console.error('Error uploading blob:', error);
+  }
 }
 
 
 async function seedGameImages() {
   const csvFile = fs.readFileSync(path.join(__dirname, `../dataset/game_data_all.csv`), 'utf-8');
   const rows = csvFile.split('\n');
-  const batchSize = 100;
-  const timeout = 30000;
+  const batchSize = 80;
+  const timeout = 10000;
 
   for (let i = 1; i < 60000; i++) {
     const row = rows[i].split(',');
-
-    //fetch description from steam api
-    //const gameID = row[2].match(/\d+/g);
-    //const descriptionData = await retreiveSteamDescription(gameID[0]);
 
     console.log(i);
 

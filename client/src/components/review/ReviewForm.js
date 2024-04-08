@@ -1,8 +1,14 @@
 import { useState } from 'react';
+import { toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
+
 
 //Returns a html form allowing the user to make a POST request to the 
 //backend server with a review for the current game
 function ReviewForm({game}) {
+
+    const {t} = useTranslation();
 
     //sets the values to be sent to the backend for saving from the form
     const [recommendation, setRecommendation] = useState(true);
@@ -39,7 +45,9 @@ function ReviewForm({game}) {
                 accountIMG = accountDetails.user.photos[1];
                 console.log(accountIMG);
               }else {
-                alert('Please Sign in to use the review feature!')
+                toast.warn(t("alerts.sign-in"), {
+                    position: "top-center"
+                });
                 return;
               }
 
@@ -61,10 +69,16 @@ function ReviewForm({game}) {
               });
           
               if (!response.ok) {
-                alert('Error creating review');
+                toast.error(t("alerts.review-error"), {
+                    position: "top-center"
+                });
+                return;
               }
               else{
-                alert('Review Added!');
+                toast.success(t("alerts.review-added"), {
+                    position: "top-center"
+                });
+                return;
               }
             
             } catch(error){
@@ -74,32 +88,33 @@ function ReviewForm({game}) {
 
     return (
         <div id='write-review-form'>
-            <h3>Tell Us What You Thought!</h3>
+            <h3>{t("add-review.title")}</h3>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>
-                        Do you recommend this game?
+                        {t("add-review.rec")}
                     </label><br />
                     <input type="radio" id="yes" name="recommendation" value="yes" checked={recommendation === true} onChange={handleRecommendationChange} />
-                    <label htmlFor="yes">Yes</label>
+                    <label htmlFor="yes">{t("add-review.yes")}</label>
                     <input type="radio" id="no" name="recommendation" value="no" checked={recommendation === false} onChange={handleRecommendationChange} />
-                    <label htmlFor="no">No</label>
+                    <label htmlFor="no">{t("add-review.no")}</label>
                 </div>
                 <br />
                 <div>
-                    <label htmlFor="review_title">Title:</label><br />
+                    <label htmlFor="review_title">{t("add-review.title-form")}</label><br />
                     <input type="text" id="review_title" name="review_title" value={reviewTitle} onChange={handleReviewTitleChange} required />
                 </div>
                 <br />
                 <div>
-                    <label htmlFor="review_text">Review:</label><br />
+                    <label htmlFor="review_text">{t("add-review.review")}</label><br />
                     <textarea id="review_text" name="review_text" value={reviewText} onChange={handleReviewTextChange} rows="4" cols="50" required></textarea>
                 </div>
                 <br />
                 <div>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value={t("add-review.submit")} />
                 </div>
             </form>
+            <ToastContainer />
         </div>
     );
 }
