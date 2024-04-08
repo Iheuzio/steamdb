@@ -18,34 +18,30 @@ export default function ListsPage() {
 
 
     useEffect(() => {
-        fetch('/account')
-            .then(response => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/account');
                 if (response.status === 401) {
                     window.location.href = '/auth/steam';
                 } else {
-                    return response.json();
+                    const data = await response.json();
+                    if (data) {
+                        setUser(data.user.displayName);
+                        setUserID(data.user.id);
+                    }
                 }
-            })
-            .then(data => {
-                if (data) {
-                    setUser(data.user.displayName);
-                    setUserID(data.user.id);
+                const gameResponse = await fetch('/localapi/steamgames');
+                const gameData = await gameResponse.json();
+                if (gameData) {
+                    setGames(gameData);
+                    setResults(gameData);
                 }
-            })
-            .then(() => {
-                // fetch from /localapi/steamgames for the games to populate the list of games
-                fetch('/localapi/steamgames')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data) {
-                            setGames(data);
-                            setResults(data);
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            })
-            .catch(error => console.error('Error:', error));
-        defaultFilters();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            defaultFilters();
+        };
+        fetchData();
     }, []);
 
     useEffect(() => {
