@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 
 import './GameDetails.css'
 
@@ -16,9 +16,13 @@ export default function GameDetails() {
 
     const[game, setGame] = useState({});
     const [isBusy, setBusy] = useState(true);
+    const [lang, setLang] =  useState(localStorage.getItem('i18nextLng'));
 
+    const handleLang = (language) => {
+        setLang(language);
+    }
+    
     useEffect(() => {
-
         async function fetchGameDetails(){
             try{
                 const response = await fetch(`/localapi/steamgames/${gameURL}`);
@@ -34,7 +38,6 @@ export default function GameDetails() {
                   alert(error);
                 }
         }
-
         fetchGameDetails();
     }, [gameURL]);
 
@@ -52,11 +55,11 @@ export default function GameDetails() {
 
     return (
         <>
-            <NavBar />
+            <NavBar setLang={handleLang}/>
             <div id='detail-content'>
                 <div id='game-details'>
                     <section id='left-details'>
-                        <GameHeader id='game-header' gameURL={gameURL} title={game.title} shortDesc={game.description} />
+                        <GameHeader id='game-header' imageURL={game.image_url} title={game.title} engDesc={game.description} lang={lang} />
                     </section>
                     <section id='right-details'>
                         <GameDetailedInfo id='game-detailed-info' publisher={game.publisher}
