@@ -30,4 +30,26 @@ router.get('/steam/return',
     res.redirect('/');
   });
 
+router.post('/recaptcha', (req, res) => {
+  const token = req.body.token;
+  // verify the token using Google's API
+  const url = 'https://www.google.com/recaptcha/api/siteverify?secret=' +
+    process.env.RECAPTCHA_SECRET_KEY +
+    '&response=' +
+    token;
+  fetch(url, {
+    method: 'POST',
+  }).
+    then(response => response.json()).
+    then(google_response => {
+      // google_response will contain information about whether the token was valid
+      // eslint-disable-next-line camelcase
+      res.json({ google_response });
+    }).
+    catch(error => {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'An error occurred while verifying the reCAPTCHA.' });
+    });
+});
+
 module.exports = router;
