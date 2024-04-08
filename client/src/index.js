@@ -13,6 +13,7 @@ import GameDetails from './components/detail/GameDetails.js';
 import reportWebVitals from './reportWebVitals';
 import ProfilePage from './components/profile/ProfilePage';
 import ListsPage from './components/lists/ListsPage';
+import Recaptcha from './components/google/Recaptcha';
 
 const router = createHashRouter([
   {
@@ -37,6 +38,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
+    <Recaptcha />
   </React.StrictMode>
 );
 
