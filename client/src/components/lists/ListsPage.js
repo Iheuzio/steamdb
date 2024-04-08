@@ -98,9 +98,6 @@ const loadUserGames = async () => {
     const defaultFilters = () => {
         const updatedFilters = { ...filters, query: '' };
         setFilters(updatedFilters);
-
-        const defaultGames = games.slice(0, 5);
-        setResults(defaultGames);
     }
 
     const handleOptionChange = (e, filters) => {
@@ -119,7 +116,7 @@ const loadUserGames = async () => {
                 }
             }
             return false;
-        }).slice(0, 5);
+        })
 
         setResults(filteredGames);
     };

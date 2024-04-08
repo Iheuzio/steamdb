@@ -4,3 +4,9 @@
   align-items: center;
   margin-top: 20px;
 }
+
+.ListHeader {
+  margin-bottom: 0;
+  margin-right: auto;
+  padding-left: 5%;
+}
