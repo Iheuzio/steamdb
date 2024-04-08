@@ -2,7 +2,6 @@ const fetchUserGameList = async (userID) => {
   try {
     const response = await fetch(`/localapi/user/${userID}/games`);
     const data = await response.json();
-    console.log(userID)
     return data;
   } catch (e) {
     console.error('Error fetching user game list:', e);

@@ -2,10 +2,8 @@ import './UserGameList.css';
 import { saveUserGameList } from './apiFunctions';
 
 const UserGameList = ({ userGames, handleDeleteGame, username, userID, setUserGames }) => {
-  console.log(userGames)
   const saveList = async () => {
     try {
-      console.log(`${userID} : ${JSON.stringify(userGames)}`);
       const savedList = await saveUserGameList(userID, userGames);
       if (savedList) {
         console.log('List saved successfully');

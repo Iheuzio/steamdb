@@ -62,13 +62,12 @@ const loadUserGames = async () => {
     try {
         const userGameList = await fetchUserGameList(userID);
         if (userGameList) {
-            console.log(userGameList);
             setUserGames(userGameList.games);
         } else {
             setUserGames([]);
         }
     } catch (e) {
-        console.log(e)
+        console.error(e)
         const storedGames = JSON.parse(localStorage.getItem('userGames'));
         if (storedGames) {
             setUserGames(storedGames);
