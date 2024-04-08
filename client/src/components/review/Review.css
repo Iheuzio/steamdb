@@ -35,11 +35,43 @@
   
   .review-rating {
     font-size: 20px;
-    color: #f90;
+    color: #687074;
   }
   
   .review-content p {
     margin: 0;
     font-size: 16px;
     color: #555;
+  }
+
+  .vote-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vote {
+    display: inline-block;
+    cursor: pointer;
+    color: #687074
+  }
+
+  .vote.on {
+    color: #f90
+  }
+
+  .recommended-info{
+    padding: 5%;
+  }
+
+  .recommended {
+    color: darkolivegreen;
+  }
+
+  .not-recommended {
+    color: rgb(136, 35, 17);
+  }
+
+  .game-review-section{
+    border: 1px solid #131313;
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   createHashRouter,
@@ -14,6 +14,9 @@ import reportWebVitals from './reportWebVitals';
 import ProfilePage from './components/profile/ProfilePage';
 import ListsPage from './components/lists/ListsPage';
 import Recaptcha from './components/google/Recaptcha';
+
+//language support
+import './i18n.js'
 
 const router = createHashRouter([
   {
@@ -38,7 +41,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Recaptcha />
-    <RouterProvider router={router} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <RouterProvider router={router} />
+    </Suspense>
   </React.StrictMode>
 );
 
