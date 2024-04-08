@@ -1,12 +1,9 @@
 import { useState } from 'react';
-<<<<<<< HEAD
 import './ReviewForm.css';
-=======
 import { toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 
->>>>>>> a5fee05025047dfa8fce2be23f040ebe1c59f033
 
 //Returns a html form allowing the user to make a POST request to the 
 //backend server with a review for the current game
