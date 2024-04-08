@@ -1,38 +1,55 @@
 import { useState, useEffect } from 'react';
-import noHeader from '../../static-images/no-header.png'
+import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
-//Accepts a prop for the gameLink and fetches the header image from the steamapi
-//returns an image tag
-function GameHeader({gameURL, title, shortDesc}){
+//Accepts a prop for the imageURL, title, and shortDescription and returns them formatted
 
-    const[headerURL, setHeaderURL] = useState('');
+function GameHeader({imageURL, title, engDesc, lang}){
 
+    const [shortDesc, setShortDesc] = useState(engDesc);
+
+    //this useEffect translates the short Description value in the game 
+    //to the current stored language value in Lang using the swift-translate
+    //link: https://rapidapi.com/myl117/api/swift-translate
     useEffect(() => {
 
-        async function fetchGameHeader(){
-            try{
-                const response = await fetch(`steamapi/${gameURL}`);
-                if(response.ok){
-                    const header = await response.json();
-                    try{
-                        setHeaderURL(header[gameURL]['data']['header_image']);
-                    }
-                    catch{
-                        setHeaderURL(noHeader);
-                    }
-                  }else {
-                    alert('Error: Problem fetching header image from steam api');
-                  }
-                } catch(error){
-                  alert(error);
-                }
+        //check if lang is en, if so, don't run the translation and
+        // just serve the engslish translation
+        if(lang === 'en') {
+            setShortDesc(engDesc);
+            return;
         }
-        fetchGameHeader();
-    }, [gameURL]);
+
+        async function translateDescription(){
+            const options = {
+            method: 'POST',
+            url: 'https://swift-translate.p.rapidapi.com/translate',
+            headers: {
+                'content-type': 'application/json',
+                'X-RapidAPI-Key': 'd07db34971msh5890022cd98e8fep17f8e3jsnb9517efc6725',
+                'X-RapidAPI-Host': 'swift-translate.p.rapidapi.com'
+            },
+            data: {
+                text: engDesc,
+                sourceLang: 'en',
+                targetLang: lang
+            }
+            };
+
+            try {
+                const response = await axios.request(options);
+                console.log(response.data.translatedText);
+                setShortDesc(response.data.translatedText);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        translateDescription();
+    }, [engDesc, lang]);
 
     return (
         <>
-            <img id='header-image' src={headerURL} alt='game header' />
+            <img id='header-image' src={imageURL} alt='game header' />
             <h1>{title}</h1>
             <p>{shortDesc}</p>
         </>
@@ -43,6 +60,8 @@ function GameHeader({gameURL, title, shortDesc}){
 
 function GameScore({peak, positiveReviews, negativeReviews}){
 
+    const {t} = useTranslation();
+
     let reviewClass = '';
     let averageScore = (Number(positiveReviews) / (Number(positiveReviews) + Number(negativeReviews)) * 100);
     averageScore = averageScore.toFixed(2);
@@ -52,7 +71,7 @@ function GameScore({peak, positiveReviews, negativeReviews}){
 
     return (
         <div id='info-reviews'>
-            <h2>Reviews</h2>
+            <h2>{t("detail.reviews")}</h2>
             <div id='game-stats'>
                 <div>
                     <p className={reviewClass}> {averageScore}% </p>
@@ -61,7 +80,7 @@ function GameScore({peak, positiveReviews, negativeReviews}){
                     
                 </div>
                 <div>
-                    <p>Peak Players: {peak}</p>
+                    <p>{t("detail.peak-players")} {peak}</p>
                 </div>
             </div>
         </div>
@@ -71,15 +90,17 @@ function GameScore({peak, positiveReviews, negativeReviews}){
 
 function GameDetailedInfo({publisher, genre, releaseDate}){
 
+    const {t} = useTranslation();
+
     releaseDate = releaseDate.substring(0,10);
 
     return (
         <div id='more-info'>
-            <h2>More Info</h2>
+            <h2>{t("detail.more-info")}</h2>
             <ul id='game-details-ul'>
-                <li>Release Date: {releaseDate}</li>
-                <li>Publisher: {publisher}</li>
-                <li>Genre: {genre}</li>
+                <li>{t("detail.release-date")} {releaseDate}</li>
+                <li>{t("detail.publisher")} {publisher}</li>
+                <li>{t("detail.genre")} {genre}</li>
             </ul>
         </div>
     )

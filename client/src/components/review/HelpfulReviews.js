@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
 
 import './Review.css'
 
@@ -6,6 +9,8 @@ import './Review.css'
 //game based on score
 function TopReviews({gameID}) {
 
+    const {t} = useTranslation();
+    
     const [topReviews, setTopReviews] = useState([]);
     const [accountID, setAccountID] = useState('');
 
@@ -37,7 +42,7 @@ function TopReviews({gameID}) {
     if(topReviews.length === 0) {
         return(
             <section id='reviews-section'>
-                <h2>No Reviews Yet!</h2>
+                <h2>{t("reviews.no-reviews")}</h2>
             </section>
         )
     }
@@ -48,7 +53,7 @@ function TopReviews({gameID}) {
 
     return(
         <section id='reviews-section'>
-            <h2> Top Rated Reviews</h2>
+            <h2>{t("reviews.top-rated")}</h2>
             <div id='top-reviews'>
                 {listReviews}
             </div>
@@ -59,6 +64,8 @@ function TopReviews({gameID}) {
 
 //Returns the html for a single review
 function Review({review, index, accountID}){
+
+    const {t} = useTranslation();
 
     const [upVoteColor, setUpvoteColor] = useState('currentColor');
     const [voteScore, setVoteScore] = useState(review.score);
@@ -82,7 +89,10 @@ function Review({review, index, accountID}){
         //check if a user is signed in -- if no, prompt them to sign in to use the feature
         try{
             if (accountID === ''){
-                alert('Please Sign in to use the review features!')
+                console.log('here');
+                toast.warn(t("alerts.sign-in"), {
+                    position: "top-center"
+                });
                 return;
             }
             let voted = await checkVote(_idString, accountID);
@@ -106,7 +116,7 @@ function Review({review, index, accountID}){
               });
           
               if (!response.ok) {
-                alert('Error adding Upvote');
+                alert(t("alerts.upvote-error"));
               }
             } catch (error) {
                 alert(error);
@@ -136,6 +146,7 @@ function Review({review, index, accountID}){
         <div class="review-content">
             <p>{review.content}</p>
         </div>
+        <ToastContainer />
         </div>
     )
 
