@@ -1,25 +1,25 @@
-.SearchForm button img {
+.SearchFormR button img {
     width: 20px;
     height: 20px;
 }
 
-.SearchForm {
+.SearchFormR {
     display: flex;
     width: 500px;
     height: 45px;
     gap: 0.5rem;
 }
 
-.SearchForm select, .SearchForm input {
+.SearchFormR select, .SearchFormR input {
     height: 100%;
     padding: 0;
 }
 
-.SearchForm select {
+.SearchFormR select {
     flex: 1;
 }
 
-.SearchForm input {
+.SearchFormR input {
     flex: 2;
 }
 

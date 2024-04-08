@@ -41,16 +41,16 @@ function SearchResult({ result, handleAddGame, addedGames }) {
 
     return (
         <div className="containerThing" style={{ opacity: isGameAdded ? 0.5 : 1, backdropFilter: isGameAdded ? 'blur(10px)' : 'none', cursor: isGameAdded ? 'not-allowed' : 'pointer'}}>
-            <div className="LinkContainer">
+            <div className="LinkContainerR">
                 {apiLink ? (
-                    <Link to={`/details?game=${apiLink}`} className="Link" style={{ color: isGameAdded ? 'red' : 'inherit'}}>
+                    <Link to={`/details?game=${apiLink}`} className="LinkR" style={{ color: isGameAdded ? 'red' : 'inherit'}}>
                         {result.title}
                     </Link>
                 ) : (
                     <span>{result.title}</span>
                 )}
             </div>
-            <div className="img-container">
+            <div className="img-containerR">
                 {imageError ? (
                     <img loading="lazy" src={defaultImageUrl} alt="game icon" />
                 ) : (
@@ -61,7 +61,7 @@ function SearchResult({ result, handleAddGame, addedGames }) {
                     onClick={handleClick}
                     style={{pointerEvents: isGameAdded ? 'none' : 'auto'}}
                 >
-                    <div className="details">
+                    <div className="detailsR">
                         <div>
                             <b>Rating:</b> {Math.round((result.positive_reviews / (result.positive_reviews + result.negative_reviews)) * 100)}%
                         </div>

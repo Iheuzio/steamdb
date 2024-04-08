@@ -1,5 +1,5 @@
 /* SearchPage.css */
-.SearchPage {
+.SearchPageR {
     display: flex;
     gap: 3rem;
     position: relative;
@@ -46,41 +46,41 @@
     z-index: 101;
 }
 
-.Search {
+.SearchR {
     flex: 2;
 }
 
-.SearchForm {
+.SearchFormR {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
 }
 
-.SearchForm select,
-.SearchForm input {
+.SearchFormR select,
+.SearchFormR input {
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-.SearchForm select {
+.SearchFormR select {
     margin-right: 0.5rem;
 }
 
-.SearchResults {
+.SearchResultsR {
     width: 100%;
     border-collapse: collapse;
     justify-content: center;
 }
 
-.SearchResults th,
-.SearchResults td {
+.SearchResultsR th,
+.SearchResultsR td {
     padding: 0.5rem;
     text-align: left;
     border-bottom: 1px solid #ccc;
 }
 
-.SearchResults th {
+.SearchResultsR th {
     background-color: #f5f5f5;
 }
 

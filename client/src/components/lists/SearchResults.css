@@ -13,26 +13,28 @@
     box-sizing: border-box;
   }
   
-  .LinkContainer {
+  .LinkContainerR {
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
   
-  .Link {
+  .LinkR {
     text-decoration: none;
     color: inherit;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 2.5rem;
   }
   
-  .img-container {
+  .img-containerR {
     position: relative;
     width: 100%;
     padding-bottom: 56.25%; 
     overflow: hidden;
   }
   
-  .img-container img {
+  .img-containerR img {
     position: absolute;
     top: 0;
     left: 0;
@@ -73,13 +75,13 @@
     pointer-events: none;
   }
   
-  .details {
+  .detailsR {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     color: white;
   }
 
-  .img-container .overlayG {
+  .img-containerR .overlayG {
     height: 100%
   }
