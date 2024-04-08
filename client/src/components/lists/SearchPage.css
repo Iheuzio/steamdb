@@ -3,15 +3,18 @@
     display: flex;
     gap: 3rem;
     position: relative;
-    width:100%;
+    width: 100%;
 }
 
 .sidebar {
-    position: sticky; /* Changed from fixed to sticky */
+    position: sticky;
+    /* Changed from fixed to sticky */
     top: 0;
-    left: -250px; /* Initially hidden */
+    left: -250px;
+    /* Initially hidden */
     width: 0;
-    background-color: rgba(255, 255, 255, 0.5); /* Changed to semi-transparent */
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Changed to semi-transparent */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: left 0.3s ease-in-out;
     z-index: 100;
@@ -20,8 +23,9 @@
 }
 
 .sidebar.open {
-    left: 0; /* Slide in */
-    width:250px;
+    left: 0;
+    /* Slide in */
+    width: 250px;
     visibility: visible;
 }
 
@@ -96,10 +100,10 @@
 /* Hide the sidebar on screens that are 768px or less */
 @media screen and (max-width: 768px) {
     .sidebar {
-      display: none;
+        display: none;
     }
 
-  .sidebar.open {
-    display: block;
-  }
-  }
+    .sidebar.open {
+        display: block;
+    }
+}
