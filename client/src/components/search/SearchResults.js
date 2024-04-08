@@ -1,11 +1,28 @@
 import './SearchResults.css';
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function SearchResults({ results }) {
-    return <div className="SearchResults">
-        { results.map(result => <SearchResult key={result.id} result={result} />) }
-    </div>
+export default function SearchResults({ results, setPage }) {
+    useEffect(() => {
+        const handleScroll = (e) => {
+            const scrollHeight = e.target.documentElement.scrollHeight;
+            const currentHeight = e.target.documentElement.scrollTop + window.innerHeight;
+
+            if (currentHeight + 1 >= scrollHeight) {
+                setPage((prev) => prev + 1);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);    
+    }, []);
+
+
+    return <>
+        <div className="SearchResults">
+            { results.map((result, i) => <SearchResult key={i} result={result} />) }
+        </div>
+    </>
 }
 
 function SearchResult({ result }) {
@@ -26,9 +43,9 @@ function SearchResult({ result }) {
             </div>
             <div className="img-container">
                 {imageError ? (
-                    <img src={defaultImageUrl} alt="game icon" />
+                    <img loading="lazy" src={defaultImageUrl} alt="game icon" />
                 ) : (   
-                    <img src={result.image_url} alt="game icon" onError={handleImageError} />
+                    <img loading="lazy" src={result.image_url} alt="game icon" onError={handleImageError} />
                 )}
                 <div className="overlay">
                     <div className="details">

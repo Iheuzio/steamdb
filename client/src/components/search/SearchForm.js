@@ -1,8 +1,8 @@
 import './SearchForm.css';
 
-export default function SearchForm({ updateFilters, filterFields, filters }) {
+export default function SearchForm({ updateFilters, filterFields, filters, handleSubmit }) {
     return (
-        <form className="SearchForm">
+        <form className="SearchForm" onSubmit={e => handleSubmit(e, filters)}>
             <select name="field" value={filters.field} onChange={e => updateFilters(e)}>
                 {filterFields.map(filterOption => (
                     <option key={filterOption}>{filterOption}</option>
@@ -24,6 +24,7 @@ export default function SearchForm({ updateFilters, filterFields, filters }) {
             ) : (
                 <StringSearchForm filters={filters} updateFilters={updateFilters} />
             )}
+            <button type="submit">Search</button>
         </form>
     );
 }

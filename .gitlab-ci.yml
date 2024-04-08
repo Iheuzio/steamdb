@@ -87,10 +87,9 @@ deploy:
   dependencies:
     - build-frontend
     - build-backend
-  # only:
-  #   - main
-  #   - dev
-  #   - gitlab-ci
+  only:
+    - main
+    - dev
   before_script:
     - apk update
     - apk add zip

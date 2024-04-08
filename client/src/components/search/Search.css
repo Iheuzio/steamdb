@@ -4,4 +4,10 @@
     align-items: center;
     flex-direction: column;
     gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.error {
+    color: red;
+    font-size: 1.5rem;
 }

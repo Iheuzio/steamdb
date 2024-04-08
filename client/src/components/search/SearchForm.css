@@ -14,6 +14,7 @@
     padding: 0;
 }
 
+<<<<<<< HEAD
 /* Styles for screens that are 600px or less */
 @media screen and (max-width: 600px) {
     .SearchForm {
@@ -32,4 +33,16 @@
         width: 50%;
         display: block;
     }
+=======
+.SearchForm button {
+    height: 100%;
+}
+
+.SearchForm input {
+    flex: 4;
+}
+
+.SearchForm input {
+    flex: 1;
+>>>>>>> a5fee05025047dfa8fce2be23f040ebe1c59f033
 }
