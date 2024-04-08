@@ -14,3 +14,14 @@
     padding: 0;
 }
 
+.SearchForm button {
+    height: 100%;
+}
+
+.SearchForm input {
+    flex: 4;
+}
+
+.SearchForm input {
+    flex: 1;
+}

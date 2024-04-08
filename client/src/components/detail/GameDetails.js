@@ -71,7 +71,7 @@ export default function GameDetails() {
                     </section>
                 </div>
                 <br/>
-                <hr class="rounded"></hr>
+                <hr className="rounded"></hr>
                 <section id='game-review-section'>
                     <ReviewForm game={gameURL} />
                     <TopReviews gameID={gameURL} />
