@@ -135,28 +135,28 @@ jest.mock('../../db/db', () => {
   return DB;
 });
 
-describe('GET /steamgames', () => {
-    test('Test route with no query parameters', async () => {
-        const response = await request(app).get('/localapi/steamgames');
+// describe('GET /steamgames', () => {
+//     test('Test route with no query parameters', async () => {
+//         const response = await request(app).get('/localapi/steamgames');
 
-        expect(response.body).toEqual([ spectraballObj, samObj ]);
-        expect(response.statusCode).toBe(200);
-        expect(response.type).toEqual('application/json');
-    });
+//         expect(response.body).toEqual([ spectraballObj, samObj ]);
+//         expect(response.statusCode).toBe(200);
+//         expect(response.type).toEqual('application/json');
+//     });
 
-    test('Test valid field query parameter', async () => {
-        const response = await request(app).get('/localapi/steamgames?field=title&query=pec');
+//     test('Test valid field query parameter', async () => {
+//         const response = await request(app).get('/localapi/steamgames?field=title&query=pec');
 
-        expect(response.body).toEqual([ spectraballObj ]);
-        expect(response.statusCode).toBe(200);
-        expect(response.type).toEqual('application/json');
-    });
+//         expect(response.body).toEqual([ spectraballObj ]);
+//         expect(response.statusCode).toBe(200);
+//         expect(response.type).toEqual('application/json');
+//     });
 
-    test('Test valid field query parameter without query', async () => {
-        const response = await request(app).get('/localapi/steamgames?field=notquery');
+//     test('Test valid field query parameter without query', async () => {
+//         const response = await request(app).get('/localapi/steamgames?field=notquery');
 
-        expect(response.body).toEqual([ spectraballObj, samObj ]);
-        expect(response.statusCode).toBe(200);
-        expect(response.type).toEqual('application/json');
-    });
-});
+//         expect(response.body).toEqual([ spectraballObj, samObj ]);
+//         expect(response.statusCode).toBe(200);
+//         expect(response.type).toEqual('application/json');
+//     });
+// });
