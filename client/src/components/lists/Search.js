@@ -5,7 +5,7 @@ import SearchResults from './SearchResults';
 
 export default function Search({ results, filters, setFilters, filterFields, updateFilters, handleAddGame, addedGames }) {
     return (
-        <div className="Search">
+        <div className="SearchR">
             <SearchForm
                 updateFilters={updateFilters}
                 filters={filters}
