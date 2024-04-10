@@ -1,0 +1,21 @@
+.recaptcha {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 0 0 0 10px;
+  transition: opacity 3s ease-in-out;
+}
+
+.recaptcha:active,
+.recaptcha:visited,
+.recaptcha:focus {
+  opacity: 0;
+}
+
+.dropdown-banner {
+  text-align: center;
+}

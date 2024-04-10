@@ -1,0 +1,37 @@
+.SearchFormR button img {
+    width: 20px;
+    height: 20px;
+}
+
+.SearchFormR {
+    display: flex;
+    width: 500px;
+    height: 45px;
+    gap: 0.5rem;
+}
+
+.SearchFormR select, .SearchFormR input {
+    height: 100%;
+    padding: 0;
+}
+
+.SearchFormR select {
+    flex: 1;
+}
+
+.SearchFormR input {
+    flex: 2;
+}
+
+.textG {
+    height: 3.5vh;
+    font-size: larger;
+    text-align: center;
+    background: linear-gradient(to right, #ff7e5f, #feb47b); 
+}
+
+.inputG {
+    font-size: larger;
+    padding: 0.5rem;
+    background: linear-gradient(to right, #ff7e5f, #feb47b); 
+}
