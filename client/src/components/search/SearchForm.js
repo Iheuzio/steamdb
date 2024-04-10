@@ -1,11 +1,11 @@
 import './SearchForm.css';
 
-export default function SearchForm({ updateFilters, filterFields, filters, handleSubmit }) {
+export default function SearchForm({ updateFilters, filterFields, filterFieldsToDisplay, filters, handleSubmit }) {
     return (
         <form className="SearchForm" onSubmit={e => handleSubmit(e, filters)}>
             <select name="field" value={filters.field} onChange={e => updateFilters(e)}>
-                {filterFields.map(filterOption => (
-                    <option key={filterOption}>{filterOption}</option>
+                {filterFields.map((filterOption, i) => (
+                    <option key={filterOption} value={filterOption}>{filterFieldsToDisplay[i]}</option>
                 ))}
             </select>
             {filters.field === "peak" ? (
