@@ -1,0 +1,39 @@
+{
+  "name": "steam-imdb",
+  "version": "1.0.0",
+  "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
+  "scripts": {
+    "start": "cd ../client && npm run build && cd ../server && node bin/www",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "steam": "node app.js"
+  },
+  "keywords": [],
+  "author": "Marko Litovchenko, Christopher Bartos, Shlomo Bensimhon, Luca Fratipietro",
+  "license": "ISC",
+  "main": "./lib/passport-steam",
+  "dependencies": {
+    "@azure/storage-blob": "^12.17.0",
+    "@passport-next/passport-openid": "^1.0.0",
+    "ava": "^0.10.0",
+    "axios": "^1.6.7",
+    "compression": "^1.7.4",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.14.0",
+    "express-session": "^1.13.0",
+    "mongodb": "^6.2.0",
+    "mongodb-memory-server": "^9.0.1",
+    "mongoose": "^8.2.1",
+    "passport": "^0.3.2",
+    "steam-web": "0.4.0",
+    "streamifier": "^0.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.52.0",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
+  }
+}

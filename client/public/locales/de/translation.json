@@ -1,0 +1,36 @@
+{
+    "navbar" : {
+        "search" : "Suchen",
+        "lists" : "Listen",
+        "profile" : "Profi"
+    },
+    "detail" : {
+        "more-info" : "Mehr Info:",
+        "release-date": "Veröffentlichungsdatum:",
+        "publisher" : "Herausgeber:",
+        "genre": "Genre:",
+        "reviews": "Rezensionen",
+        "peak-players": "Spitzenspieler:"
+    },
+    "add-review": {
+        "title": "Sagen Sie uns, was Sie dachten!",
+        "rec": "Empfehlen Sie dieses Spiel?",
+        "title-form": "Titel:",
+        "review": "Rezension:",
+        "submit": "Einreichen",
+        "yes": "Ja",
+        "no": "Nein"
+      },  
+    "reviews": {
+        "no-reviews": "Noch keine Bewertungen!",
+        "top-rated": "Top Bewertungen",
+        "recommend": "Empfohlen!",
+        "no-rec": "Nicht empfohlen"
+    },
+    "alerts": {
+        "sign-in": "Bitte melden Sie sich an, um die Bewertungsfunktion zu verwenden!",
+        "review-added": "Bewertung hinzugefügt!",
+        "review-error": "Fehler beim Erstellen der Bewertung",
+        "upvote-error": "Fehler beim Hinzufügen des Upvotes"
+    }
+}
