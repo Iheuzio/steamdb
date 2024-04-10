@@ -47,9 +47,23 @@ function GameHeader({imageURL, title, engDesc, lang}){
         translateDescription();
     }, [engDesc, lang]);
 
+    const [imageError, setImageError] = useState(false);
+
+    const defaultImageUrl = 'https://shlomytestcontainer.blob.core.windows.net/imageblobtest/default.png';
+
+    const handleImageError = () => {
+        setImageError(true);
+    };
+
     return (
         <>
-            <img id='header-image' src={imageURL} alt='game header' />
+            {imageError ? (
+                <img id='header-image' src={defaultImageUrl} alt='game header' />
+            ) : (
+                <img id='header-image' src={imageURL} alt='game header' onError={handleImageError}/>
+            )}
+
+            
             <h1>{title}</h1>
             <p>{shortDesc}</p>
         </>

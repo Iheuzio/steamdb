@@ -1,5 +1,6 @@
 import './RandomGamesList.css';
 import {Link} from 'react-router-dom';   // Import the Link component
+import {useState} from 'react';           // Import the useState hook
 
 export default function RandomGameList({results}) {
     return <table className="RandomGameList">
@@ -14,9 +15,23 @@ export default function RandomGameList({results}) {
 
 function SearchResult({ result }) {
     const api = result.steam_api.match(/\d+/g);
+    const [imageError, setImageError] = useState(false);
+
+    const defaultImageUrl = 'https://shlomytestcontainer.blob.core.windows.net/imageblobtest/default.png';
+
+    const handleImageError = () => {
+        setImageError(true);
+    };
 
     return <tr>
-        <td> <img src={ result.image_url} alt='image' /></td>
+        <td>
+            {imageError ? (
+                <img src={ defaultImageUrl} alt='image'/>
+            ) : (
+                <img src={ result.image_url} alt='image' onError={handleImageError}/>
+            )}
+            
+        </td>
         <td>
             <Link to={`/details?game=${api}`}> {result.title} </Link>
         </td>

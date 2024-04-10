@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import './HorizontalScroller.css';
 import {Link} from 'react-router-dom';   // Import the Link component
+import {useState} from 'react';           // Import the useState hook	
 
 export default function HorizontalScroller({results}) {
     return <div>
@@ -15,10 +16,22 @@ export default function HorizontalScroller({results}) {
 
 function SearchResult({ result }) {
     const api = result.steam_api.match(/\d+/g);
+    const [imageError, setImageError] = useState(false);
+
+    const defaultImageUrl = 'https://shlomytestcontainer.blob.core.windows.net/imageblobtest/default.png';
+
+    const handleImageError = () => {
+        setImageError(true);
+    };
 
     return <div>
         <Link to={`/details?game=${api}`}>
-        <img src={ result.image_url}  className="slide bg-pink-500" alt='image' width="50px" />
+        {imageError ? (
+            <img src={ defaultImageUrl } className="slide bg-pink-500" alt='image' width="50px" />
+        ) : (
+            <img src={ result.image_url} onError={handleImageError} className="slide bg-pink-500" alt='image' width="50px" />
+        )}
+        
         </Link>
     </div>
 }
