@@ -1,0 +1,19 @@
+.ListPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.ListHeader {
+  margin-bottom: 0;
+  margin-right: auto;
+  padding-left: 5%;
+}
+
+/* Styles for screens that are 600px or less */
+@media screen and (max-width: 600px) {
+  .list-item {
+      padding: 10px;
+  }
+}

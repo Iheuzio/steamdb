@@ -1,0 +1,6 @@
+/* Styles for screens that are 600px or less */
+@media screen and (max-width: 600px) {
+    #write-review-form{
+        text-align: center;
+    }
+}
